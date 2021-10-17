@@ -1,0 +1,18 @@
+<div class="container">   
+    <h2>Registre de clients nous</h2> 
+    <form class="border border-light p-5" [formGroup]="regClientForm" (ngSubmit)="saveClient()">    
+        <label for="client_code" class="form-label">Codi del nou client</label>
+        <input type="number" class="form-control" [formControl]="client_code" placeholder="Escriu el codi del client">
+        <span style="color: red;" *ngIf="regClientForm.get('client_code').errors && (regClientForm.get('client_code').touched || regClientForm.get('client_code').dirty)">
+            <span *ngIf="regClientForm.get('client_code').errors.required">El codi de client és obligatori</span> 
+        </span>
+        <label for="description_client" class="form-label">Descripció del nou client</label>
+        <input type="text" class="form-control" [formControl]="description_client" placeholder="Escriu la descripció del client">
+        <span style="color: red;" *ngIf="regClientForm.get('description_client').errors && (regClientForm.get('description_client').touched || regClientForm.get('description_client').dirty)">
+            <span *ngIf="regClientForm.get('description_client').errors.required">La descripció és obligatòria</span> 
+        </span>
+        <!-- Podria indicar error el client ja existeix -->
+        
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!regClientForm.valid">Guardar Client</button>
+    </form>    
+</div>
