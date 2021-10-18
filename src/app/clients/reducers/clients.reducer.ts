@@ -29,7 +29,7 @@ const _clientReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        Clients: [...state.clients, client]
+        clients: [...state.clients, client]
     })),
     on(createClientError, (state, { payload }) => ({
         ...state,

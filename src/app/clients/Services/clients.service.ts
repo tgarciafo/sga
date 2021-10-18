@@ -31,7 +31,7 @@ export class ClientsService {
       );
   }
 
-  getClient(id: number): Observable<Client>{
+  getClient(id: number | undefined): Observable<Client>{
     return this.httpClient.get<Client>(this.API_ENDPOINT + '/getClient/'+id).pipe(
       catchError(this.handleError<Client>(`getClient id=${id}`))
     );

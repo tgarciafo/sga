@@ -19,6 +19,7 @@ import { environment } from 'src/environments/environment';
 import { UserModule } from './user/user.module';
 import { ClientsModule } from './clients/clients.module';
 import { HomeComponent } from './Views/home/home.component';
+import { LocationsModule } from './locations/locations.module';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { HomeComponent } from './Views/home/home.component';
     LoginModule,
     UserModule,
     ClientsModule,
+    LocationsModule,
     StoreModule.forRoot( appReducers, {
       runtimeChecks: {
         strictStateImmutability: false,

@@ -1,0 +1,13 @@
+<div class="container">   
+    <h2>Registre d'ubicacions noves</h2> 
+    <form class="border border-light p-5" [formGroup]="regLocationForm" (ngSubmit)="saveLocation()">    
+        <label for="location_description" class="form-label">Descripció de la nova ubicació</label>
+        <input type="text" class="form-control" [formControl]="location_description" placeholder="Escriu la descripció de la ubicació">
+        <span style="color: red;" *ngIf="regLocationForm.get('location_description').errors && (regLocationForm.get('location_description').touched || regLocationForm.get('location_description').dirty)">
+            <span *ngIf="regLocationForm.get('location_description').errors.required">La descripció és obligatòria</span> 
+        </span>
+        <!-- Podria indicar error el location ja existeix -->
+        
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!regLocationForm.valid">Guardar Ubicació</button>
+    </form>    
+</div>
