@@ -4,10 +4,12 @@ import { RegistreClientsComponent } from './Components/registre-clients/registre
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { ClientsRegistratsComponent } from './Components/clients-registrats/clients-registrats.component';
 
 @NgModule({
   declarations: [
-    RegistreClientsComponent
+    RegistreClientsComponent,
+    ClientsRegistratsComponent
   ],
   imports: [
     CommonModule,

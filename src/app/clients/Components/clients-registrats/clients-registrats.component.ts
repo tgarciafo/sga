@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AppState } from 'src/app/app.reducers';
+import { Store } from '@ngrx/store';
+import { Client } from '../../models/client';
+import { getAllClients } from '../../actions';
+import { ClientState } from '../../reducers';
 
 @Component({
   selector: 'app-clients-registrats',
@@ -7,9 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientsRegistratsComponent implements OnInit {
 
-  constructor() { }
+  clientState$: ClientState;
+
+  constructor(private store: Store<AppState>) { 
+    this.store.select('clientApp').subscribe(clients => this.clientState$ = clients);
+  }
 
   ngOnInit(): void {
+    this.store.dispatch(getAllClients());
   }
 
 }

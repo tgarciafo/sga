@@ -1,1 +1,17 @@
-<p>clients-registrats works!</p>
+<h2>LLista de clients</h2>
+<div class="table-responsive">
+<table class="table caption-top table-primary table-hover table-striped">    
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Client</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let client of clientState$.clients">
+        <th scope="row">{{client.client_code}}</th>
+        <td>{{client.description_client}}</td>
+      </tr>
+    </tbody>
+</table>
+</div>

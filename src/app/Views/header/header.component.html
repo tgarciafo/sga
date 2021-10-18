@@ -7,6 +7,7 @@
     </a>
     <div class="my-2 mx-5 my-lg-0">    
         <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/registre-clients">Registrar Clients</button>  
+        <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/clients-registrats">Clients Registrats</button>  
         <button *ngIf="!loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/login">Sign In</button>
         <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/user">User</button>
         <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickLogout()">LOGOUT</button>
