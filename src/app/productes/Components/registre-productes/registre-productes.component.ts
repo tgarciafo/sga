@@ -3,7 +3,7 @@ import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { getAllClients } from '../../../clients/actions';
 import { ClientState } from '../../../clients/reducers';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, Form } from '@angular/forms';
 import { createProducte } from '../../actions';
 import { Producte } from '../../models/producte';
 
@@ -19,6 +19,10 @@ export class RegistreProductesComponent implements OnInit {
   clientState$: ClientState;
 
   public client_id: FormControl;
+  public ean: FormControl;
+  public reference: FormControl;
+  public description_prod: FormControl;
+  public quantity: FormControl;
   public errorProducte: any;
   public regProductForm: FormGroup;
   public bSubmitted: boolean;
@@ -31,10 +35,18 @@ export class RegistreProductesComponent implements OnInit {
     this.store.dispatch(getAllClients());
     this.bSubmitted = false;
     this.client_id = new FormControl('', [Validators.required]);
+    this.ean = new FormControl('', [Validators.required]);
+    this.reference = new FormControl('', [Validators.required]);
+    this.description_prod = new FormControl('', [Validators.required]);
+    this.quantity = new FormControl('', [Validators.required]);
     this.errorProducte = '';
 
     this.regProductForm = this.formBuilder.group({
-      client_id: this.client_id
+      client_id: this.client_id,
+      ean: this.ean,
+      reference: this.reference,
+      description_prod: this.description_prod,
+      quantity: this.quantity
     });
   }
 
@@ -47,7 +59,7 @@ export class RegistreProductesComponent implements OnInit {
     this.store.dispatch(createProducte({ producte:form }));
 
     return this.regProductForm.reset();
-    
+
   }
 
 }

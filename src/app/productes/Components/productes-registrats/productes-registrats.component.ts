@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { AppState } from 'src/app/app.reducers';
+import { Store } from '@ngrx/store';
+import { getAllProductes } from '../../actions';
+import { ProducteState } from '../../reducers';
 
 @Component({
   selector: 'app-productes-registrats',
@@ -7,9 +11,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductesRegistratsComponent implements OnInit {
 
-  constructor() { }
+  productState$: ProducteState;
+
+  constructor(private store: Store<AppState>) { 
+    this.store.select('producteApp').subscribe(products => this.productState$ = products);
+  }
 
   ngOnInit(): void {
+    this.store.dispatch(getAllProductes());
   }
 
 }

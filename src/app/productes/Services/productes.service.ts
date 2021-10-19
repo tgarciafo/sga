@@ -17,23 +17,23 @@ export class ProductesService {
   constructor(private httpClient: HttpClient) { }
 
   get(){
-    return this.httpClient.get<Producte[]>(this.API_ENDPOINT + '/productes');
+    return this.httpClient.get<Producte[]>(this.API_ENDPOINT + '/products');
   }
 
   save(producte: Producte){
     const headers= new HttpHeaders({'Content-Type': 'application/json' });
-    return this.httpClient.post(this.API_ENDPOINT + '/productes', producte, {headers: headers});
+    return this.httpClient.post(this.API_ENDPOINT + '/products', producte, {headers: headers});
   }
 
   getProductes(): Observable<Producte[]>{
     return this.get().pipe(
-        catchError(this.handleError<Producte[]>('getProductes', []))
+        catchError(this.handleError<Producte[]>('getProducts', []))
       );
   }
 
   getProducte(id: number | undefined): Observable<Producte>{
-    return this.httpClient.get<Producte>(this.API_ENDPOINT + '/getProducte/'+id).pipe(
-      catchError(this.handleError<Producte>(`getProducte id=${id}`))
+    return this.httpClient.get<Producte>(this.API_ENDPOINT + '/getProduct/'+id).pipe(
+      catchError(this.handleError<Producte>(`getProduct id=${id}`))
     );
   }
 
@@ -50,7 +50,7 @@ export class ProductesService {
         throw throwError('That email is already assigned to another user.');
       }
       else { */
-    return this.httpClient.post<Producte>(this.API_ENDPOINT+'/productes', producte, this.httpOptions).pipe(
+    return this.httpClient.post<Producte>(this.API_ENDPOINT+'/products', producte, this.httpOptions).pipe(
       catchError(this.handleError<Producte>('addProducte'))
     );
   }
@@ -58,7 +58,7 @@ export class ProductesService {
   deleteProducte(producte: Producte | number): Observable<Producte>{
     const id = typeof producte === 'number' ? producte : producte.product_id;
 
-    return this.httpClient.delete<Producte>(this.API_ENDPOINT + '/getProducte/'+id, this.httpOptions).pipe(
+    return this.httpClient.delete<Producte>(this.API_ENDPOINT + '/getProduct/'+id, this.httpOptions).pipe(
       catchError(this.handleError<Producte>('deleteProducte'))
     );
   }

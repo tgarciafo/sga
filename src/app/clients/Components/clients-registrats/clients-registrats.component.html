@@ -4,12 +4,14 @@
     <thead>
       <tr>
         <th scope="col">#</th>
+        <th scope="col">Codi Client</th>
         <th scope="col">Client</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let client of clientState$.clients">
-        <th scope="row">{{client.client_code}}</th>
+        <th scope="row">{{client.client_id}}</th>
+        <td>{{client.client_code}}</td>
         <td>{{client.description_client}}</td>
       </tr>
     </tbody>

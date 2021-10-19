@@ -9,14 +9,27 @@
         <span style="color: red;" *ngIf="regProductForm.get('client_id').errors && (regProductForm.get('client_id').touched || regProductForm.get('client_id').dirty)">                
             <span *ngIf="regProductForm.get('client_id').errors.required">El client és obligatori</span>
         </span>
-        
-
-        <!-- <label for="description_client" class="form-label">Descripció del nou client</label>
-        <input type="text" class="form-control" [formControl]="description_client" placeholder="Escriu la descripció del client">
-        <span style="color: red;" *ngIf="regClientForm.get('description_client').errors && (regClientForm.get('description_client').touched || regClientForm.get('description_client').dirty)">
-            <span *ngIf="regClientForm.get('description_client').errors.required">La descripció és obligatòria</span> 
-        </span> -->
-        <!-- Podria indicar error el client ja existeix -->
+        <label for="ean" class="form-label">Codi EAN</label>
+        <input type="number" class="form-control" [formControl]="ean" placeholder="Escriu el codi EAN">
+        <span style="color: red;" *ngIf="regProductForm.get('ean').errors && (regProductForm.get('ean').touched || regProductForm.get('ean').dirty)">
+            <span *ngIf="regProductForm.get('ean').errors.required">El codi EAN és obligatori</span> 
+        </span>
+        <label for="reference" class="form-label">Referència</label>
+        <input type="number" class="form-control" [formControl]="reference" placeholder="Escriu la referència">
+        <span style="color: red;" *ngIf="regProductForm.get('reference').errors && (regProductForm.get('reference').touched || regProductForm.get('reference').dirty)">
+            <span *ngIf="regProductForm.get('reference').errors.required">La referència és obligatòria</span> 
+        </span>
+        <label for="description_prod" class="form-label">Descripció del nou producte</label>
+        <input type="text" class="form-control" [formControl]="description_prod" placeholder="Escriu la descripció del producte">
+        <span style="color: red;" *ngIf="regProductForm.get('description_prod').errors && (regProductForm.get('description_prod').touched || regProductForm.get('description_prod').dirty)">
+            <span *ngIf="regProductForm.get('description_prod').errors.required">La descripció és obligatòria</span> 
+        </span>
+        <label for="quantity" class="form-label">Quantitat</label>
+        <input type="number" class="form-control" [formControl]="quantity" placeholder="Escriu la quantitat per palet">
+        <span style="color: red;" *ngIf="regProductForm.get('quantity').errors && (regProductForm.get('quantity').touched || regProductForm.get('quantity').dirty)">
+            <span *ngIf="regProductForm.get('quantity').errors.required">La quantitat és obligatòria</span> 
+        </span>
+        <!-- Podria indicar error el producte ja existeix -->
         
         <button class="btn btn-primary my-4" type="submit" [disabled]="!regProductForm.valid">Guardar Producte</button>
     </form>    

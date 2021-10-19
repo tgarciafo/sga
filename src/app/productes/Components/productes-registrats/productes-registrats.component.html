@@ -1,1 +1,25 @@
-<p>productes-registrats works!</p>
+<h2>LLista de productes</h2>
+<div class="table-responsive">
+<table class="table caption-top table-primary table-hover table-striped">    
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">EAN</th>
+        <th scope="col">Referència Producte</th>
+        <th scope="col">Descripció del producte</th>
+        <th scope="col">Quantitat</th>
+        <th scope="col">Client</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of productState$.productes">
+        <th scope="row">{{product.product_id}}</th>
+        <td>{{product.ean}}</td>
+        <td>{{product.reference}}</td>
+        <td>{{product.description_prod}}</td>
+        <td>{{product.quantity}}</td>
+        <td>{{product.client_id}}</td>
+      </tr>
+    </tbody>
+</table>
+</div>
