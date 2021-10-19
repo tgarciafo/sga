@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
-import { Client } from '../../models/client';
 import { getAllClients } from '../../actions';
 import { ClientState } from '../../reducers';
 

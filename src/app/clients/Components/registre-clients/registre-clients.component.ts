@@ -45,7 +45,7 @@ export class RegistreClientsComponent implements OnInit {
 
     this.bSubmitted = true;
 
-    this.store.dispatch(createClient({ client: form  }))
+    this.store.dispatch(createClient({ client: form  }));
    
     return this.regClientForm.reset();
 

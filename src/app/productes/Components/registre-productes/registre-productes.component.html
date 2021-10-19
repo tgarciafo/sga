@@ -1,0 +1,23 @@
+<div class="container">   
+    <h2>Registre de productes nous</h2> 
+    <form class="border border-light p-5" [formGroup]="regProductForm" (ngSubmit)="saveProduct()"> 
+        <label for="type">Selecciona el client:</label>
+        <select [formControl]="client_id" class="form-control mb-4">
+            <option [ngValue]="null">Selecciona client</option>                
+            <option *ngFor="let client of clientState$.clients" [ngValue]="client.client_id">{{client.description_client}}</option>              
+        </select>
+        <span style="color: red;" *ngIf="regProductForm.get('client_id').errors && (regProductForm.get('client_id').touched || regProductForm.get('client_id').dirty)">                
+            <span *ngIf="regProductForm.get('client_id').errors.required">El client és obligatori</span>
+        </span>
+        
+
+        <!-- <label for="description_client" class="form-label">Descripció del nou client</label>
+        <input type="text" class="form-control" [formControl]="description_client" placeholder="Escriu la descripció del client">
+        <span style="color: red;" *ngIf="regClientForm.get('description_client').errors && (regClientForm.get('description_client').touched || regClientForm.get('description_client').dirty)">
+            <span *ngIf="regClientForm.get('description_client').errors.required">La descripció és obligatòria</span> 
+        </span> -->
+        <!-- Podria indicar error el client ja existeix -->
+        
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!regProductForm.valid">Guardar Producte</button>
+    </form>    
+</div>

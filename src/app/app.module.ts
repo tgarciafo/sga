@@ -20,6 +20,7 @@ import { UserModule } from './user/user.module';
 import { ClientsModule } from './clients/clients.module';
 import { HomeComponent } from './Views/home/home.component';
 import { LocationsModule } from './locations/locations.module';
+import { ProductesModule } from './productes/productes.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { LocationsModule } from './locations/locations.module';
     LoginModule,
     UserModule,
     ClientsModule,
+    ProductesModule,
     LocationsModule,
     StoreModule.forRoot( appReducers, {
       runtimeChecks: {
