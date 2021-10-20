@@ -55,15 +55,15 @@
  -->            </span>
         </div>
 
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="repeat_password" class="form-label">Repeteix la contrasenya:</label>
             <input type="password" class="form-control" [formControl]="repeat_password" placeholder="Torna a escriure la contrasenya">
             <span style="color: red;" *ngIf="regUserForm.get('repeat_password').errors && (regUserForm.get('repeat_password').touched || regUserForm.get('repeat_password').dirty) ">
                 <span *ngIf="regUserForm.get('repeat_password').errors?.required">És obligatori repetir la  contrasenya</span>
-<!--                 <span *ngIf="regUserForm.get('repeat_password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
- -->            </span>
-<!--             <span style="color: red;" *ngIf="validatorEquality()">Les contrasenyes han de coincidir</span>
- -->        </div>
+                <span *ngIf="regUserForm.get('repeat_password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
+            </span>
+            <span style="color: red;" *ngIf="validatorEquality()">Les contrasenyes han de coincidir</span>
+        </div> -->
 
         <div class="form-group">
             <label for="user_name" class="form-label">Nom d'usuari</label>

@@ -12,11 +12,11 @@ export class UserService {
 
   API_ENDPOINT = "http://localhost/sga/public/api";
 
-  constructor(private http: HttpClient) {}
-
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
+
+  constructor(private http: HttpClient) {}  
 
   getUsers(){
     return this.http.get<User[]>(this.API_ENDPOINT + '/users');
@@ -71,7 +71,7 @@ export class UserService {
         throw throwError('That email is already assigned to another user.');
       }
       else {
-        return this.http.post<User>(this.API_ENDPOINT, user, this.httpOptions).pipe(
+        return this.http.post<User>(this.API_ENDPOINT+'/users', user, this.httpOptions).pipe(
           catchError(this.handleError<User>('addUser'))
         );
       }
