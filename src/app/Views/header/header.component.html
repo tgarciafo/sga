@@ -1,19 +1,31 @@
-<nav class="navbar navbar-primary" style="background-color: #f3c384;">
-    <!-- <a class="navbar-brand" href="#">
-        <img width="130" src="" alt="UOC logo">
-    </a> -->
-    <a class="navbar-brand mx-5">
-        SGA
-    </a>
-    <div class="my-2 mx-5 my-lg-0">    
-        <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/registre-clients">Registrar Clients</button>  
-        <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/clients-registrats">Clients Registrats</button>  
-        <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/registre-productes">Registrar Productes</button>  
-        <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/productes-registrats">Productes Registrats</button>
-        <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/registre-locations">Registrar Ubicacions</button>  
-        <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/locations-registrades">Ubicacions Registrades</button>
-        <button *ngIf="!loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/login">Sign In</button>
-        <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" routerLink="/user">User</button>
-        <button *ngIf="loginState$.loggedIn" class="btn btn-outline-success my-2 my-sm-0" (click)="onClickLogout()">LOGOUT</button>
-    </div>  
-</nav>
+<nav class="navbar navbar-expand-lg navbar-light bg-primary">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="/home">SGA</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/home">Inici</a>
+          </li>
+          <li class="nav-item dropdown" ngbDropdown>
+            <a class="nav-link dropdown-toggle" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" ngbDropdownToggle>
+              Introducció de dades
+            </a>
+            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="navbarScrollingDropdown">
+              <li ngbDropdownItem><a class="dropdown-item" routerLink="/registre-clients">Registre de Clients</a></li>
+              <li ngbDropdownItem><a class="dropdown-item" routerLink="/clients-registrats">Clients registrats</a></li>
+              <li ngbDropdownItem><a class="dropdown-item" routerLink="/registre-productes">Registre de productes</a></li>
+              <li ngbDropdownItem><a class="dropdown-item" routerLink="/productes-registrats">Productes registrats</a></li>
+              <li ngbDropdownItem><a class="dropdown-item" routerLink="/registre-locations">Registrar Ubicacions</a></li>
+              <li ngbDropdownItem><a class="dropdown-item" routerLink="/locations-registrades">Ubicacions Registrades</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="btn btn-success my-2 mx-2" routerLink="/login">Log In</a></li>
+          <li class="nav-item"><a  class="btn btn-success my-2 mx-2" routerLink="/sign-in">Sign In</a></li>
+          <li class="nav-item"><a  class="btn btn-danger my-2 mx-2" (click)="onClickLogout()">LOGOUT</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>

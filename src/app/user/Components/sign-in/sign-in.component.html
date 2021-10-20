@@ -1,0 +1,82 @@
+<div class="container">   
+    <h2>Registre d'usuaris nous</h2> 
+    <form class="border border-light p-5" [formGroup]="regUserForm" (ngSubmit)="saveUser()"> 
+        
+        <div class="form-group">
+            <label for="name" class="form-label">Nom i cognoms</label>
+            <input type="text" class="form-control" [formControl]="name" placeholder="Escriu el teu nom i cognoms">
+            <span style="color: red;" *ngIf="regUserForm.get('name').errors && (regUserForm.get('name').touched || regUserForm.get('name').dirty) ">
+                <span *ngIf="regUserForm.get('name').errors.required">El nom i cognoms són obligatoris</span>
+                <!-- <span *ngIf="regUserForm.get('name').errors.pattern">No és permès utilitzar caràcters especials ni espais al davant o al darrera</span>
+                <span *ngIf="regUserForm.get('name').errors.minlength || regUserForm.get('name').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span> -->
+            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="form-label">Email:</label>
+            <input type="text" class="form-control" [formControl]="email" placeholder="Escriu el teu correu electrònic">
+            <span style="color: red;" *ngIf="(regUserForm.get('email').errors && (regUserForm.get('email').touched) || regUserForm.get('email').dirty) ">
+                <span *ngIf="regUserForm.get('email').errors?.required">El correu electrònic és obligatori</span>
+<!--                 <span *ngIf="regUserForm.get('email').errors?.pattern"> El correu electrònic ha de ser en el format següent: name@domin.com</span>
+ -->            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="type" class="form-label">Tipus d'usuari:</label>
+            <select [formControl]="type" class="form-control mb-4">
+                <option value=" " [selected]="true">Selecciona tipus</option>
+                <option value="Admin" >Administrador/a</option>
+                <option value="Magatzem" >Magatzem</option>
+                <option value="Client" >Client</option>
+            </select>
+            <span style="color: red;" *ngIf="regUserForm.get('type').errors && (regUserForm.get('type').touched || regUserForm.get('type').dirty)">                
+                <span *ngIf="regUserForm.get('type').errors.required">És obligatori triar un tipus d'usuari</span>
+            </span>
+        </div>
+
+        <div *ngIf="type.value === 'Client'" class="form-group">
+            <label for="client_id" class="form-label">Client:</label>
+            <select [formControl]="client_id" class="form-control mb-4">
+                <option [ngValue]="null">Selecciona client</option>                
+            <option *ngFor="let client of clientState$.clients" [ngValue]="client.client_id">{{client.description_client}}</option>              
+        </select>
+            <span style="color: red;" *ngIf="regUserForm.get('client_id').errors && (regUserForm.get('client_id').touched || regUserForm.get('client_id').dirty)">                
+                <span *ngIf="regUserForm.get('client_id').errors.required">És obligatori triar el client</span>
+            </span>
+        </div>
+
+
+        <div class="form-group">
+            <label for="password"  class="form-label">Contrasenya:</label>
+            <input type="password" class="form-control" [formControl]="password" placeholder="Escriu la contrasenya">
+            <span style="color: red;" *ngIf="regUserForm.get('password').errors && (regUserForm.get('password').touched || regUserForm.get('password').dirty) ">
+                <span *ngIf="regUserForm.get('password').errors?.required">La contrasenya és obligatòria</span>
+<!--                 <span *ngIf="regUserForm.get('password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
+ -->            </span>
+        </div>
+
+        <div class="form-group">
+            <label for="repeat_password" class="form-label">Repeteix la contrasenya:</label>
+            <input type="password" class="form-control" [formControl]="repeat_password" placeholder="Torna a escriure la contrasenya">
+            <span style="color: red;" *ngIf="regUserForm.get('repeat_password').errors && (regUserForm.get('repeat_password').touched || regUserForm.get('repeat_password').dirty) ">
+                <span *ngIf="regUserForm.get('repeat_password').errors?.required">És obligatori repetir la  contrasenya</span>
+<!--                 <span *ngIf="regUserForm.get('repeat_password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
+ -->            </span>
+<!--             <span style="color: red;" *ngIf="validatorEquality()">Les contrasenyes han de coincidir</span>
+ -->        </div>
+
+        <div class="form-group">
+            <label for="user_name" class="form-label">Nom d'usuari</label>
+            <input type="text" class="form-control" [formControl]="user_name" placeholder="Escriu un nom d'usuari">
+            <span style="color: red;" *ngIf="regUserForm.get('user_name').errors && (regUserForm.get('user_name').touched || regUserForm.get('user_name').dirty) ">
+                <span *ngIf="regUserForm.get('user_name').errors.required">El nom d'usuari és obligatori</span>
+                <!-- <span *ngIf="regUserForm.get('user_name').errors.pattern">No és permès utilitzar caràcters especials ni espais al davant o al darrera</span>
+                <span *ngIf="regUserForm.get('user_name').errors.minlength || regUserForm.get('user_name').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span> -->
+            </span>
+        </div>
+
+        <!-- Podria indicar error usuari ja existeix -->
+        
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!regUserForm.valid">Guardar Usuari</button>
+    </form>    
+</div>

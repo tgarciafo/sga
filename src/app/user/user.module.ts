@@ -4,10 +4,12 @@ import { UserComponent } from './Components/user/user.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { SignInComponent } from './Components/sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
-    UserComponent
+    UserComponent,
+    SignInComponent
   ],
   imports: [
     CommonModule,

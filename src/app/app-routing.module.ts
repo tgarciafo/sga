@@ -7,12 +7,14 @@ import { RegistreLocationsComponent } from './locations/Components/registre-loca
 import { LoginComponent } from './login/Components/login/login.component';
 import { ProductesRegistratsComponent } from './productes/Components/productes-registrats/productes-registrats.component';
 import { RegistreProductesComponent } from './productes/Components/registre-productes/registre-productes.component';
+import { SignInComponent } from './user/Components/sign-in/sign-in.component';
 import { UserComponent } from './user/Components/user/user.component';
 import { HomeComponent } from './Views/home/home.component';
 
 const routes: Routes = [
   { path:'home', component: HomeComponent },
   { path:'user', component: UserComponent},
+  { path:'sign-in', component: SignInComponent},
   { path: 'registre-clients', component: RegistreClientsComponent},
   { path: 'clients-registrats', component: ClientsRegistratsComponent},
   { path: 'registre-productes', component: RegistreProductesComponent},
