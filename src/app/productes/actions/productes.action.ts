@@ -70,3 +70,17 @@ export const getProducteError = createAction(
     '[Producte] Get Producte error',
     props<{payload: any}>()
 );
+
+export const getId = createAction(
+    '[Producte] Get Id',
+props<{ ean: number }>());
+
+export const getIdSuccess = createAction(
+    '[Producte] Get Id success',
+    props<{ ean: number }>()
+);
+
+export const getIdError = createAction(
+    '[Producte] Get Id error',
+    props<{payload: any}>()
+);

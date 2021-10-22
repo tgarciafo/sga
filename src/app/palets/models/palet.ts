@@ -6,7 +6,7 @@ export interface Palet {
     albara_entrada: string;
     lot: string;
     caducitat: Date;
-    albara_sortida: string;
+    albara_sortida: string | null;
     data_sortida: Date | string | null;
     location_id: number;
 }

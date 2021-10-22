@@ -4,6 +4,7 @@ import * as reducersUser from './user/reducers';
 import * as reducersClient from './clients/reducers';
 import * as reducersProducte from './productes/reducers';
 import * as reducersLocation from './locations/reducers';
+import * as reducersPalet from './palets/reducers';
 import { routerReducer } from '@ngrx/router-store';
 import * as fromRouter from '@ngrx/router-store';
 
@@ -13,6 +14,7 @@ export interface AppState {
     clientApp: reducersClient.ClientState;
     producteApp: reducersProducte.ProducteState;
     locationApp: reducersLocation.LocationState;
+    paletApp: reducersPalet.PaletState;
     router: fromRouter.RouterReducerState<any>;
 }
 
@@ -22,7 +24,8 @@ export const appReducers: ActionReducerMap<AppState> = {
     userApp: reducersUser.userReducer,
     clientApp: reducersClient.clientReducer,
     producteApp: reducersProducte.producteReducer,
-    locationApp: reducersLocation.locationReducer
+    locationApp: reducersLocation.locationReducer,
+    paletApp: reducersPalet.paletReducer
 };
 
 

@@ -68,8 +68,20 @@ export class ProductesEffects {
                 ))
         ));
 
-        redirectTo(uri: string): void {
-            this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
-            this.router.navigate([uri]));
-          }
+    getId$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ProducteActions.getId),
+            mergeMap(({ean}) =>
+                this.productesService.eanToId(ean).pipe(
+                    map(() => ProducteActions.getIdSuccess({ ean })),
+                    catchError((err) => of(ProducteActions.getIdError({ payload: err })))
+        ))
+    ));
+
+
+
+    redirectTo(uri: string): void {
+        this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+        this.router.navigate([uri]));
+    }
 }

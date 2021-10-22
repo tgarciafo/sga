@@ -3,7 +3,7 @@ import { Producte } from '../models/producte';
 import {
     createProducte, getProducte, getProducteError, getProducteSuccess, editProducte, editProducteError, editProducteSuccess,
     deleteProducte, deleteProducteSuccess, deleteProducteError, getAllProductes, getAllProductesSuccess,
-    getAllProductesError, createProducteSuccess, createProducteError
+    getAllProductesError, createProducteSuccess, createProducteError, getId, getIdError,getIdSuccess
 } from '../actions/productes.action';
 
 export interface ProducteState{
@@ -108,6 +108,23 @@ const _producteReducer = createReducer(
         producte: producte,
     })),
     on(getProducteError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(getId, state => ({ ...state, loading: true })),
+    on(getIdSuccess, (state, { ean } ) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        productes: [...state.productes.filter(products => products.ean === ean)]
+    })),
+    on(getIdError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

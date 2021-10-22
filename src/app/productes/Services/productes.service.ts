@@ -63,6 +63,13 @@ export class ProductesService {
     );
   }
 
+  
+  eanToId(ean: number){
+    return this.httpClient.get<Producte>(this.API_ENDPOINT + '/showId/'+ean, this.httpOptions).pipe(
+      catchError(this.handleError<Producte>(`getId ean=${ean}`))
+    );
+  }
+
   /* private log(message: string) {
     this.messageService.add(`ClientService: ${message}`);
   } */

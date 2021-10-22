@@ -1,0 +1,40 @@
+<div id="llegir2" [hidden]="!show2">  
+    <div>
+      <div class="mb-3">
+          <label for="albara_entrada" class="form-label">Número d'albarà d'entrada</label>
+          <input type="text" readonly required class="form-control" value="{{this.num_entrada.value}}" id="albara_entrada">
+      </div>
+     <!--  <div class="mb-3">
+        <label for="contador" class="form-label">Número de palets:</label>
+        <input type="text" [(ngModel)]="count" value="" [ngModelOptions]="{standalone: true}" readonly class="form-control" id="contador">
+      </div> -->
+      <div id="barcodeInputDiv">
+        <label for="barcode">Escaneja el codi SSCC:</label>
+        <input type="text" id="barcode" #barcode placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="submitForm()"  required>
+        <label for="barcode2">Escaneja el codi SSCC:</label>
+        <input type="text" id="barcode2" #barcode2 placeholder="Escriure el codi SSCC del palet" name="barcode2" (change)="submitForm2()"  required>
+        <input type="button" class="btn btn-primary" value="Parse" id="sendbutton"><br />
+      </div>
+      <div class="mb-3">
+            <label hidden for="lot">Lot:</label>
+            <input type="text" #lot placeholder="lot" readonly id="lot">
+          
+            <label hidden for="ean">Producte:</label>
+            <input type="text" #ean placeholder="ean" readonly id="ean">
+       
+            <label hidden for="sscc">SSCC:</label>
+            <input type="text" #sscc id="sscc" placeholder="sscc" readonly>
+          
+            <label hidden for="caducitat">Caducitat:</label>
+            <input type="text" #caducitat id="caducitat" placeholder="caducitat"  readonly>
+         
+            <!-- <label hidden for="quantitat">Quantitat:</label>
+            <input type="text" #qty id="quantitat" placeholder="quantitat" readonly> -->
+          
+            <!-- <label hidden for="ubicacio">Ubicacio:</label>
+            <input type="text" formControlName="location" id="ubicacio" readonly> -->
+      </div>
+      <button class="btn btn-primary" type="submit" (click)="buildForm()">Guardar</button>
+    </div>  
+    <button (click)="goOut()" class="btn btn-primary">Sortir</button>
+  </div>

@@ -28,10 +28,14 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/gs1-barcode-parser/Example/css/BarcodeParser.css"
             ],
             "scripts": [
-              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "./node_modules/gs1-barcode-parser/src/BarcodeParser.js",
+              "./node_modules/gs1-barcode-parser/src/BarcodeParserUsage2.js",
+              "./node_modules/gs1-barcode-parser/src/BarcodeParserUsage3.js"
             ]
           },
           "configurations": {

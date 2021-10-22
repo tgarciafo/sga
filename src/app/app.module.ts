@@ -21,6 +21,8 @@ import { ClientsModule } from './clients/clients.module';
 import { HomeComponent } from './Views/home/home.component';
 import { LocationsModule } from './locations/locations.module';
 import { ProductesModule } from './productes/productes.module';
+import { PaletsModule } from './palets/palets.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import { ProductesModule } from './productes/productes.module';
     ClientsModule,
     ProductesModule,
     LocationsModule,
+    PaletsModule,
     StoreModule.forRoot( appReducers, {
       runtimeChecks: {
         strictStateImmutability: false,
@@ -51,7 +54,9 @@ import { ProductesModule } from './productes/productes.module';
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
     EffectsModule.forRoot(EffectsApp)
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
