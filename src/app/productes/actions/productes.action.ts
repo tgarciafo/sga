@@ -77,7 +77,7 @@ props<{ ean: number }>());
 
 export const getIdSuccess = createAction(
     '[Producte] Get Id success',
-    props<{ ean: number }>()
+    props<{ producte: Producte }>()
 );
 
 export const getIdError = createAction(

@@ -71,9 +71,9 @@ export class ProductesEffects {
     getId$ = createEffect(() =>
         this.actions$.pipe(
             ofType(ProducteActions.getId),
-            mergeMap(({ean}) =>
-                this.productesService.eanToId(ean).pipe(
-                    map(() => ProducteActions.getIdSuccess({ ean })),
+            mergeMap((action) =>
+                this.productesService.eanToId(action.ean).pipe(
+                    map((producte) => ProducteActions.getIdSuccess({ producte })),
                     catchError((err) => of(ProducteActions.getIdError({ payload: err })))
         ))
     ));

@@ -65,7 +65,7 @@ export class ProductesService {
 
   
   eanToId(ean: number){
-    return this.httpClient.get<Producte>(this.API_ENDPOINT + '/showId/'+ean, this.httpOptions).pipe(
+    return this.httpClient.get<Producte>(this.API_ENDPOINT + '/showId/'+ean).pipe(
       catchError(this.handleError<Producte>(`getId ean=${ean}`))
     );
   }

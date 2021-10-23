@@ -118,11 +118,11 @@ const _producteReducer = createReducer(
         }
     })),
     on(getId, state => ({ ...state, loading: true })),
-    on(getIdSuccess, (state, { ean } ) => ({
+    on(getIdSuccess, (state, { producte } ) => ({
         ...state,
         loading: false,
         loaded: true,
-        productes: [...state.productes.filter(products => products.ean === ean)]
+        producte: producte
     })),
     on(getIdError, (state, { payload }) => ({
         ...state,

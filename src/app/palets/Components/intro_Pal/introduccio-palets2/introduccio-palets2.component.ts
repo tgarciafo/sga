@@ -6,8 +6,9 @@ import { Store } from '@ngrx/store';
 import { ProducteState } from 'src/app/productes/reducers';
 import { PaletState } from 'src/app/palets/reducers';
 import {createPalet} from '../../../actions';
-import { getAllProductes, getId } from 'src/app/productes/actions';
+import { getAllProductes, getId } from '../../../../productes/actions';
 import { getAllClients } from 'src/app/clients/actions';
+import { Producte } from 'src/app/productes/models/producte';
 
 @Component({
   selector: 'app-introduccio-palets2',
@@ -32,6 +33,8 @@ export class IntroduccioPalets2Component implements OnInit {
   count: number = 0;
   
   currDate: string | null = '';
+
+  public num_ean: number;
 
   public palet: Palet;
 
@@ -142,16 +145,19 @@ export class IntroduccioPalets2Component implements OnInit {
 
   getProduct(){  
 
-  let ean=this.ean.nativeElement.value;
+  this.num_ean=this.ean.nativeElement.value;
 
-  console.log(ean);
+  this.store.dispatch(getId({ean: this.num_ean}));
 
-  let product= this.store.dispatch(getId(ean));
+    this.goSave();
 
-/*       this.product_id=product.product_id;
- */      /* this.client_id=product.client_id; */
+  }
+  
 
- console.log(product);
+  goSave(){
+
+    this.product_id= this.productState$.producte?.product_id;
+    this.client_id= this.productState$.producte?.client_id;
         
         this.palet={
           albara_entrada: this.num_entrada.value,
@@ -166,14 +172,7 @@ export class IntroduccioPalets2Component implements OnInit {
           location_id: this.location_id.value     
         }
 
-      this.goSave(this.palet);
-
-    }
-  
-
-  goSave(palet:Palet){
-
-    this.store.dispatch(createPalet({ palet: palet }));
+    this.store.dispatch(createPalet({ palet: this.palet }));
     this.clear();
 /*     this.getCount(this.num_entrada);    
  */  } 
