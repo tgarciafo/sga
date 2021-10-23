@@ -8,7 +8,6 @@ import { PaletState } from 'src/app/palets/reducers';
 import {createPalet} from '../../../actions';
 import { getAllProductes, getId } from '../../../../productes/actions';
 import { getAllClients } from 'src/app/clients/actions';
-import { Producte } from 'src/app/productes/models/producte';
 
 @Component({
   selector: 'app-introduccio-palets2',
@@ -39,7 +38,6 @@ export class IntroduccioPalets2Component implements OnInit {
   public palet: Palet;
 
   public product_id: number;
-  public qtyF: number;
   public client_id: number;
 
   @Input() num_entrada: any = '';
@@ -69,7 +67,7 @@ export class IntroduccioPalets2Component implements OnInit {
 
     this.getProduct(); 
 
-       
+    this.goSave(); 
   }
 
   ngOnChanges(){
@@ -147,13 +145,10 @@ export class IntroduccioPalets2Component implements OnInit {
 
   this.num_ean=this.ean.nativeElement.value;
 
-  this.store.dispatch(getId({ean: this.num_ean}));
-
-    this.goSave();
+  this.store.dispatch(getId({ean: this.num_ean}));   
 
   }
   
-
   goSave(){
 
     this.product_id= this.productState$.producte?.product_id;
