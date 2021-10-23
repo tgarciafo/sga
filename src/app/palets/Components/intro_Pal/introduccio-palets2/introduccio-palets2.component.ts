@@ -6,8 +6,8 @@ import { Store } from '@ngrx/store';
 import { ProducteState } from 'src/app/productes/reducers';
 import { PaletState } from 'src/app/palets/reducers';
 import {createPalet} from '../../../actions';
-import { getId } from 'src/app/productes/actions';
-import { Producte } from 'src/app/productes/models/producte';
+import { getAllProductes, getId } from 'src/app/productes/actions';
+import { getAllClients } from 'src/app/clients/actions';
 
 @Component({
   selector: 'app-introduccio-palets2',
@@ -57,8 +57,8 @@ export class IntroduccioPalets2Component implements OnInit {
   }
 
   ngOnInit(): void {
-
-
+    this.store.dispatch(getAllProductes());
+    this.store.dispatch(getAllClients());
   }
 
   public buildForm(){
