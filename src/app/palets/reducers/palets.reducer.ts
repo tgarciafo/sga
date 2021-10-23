@@ -1,12 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { Palet } from '../models/palet';
 import {
-    createPalet, createPaletSuccess, createPaletError
+    createPalet, createPaletSuccess, createPaletError, contador, contadorSuccess, contadorError
 } from '../actions/palets.action';
 
 export interface PaletState{
     palets: Palet[];
     palet: Palet | null;
+    contador: number | null | unknown;
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -15,6 +16,7 @@ export interface PaletState{
 export const initialState: PaletState = {
     palets: [],
     palet: null,
+    contador: null,
     loading: false,
     loaded: false,
     error: null
@@ -27,9 +29,26 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        Palets: [...state.palets, palet]
+        palets: [...state.palets, palet]
     })),
     on(createPaletError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(contador, state => ({ ...state, loading: true })),
+    on(contadorSuccess, (state, { num_pal }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        contador: num_pal
+    })),
+    on(contadorError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

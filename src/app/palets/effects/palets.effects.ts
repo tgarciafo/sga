@@ -26,6 +26,17 @@ export class PaletsEffects {
         )
     );
 
+    contadorPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.contador),
+            mergeMap((action) =>
+                this.paletsService.contador(action.albara_entrada).pipe(
+                    map((num_pal) => PaletActions.contadorSuccess({ num_pal: num_pal })),
+                    catchError((err)=> of(PaletActions.contadorError({payload: err})))
+                ))
+        )
+    );
+
         redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri]));

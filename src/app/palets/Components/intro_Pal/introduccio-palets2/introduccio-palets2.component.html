@@ -4,10 +4,10 @@
           <label for="albara_entrada" class="form-label">Número d'albarà d'entrada</label>
           <input type="text" readonly required class="form-control" value="{{this.num_entrada.value}}" id="albara_entrada">
       </div>
-     <!--  <div class="mb-3">
+      <div class="mb-3">
         <label for="contador" class="form-label">Número de palets:</label>
-        <input type="text" [(ngModel)]="count" value="" [ngModelOptions]="{standalone: true}" readonly class="form-control" id="contador">
-      </div> -->
+        <input type="text" value="{{paletState$.contador}}" readonly class="form-control" id="contador">
+      </div>
       <div id="barcodeInputDiv">
         <label for="barcode">Escaneja el codi SSCC:</label>
         <input type="text" id="barcode" #barcode placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="submitForm()"  required>
@@ -27,6 +27,12 @@
           
             <label hidden for="caducitat">Caducitat:</label>
             <input type="text" #caducitat id="caducitat" placeholder="caducitat"  readonly>
+            
+            <label hidden for="client">Client:</label>
+            <input type="text" #client id="client" placeholder="client" value="{{productState$.producte?.product_id}}" readonly>
+            
+            <label hidden for="producte">Producte:</label>
+            <input type="text" #producte id="producte" value="{{productState$.producte?.client_id}}" placeholder="producte"  readonly>
          
             <!-- <label hidden for="quantitat">Quantitat:</label>
             <input type="text" #qty id="quantitat" placeholder="quantitat" readonly> -->

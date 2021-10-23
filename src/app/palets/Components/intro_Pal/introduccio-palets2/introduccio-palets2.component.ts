@@ -5,7 +5,7 @@ import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { ProducteState } from 'src/app/productes/reducers';
 import { PaletState } from 'src/app/palets/reducers';
-import {createPalet} from '../../../actions';
+import {createPalet, contador} from '../../../actions';
 import { getAllProductes, getId } from '../../../../productes/actions';
 import { getAllClients } from 'src/app/clients/actions';
 
@@ -24,28 +24,25 @@ export class IntroduccioPalets2Component implements OnInit {
   @ViewChild('lot', {static: false}) lot: ElementRef;
   @ViewChild('caducitat', {static: false}) caducitat: ElementRef;
   @ViewChild('sscc', {static: false}) sscc: ElementRef;
-  @ViewChild('qty', {static: false}) qty: ElementRef;
+  @ViewChild('client', {static: false}) client: ElementRef;
+  @ViewChild('producte', {static: false}) producte: ElementRef;
+
 
   @ViewChild("barcode") barcode: ElementRef;
   @ViewChild("barcode2") barcode2: ElementRef;
-  
-  count: number = 0;
-  
+    
   currDate: string | null = '';
 
   public num_ean: number;
 
   public palet: Palet;
 
-  public product_id: number;
-  public client_id: number;
-
   @Input() num_entrada: any = '';
   @Input() location_id: any = NaN;
   @Input() show: boolean= true;
   @Input() show2: boolean= false;   
 
-  constructor(private store: Store<AppState>, private dp:DatePipe, ean: ElementRef, lot: ElementRef, sscc:ElementRef, caducitat: ElementRef, barcode: ElementRef, barcode2: ElementRef) { 
+  constructor(private store: Store<AppState>, private dp:DatePipe, ean: ElementRef, lot: ElementRef, sscc:ElementRef, caducitat: ElementRef, barcode: ElementRef, barcode2: ElementRef, client: ElementRef, producte: ElementRef) { 
     this.store.select('producteApp').subscribe(products => this.productState$ = products);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
 
@@ -53,6 +50,8 @@ export class IntroduccioPalets2Component implements OnInit {
     this.lot=lot;
     this.caducitat=caducitat;
     this.sscc=sscc;
+    this.client=client;
+    this.producte=producte;
     this.barcode = barcode;
     this.barcode2 = barcode2; 
   }
@@ -63,40 +62,28 @@ export class IntroduccioPalets2Component implements OnInit {
   }
 
   public buildForm(){
-    this.currDate= this.dp.transform( new Date(), 'yyyy-MM-dd');
-
-    this.getProduct(); 
+    this.currDate= this.dp.transform( new Date(), 'yyyy-MM-dd');  
 
     this.goSave(); 
   }
 
   ngOnChanges(){
     if(this.show2==true){
-/*       this.getCount(this.num_entrada);
- */     
-      }
+      this.barcode.nativeElement.focus();  
+      this.store.dispatch(contador({albara_entrada: this.num_entrada.value}));
+    }
   }  
 
   goOut(){
     return window.location.reload();
   }
 
-  /* getCount(albara:string){
-    this.paletsService.contador(albara).subscribe((data: any)=>{
-      this.count=data;
-      this.barcode.nativeElement.focus();
-
-    }, ()=>{
-      alert('Hi ha hagut un error');
-    });
-
-  } */
-
   submitForm() {
     let selectButton = document.getElementById('sendbutton');
 
     if(selectButton){
     selectButton.click();
+    this.getProduct(); 
     this.barcode2.nativeElement.focus();
     }
   }
@@ -105,11 +92,13 @@ export class IntroduccioPalets2Component implements OnInit {
     let selectButton = document.getElementById('sendbutton');
     if(selectButton){
     selectButton.click();
+    this.getProduct(); 
     }
     
     var submit = document.getElementById('submitbutton');
     if(submit){
     submit.click();
+    this.getProduct(); 
     }
   }
 
@@ -133,11 +122,15 @@ export class IntroduccioPalets2Component implements OnInit {
     let ean=<HTMLInputElement>document.getElementById('ean');
     let sscc=<HTMLInputElement>document.getElementById('sscc');
     let caducitat=<HTMLInputElement>document.getElementById('caducitat');
+    let client=<HTMLInputElement>document.getElementById('client');
+    let producte=<HTMLInputElement>document.getElementById('producte');
     
     lot.value=" ";
     ean.value=" ";
     sscc.value=" ";
     caducitat.value=" ";    
+    client.value=" ";
+    producte.value=" ";
     
   }
 
@@ -150,26 +143,24 @@ export class IntroduccioPalets2Component implements OnInit {
   }
   
   goSave(){
-
-    this.product_id= this.productState$.producte?.product_id;
-    this.client_id= this.productState$.producte?.client_id;
         
         this.palet={
           albara_entrada: this.num_entrada.value,
           data_entrada: this.currDate,
           lot: this.lot.nativeElement.value,
-          product_id: this.product_id,
-          client_id: this.client_id,
+          product_id: this.producte.nativeElement.value,
+          client_id: this.client.nativeElement.value,
           sscc: this.sscc.nativeElement.value,
           caducitat: this.caducitat.nativeElement.value,
-          albara_sortida: null,
-          data_sortida: null,
+          albara_sortida: '',
+          data_sortida: '',
           location_id: this.location_id.value     
         }
 
     this.store.dispatch(createPalet({ palet: this.palet }));
     this.clear();
-/*     this.getCount(this.num_entrada);    
- */  } 
+    this.barcode.nativeElement.focus();  
+    this.store.dispatch(contador({albara_entrada: this.num_entrada}));
+ } 
 
 }
