@@ -23,6 +23,8 @@ import { LocationsModule } from './locations/locations.module';
 import { ProductesModule } from './productes/productes.module';
 import { PaletsModule } from './palets/palets.module';
 import { DatePipe } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { DatePipe } from '@angular/common';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    NgbModule,
+    NgxPrintModule,
     LoginModule,
     UserModule,
     ClientsModule,

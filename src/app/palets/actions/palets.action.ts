@@ -28,3 +28,31 @@ export const contadorError = createAction(
     '[Palet] Contador error',
     props<{payload: any}>()
 );
+
+export const consultaEntrades = createAction(
+    '[Palet] Consulta Entrades',
+    props<{ data: Date, data2: Date }>()
+);
+
+export const consultaEntradesSuccess = createAction(
+    '[Palet] Consulta Entrades success',
+    props<{ consulta: any[] }>()
+);
+export const consultaEntradesError = createAction(
+    '[Palet] Consulta Entrades error',
+    props<{payload: any}>()
+);
+
+export const consultaPalEntrades = createAction(
+    '[Palet] Consulta Palets Entrades',
+    props<{ albara: string }>()
+);
+
+export const consultaPalEntradesSuccess = createAction(
+    '[Palet] Consulta Palets Entrades success',
+    props<{ consultaPal: any[] }>()
+);
+export const consultaPalEntradesError = createAction(
+    '[Palet] Consulta Palets Entrades error',
+    props<{payload: any}>()
+);

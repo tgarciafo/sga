@@ -5,6 +5,7 @@ import { RegistreClientsComponent } from './clients/Components/registre-clients/
 import { LocationsRegistradesComponent } from './locations/Components/locations-registrades/locations-registrades.component';
 import { RegistreLocationsComponent } from './locations/Components/registre-locations/registre-locations.component';
 import { LoginComponent } from './login/Components/login/login.component';
+import { ConsultaEntradesComponent } from './palets/Components/consulta-entrades/consulta-entrades.component';
 import { IntroduccioPaletsComponent } from './palets/Components/intro_Pal/introduccio-palets/introduccio-palets.component';
 import { IntroduccioPalets2Component } from './palets/Components/intro_Pal/introduccio-palets2/introduccio-palets2.component';
 import { ProductesRegistratsComponent } from './productes/Components/productes-registrats/productes-registrats.component';
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'entrada', component: IntroduccioPaletsComponent},
   { path: 'lectura-palets', component: IntroduccioPalets2Component},
   { path: 'login', component: LoginComponent},
+  { path: 'consulta-entrades', component: ConsultaEntradesComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ClientsRegistratsComponent } from './Components/clients-registrats/clients-registrats.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { ClientsRegistratsComponent } from './Components/clients-registrats/clie
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    NgxPrintModule
   ]
 })
 export class ClientsModule { }

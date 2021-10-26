@@ -64,7 +64,21 @@ export class PaletsService {
 
   contador(albara: string){
     return this.httpClient.get<Number>(this.API_ENDPOINT + '/num_pal/'+ albara, this.httpOptions).pipe(
-      catchError(this.handleError('contador'))
+      catchError(this.handleError<Number>('contador'))
     );
   }
+
+  consultaEntrada(data: Date, data2: Date): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/showEntries/'+ data +'/'+data2, this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('consultaEntrada'))
+    );
+  }
+
+
+  entradesPal(albara: string): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/showPalEntries/'+ albara, this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('consultaPalEntrada'))
+    );
+  }
+
 }

@@ -5,17 +5,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { IntroduccioPaletsComponent } from './Components/intro_Pal/introduccio-palets/introduccio-palets.component';
 import { IntroduccioPalets2Component } from './Components/intro_Pal/introduccio-palets2/introduccio-palets2.component';
+import { ConsultaEntradesComponent } from './Components/consulta-entrades/consulta-entrades.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
     IntroduccioPaletsComponent,
-    IntroduccioPalets2Component
+    IntroduccioPalets2Component,
+    ConsultaEntradesComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    NgxPrintModule
   ]
 })
 export class PaletsModule { }

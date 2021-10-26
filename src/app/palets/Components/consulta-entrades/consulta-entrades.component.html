@@ -1,0 +1,87 @@
+<h2>Consulta d'entrades per data</h2>
+
+<div id="dates">
+    <form class="border border-light p-5" [formGroup]="consultaEntForm" (ngSubmit)="getEntrades()">    
+        <div class="mb-3">
+            <label for="data" class="form-label">Selecciona el dia d'inici de consulta:</label>
+            <input type="date" class="form-control" [formControl]="data" name="data" required>
+        </div>
+        <div class="mb-3">
+            <label for="data2" class="form-label">Selecciona el dia final de consulta:</label>
+            <input type="date" class="form-control" [formControl]="data2" name="data2" required>
+        </div>
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!consultaEntForm.valid">Acceptar</button>
+    </form>    
+</div>
+
+<div id="taulaConsulta">
+    <div class="table-responsive">
+        <table class="table caption-top table-primary table-hover table-striped">    
+            <thead>
+            <tr>
+                <th scope="col">Número d'entrada</th>
+                <th scope="col">Data entrada</th>
+                <th scope="col">Client</th>
+                <th scope="col">Total Palet</th>
+                <th scope="col">Detall Sortida</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let entrada of paletState$.consulta">
+                <th scope="row">{{entrada.albara_entrada}}</th>
+                <td>{{entrada.data_entrada}}</td>
+                <td>{{entrada.description_client}}</td>
+                <td>{{entrada.num_palets}}</td>
+                <td><button class="btn btn-outline-primary" (click)="open(mymodal, entrada.albara_entrada)">Open My Modal</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #mymodal let-modal>
+    <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">SSCC palets entrades</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+    </button>
+    </div>
+    <div class="modal-body">
+        <h2>Consulta d'estocs per albarà</h2>
+        <div>
+            <button name="client_excel" id="client_excel" class="btn btn-success" (click)="exportexcel()">Exportar a Excel</button>
+            <button printSectionId="print-section" ngxPrint type="button" class="btn btn-primary">Imprimir</button>
+        </div>
+        <div id="print-section">
+            <table id="excel-table" class='table table-responsive table-hover'>
+                <thead>
+                    <tr>
+                        <th scope='col'>NÚM.</th>
+                        <th scope='col'>NÚM.ENTRADA</th>
+                        <th scope='col'>DATA ENTRADA</th>
+                        <th scope='col'>SSCC</th>
+                        <th scope='col'>PRODUCTE</th>
+                        <th scope='col'>QUANTITAT</th>
+                        <th scope='col'>LOT</th>
+                        <th scope='col'>CADUCITAT</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let entradaPal of paletState$.consultaPal; index as i">
+                        <td [attr.data-index]="i+1">{{i+1}}</td>
+                        <td>{{entradaPal.albara_entrada}}</td>
+                        <td>{{entradaPal.data_entrada}}</td>
+                        <td>&#8203;{{entradaPal.sscc}}</td>
+                        <td>{{entradaPal.description_prod}}</td>
+                        <td>{{entradaPal.quantity}}</td>
+                        <td>{{entradaPal.lot}}</td>
+                        <td>{{entradaPal.caducitat}}</td>
+                    </tr>
+                </tbody>    
+            </table>
+        </div>                
+    </div>
+    <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+    </div>
+</ng-template>

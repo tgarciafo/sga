@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SignInComponent } from './Components/sign-in/sign-in.component';
+import { NgxPrintModule } from 'ngx-print';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { SignInComponent } from './Components/sign-in/sign-in.component';
     CommonModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+    NgxPrintModule
   ]
 })
 export class UserModule { }

@@ -37,6 +37,28 @@ export class PaletsEffects {
         )
     );
 
+    consultaEntradesPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.consultaEntrades),
+            mergeMap((action) =>
+                this.paletsService.consultaEntrada(action.data, action.data2).pipe(
+                    map((consulta) => PaletActions.consultaEntradesSuccess({ consulta: consulta })),
+                    catchError((err)=> of(PaletActions.consultaEntradesError({payload: err})))
+                ))
+        )
+    );
+
+    consultaPalEntradesPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.consultaPalEntrades),
+            mergeMap((action) =>
+                this.paletsService.entradesPal(action.albara).pipe(
+                    map((consultaPal) => PaletActions.consultaPalEntradesSuccess({ consultaPal: consultaPal })),
+                    catchError((err)=> of(PaletActions.consultaPalEntradesError({payload: err})))
+                ))
+        )
+    );
+
         redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri]));
