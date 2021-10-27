@@ -158,9 +158,10 @@ export class IntroduccioPalets2Component implements OnInit {
         }
 
     this.store.dispatch(createPalet({ palet: this.palet }));
+    
     this.clear();
-    this.barcode.nativeElement.focus();  
-    this.store.dispatch(contador({albara_entrada: this.num_entrada}));
+    this.store.dispatch(contador({albara_entrada: this.num_entrada.value}));
+    this.barcode.nativeElement.focus(); 
  } 
 
 }

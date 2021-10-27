@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
+import { Router} from '@angular/router';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { LoginState } from '../../login/reducers';

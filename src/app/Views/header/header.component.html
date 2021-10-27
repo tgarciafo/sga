@@ -14,11 +14,11 @@
                 Introducció de dades
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" routerLink="/registre-clients">Registre de Clients</a></li>
+              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/registre-clients">Registre de Clients</a></li>
               <li><a class="dropdown-item" routerLink="/clients-registrats">Clients registrats</a></li>
-              <li><a class="dropdown-item" routerLink="/registre-productes">Registre de productes</a></li>
+              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/registre-productes">Registre de productes</a></li>
               <li><a class="dropdown-item" routerLink="/productes-registrats">Productes registrats</a></li>
-              <li><a class="dropdown-item" routerLink="/registre-locations">Registrar Ubicacions</a></li>
+              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/registre-locations">Registrar Ubicacions</a></li>
               <li><a class="dropdown-item" routerLink="/locations-registrades">Ubicacions Registrades</a></li>
             </ul>
           </li>
@@ -27,13 +27,13 @@
               Entrades
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" routerLink="/entrada">Introducció de palets</a></li>
+              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/entrada">Introducció de palets</a></li>
               <li><a class="dropdown-item" routerLink="/consulta-entrades">Consulta de palets d'entrada</a></li>
             </ul>
           </li>
-          <li class="nav-item"><a class="btn btn-success my-2 mx-2" routerLink="/login">Log In</a></li>
-          <li class="nav-item"><a  class="btn btn-success my-2 mx-2" routerLink="/sign-in">Sign In</a></li>
-          <li class="nav-item"><a  class="btn btn-danger my-2 mx-2" (click)="onClickLogout()">LOGOUT</a></li>
+          <li class="nav-item" *ngIf="!loginState$.loggedIn"><a class="btn btn-success my-2 mx-2" routerLink="/login">Log In</a></li>
+          <li class="nav-item" *ngIf="!loginState$.loggedIn"><a  class="btn btn-success my-2 mx-2" routerLink="/sign-in">Sign In</a></li>
+          <li class="nav-item" *ngIf="loginState$.loggedIn"><a  class="btn btn-danger my-2 mx-2" (click)="onClickLogout()">LOGOUT</a></li>
         </ul>
       </div>
     </div>
