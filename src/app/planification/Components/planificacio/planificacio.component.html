@@ -1,0 +1,32 @@
+<!-- <h2>Planificació de sortides</h2>
+
+<br>
+<div id="planificacio">
+    <form class="border border-light p-5" [formGroup]="consultaEntForm" (ngSubmit)="getPlanification()">    
+        <div class="mb-3">
+            <label for="num_sortida" class="form-label">Número d'albarà de sortida</label>
+            <input type="text" [formControl]="num_sortida" class="form-control" name="num_sortida" placeholder="Escriu el número d'albarà de sortida">
+        </div>
+        <div class="mb-3">
+            <label for="idClient" class="form-label">Selecciona el Client</label>
+            <select class="form-select" name="idClient" [formControl]="idClient" aria-label="idClient">
+                <option [value]="idClient.idClient" *ngFor="let idClient of clients">{{idClient.descriptionClient}}</option>
+            </select>
+        </div>
+        <button (click)="goEntry()" class="btn btn-primary">Acceptar</button>
+    </form>
+</div>
+
+<div id="dates">
+    <form class="border border-light p-5" [formGroup]="consultaEntForm" (ngSubmit)="getEntrades()">    
+        <div class="mb-3">
+            <label for="data" class="form-label">Selecciona el dia d'inici de consulta:</label>
+            <input type="date" class="form-control" [formControl]="data" name="data" required>
+        </div>
+        <div class="mb-3">
+            <label for="data2" class="form-label">Selecciona el dia final de consulta:</label>
+            <input type="date" class="form-control" [formControl]="data2" name="data2" required>
+        </div>
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!consultaEntForm.valid">Acceptar</button>
+    </form>    
+</div> -->

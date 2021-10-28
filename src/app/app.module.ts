@@ -25,6 +25,7 @@ import { PaletsModule } from './palets/palets.module';
 import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintModule } from 'ngx-print';
+import { PlanificationModule } from './planification/planification.module';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { NgxPrintModule } from 'ngx-print';
     ProductesModule,
     LocationsModule,
     PaletsModule,
+    PlanificationModule,
     StoreModule.forRoot( appReducers, {
       runtimeChecks: {
         strictStateImmutability: false,
