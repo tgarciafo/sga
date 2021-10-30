@@ -16,9 +16,9 @@ import { UserComponent } from './user/Components/user/user.component';
 import { HomeComponent } from './Views/home/home.component';
 
 const routes: Routes = [
-  { path:'home', component: HomeComponent },
-  { path:'user', component: UserComponent},
-  { path:'sign-in', component: SignInComponent},
+  { path: 'home', component: HomeComponent },
+  { path: 'user', component: UserComponent},
+  { path: 'sign-in', component: SignInComponent},
   { path: 'registre-clients', component: RegistreClientsComponent},
   { path: 'clients-registrats', component: ClientsRegistratsComponent},
   { path: 'registre-productes', component: RegistreProductesComponent},

@@ -26,6 +26,7 @@ import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintModule } from 'ngx-print';
 import { PlanificationModule } from './planification/planification.module';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { PlanificationModule } from './planification/planification.module';
     EffectsModule.forRoot(EffectsApp)
   ],
   providers: [
-    DatePipe
+    DatePipe, 
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
