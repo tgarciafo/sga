@@ -28,9 +28,9 @@ export class PaletsEffects {
 
     contadorPalets$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(PaletActions.contador),
+            ofType(PaletActions.contador, PaletActions.createPaletSuccess),
             mergeMap((action) =>
-                this.paletsService.contador(action.albara_entrada).pipe(
+                this.paletsService.contador(action.palet).pipe(
                     map((num_pal) => PaletActions.contadorSuccess({ num_pal: num_pal })),
                     catchError((err)=> of(PaletActions.contadorError({payload: err})))
                 ))

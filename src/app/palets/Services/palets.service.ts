@@ -62,7 +62,9 @@ export class PaletsService {
     };
   }
 
-  contador(albara: string){
+  contador(palet: Palet){
+    const albara = palet.albara_entrada;
+
     return this.httpClient.get<Number>(this.API_ENDPOINT + '/num_pal/'+ albara, this.httpOptions).pipe(
       catchError(this.handleError<Number>('contador'))
     );

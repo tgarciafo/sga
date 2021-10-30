@@ -35,12 +35,12 @@ export class IntroduccioPalets2Component implements OnInit {
 
   public num_ean: number;
 
-  public palet: Palet;
-
   @Input() num_entrada: any = '';
   @Input() location_id: any = NaN;
   @Input() show: boolean= true;
   @Input() show2: boolean= false;   
+
+  public palet: Palet;
 
   constructor(private store: Store<AppState>, private dp:DatePipe, ean: ElementRef, lot: ElementRef, sscc:ElementRef, caducitat: ElementRef, barcode: ElementRef, barcode2: ElementRef, client: ElementRef, producte: ElementRef) { 
     this.store.select('producteApp').subscribe(products => this.productState$ = products);
@@ -69,8 +69,21 @@ export class IntroduccioPalets2Component implements OnInit {
 
   ngOnChanges(){
     if(this.show2==true){
-      this.barcode.nativeElement.focus();  
-      this.store.dispatch(contador({albara_entrada: this.num_entrada.value}));
+      this.barcode.nativeElement.focus();
+      this.palet ={
+        albara_entrada: this.num_entrada.value,
+        data_entrada: '',
+        lot: '',
+        product_id: NaN,
+        client_id: NaN,
+        sscc: NaN,
+        caducitat: new Date,
+        albara_sortida: '',
+        data_sortida: '',
+        location_id: NaN     
+      }
+      console.log(this.palet);
+      this.store.dispatch(contador({palet: this.palet}));
     }
   }  
 
@@ -160,8 +173,8 @@ export class IntroduccioPalets2Component implements OnInit {
     this.store.dispatch(createPalet({ palet: this.palet }));
     
     this.clear();
-    this.store.dispatch(contador({albara_entrada: this.num_entrada.value}));
-    this.barcode.nativeElement.focus(); 
+/*     this.store.dispatch(contador({albara_entrada: this.num_entrada.value}));
+ */    this.barcode.nativeElement.focus(); 
  } 
 
 }

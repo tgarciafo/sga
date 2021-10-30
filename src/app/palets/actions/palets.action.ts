@@ -17,7 +17,7 @@ export const createPaletError = createAction(
 
 export const contador = createAction(
     '[Palet] Contador',
-    props<{ albara_entrada: string }>()
+    props<{ palet: Palet}>()
 );
 
 export const contadorSuccess = createAction(
