@@ -9,6 +9,7 @@ import {
 export interface PlanificationState{
     planifications: Planification[];
     planification: Planification | null;
+    consultaPlanification: any[];
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -17,6 +18,7 @@ export interface PlanificationState{
 export const initialState: PlanificationState = {
     planifications: [],
     planification: null,
+    consultaPlanification: [],
     loading: false,
     loaded: false,
     error: null
@@ -101,11 +103,11 @@ const _planificationReducer = createReducer(
         }
     })),
     on(getPlanification, state => ({ ...state, loading: true })),
-    on(getPlanificationSuccess, (state, { planification } ) => ({
+    on(getPlanificationSuccess, (state, { consultaPlanification } ) => ({
         ...state,
         loading: false,
         loaded: true,
-        planification: planification,
+        consultaPlanification: consultaPlanification
     })),
     on(getPlanificationError, (state, { payload }) => ({
         ...state,

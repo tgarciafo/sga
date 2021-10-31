@@ -31,9 +31,10 @@ export class PlanificationService {
       );
   }
 
-  getPlanification(id: number | undefined): Observable<Planification>{
-    return this.httpClient.get<Planification>(this.API_ENDPOINT + '/getPlanification/'+id).pipe(
-      catchError(this.handleError<Planification>(`getPlanification id=${id}`))
+  getPlanification(planification: Planification): Observable<Array<any>>{
+    const albara_sortida= planification.albara_sortida;
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/getPlanification/'+albara_sortida).pipe(
+      catchError(this.handleError<Array<any>>(`getPlanification albara_sortida=${albara_sortida}`))
     );
   }
 

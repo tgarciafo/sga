@@ -82,7 +82,6 @@ export class IntroduccioPalets2Component implements OnInit {
         data_sortida: '',
         location_id: NaN     
       }
-      console.log(this.palet);
       this.store.dispatch(contador({palet: this.palet}));
     }
   }  

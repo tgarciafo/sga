@@ -56,3 +56,17 @@ export const consultaPalEntradesError = createAction(
     '[Palet] Consulta Palets Entrades error',
     props<{payload: any}>()
 );
+
+export const consultaPalResta = createAction(
+    '[Palet] Consulta Palets Resta',
+    props<{ product_id: number }>()
+);
+
+export const consultaPalRestaSuccess = createAction(
+    '[Palet] Consulta Palets Resta success',
+    props<{ palResta: number }>()
+);
+export const consultaPalRestaError = createAction(
+    '[Palet] Consulta Palets Resta error',
+    props<{payload: any}>()
+);

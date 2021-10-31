@@ -63,7 +63,7 @@ props<{ planification: Planification }>());
 
 export const getPlanificationSuccess = createAction(
     '[Planification] Get Planification success',
-    props<{ planification: Planification }>()
+    props<{ consultaPlanification: any[] }>()
 );
 
 export const getPlanificationError = createAction(

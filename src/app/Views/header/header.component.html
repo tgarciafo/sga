@@ -31,6 +31,14 @@
               <li><a class="dropdown-item" routerLink="/consulta-entrades">Consulta de palets d'entrada</a></li>
             </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Sortides
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/planificacio-sortides">Planificació de sortides</a></li>
+            </ul>
+          </li>
           <li class="nav-item" *ngIf="!loginState$.loggedIn"><a class="btn btn-success my-2 mx-2" routerLink="/login">Log In</a></li>
           <li class="nav-item" *ngIf="!loginState$.loggedIn"><a  class="btn btn-success my-2 mx-2" routerLink="/sign-in">Sign In</a></li>
           <li class="nav-item" *ngIf="loginState$.loggedIn"><a  class="btn btn-danger my-2 mx-2" (click)="onClickLogout()">LOGOUT</a></li>

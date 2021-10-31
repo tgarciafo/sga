@@ -59,6 +59,17 @@ export class PaletsEffects {
         )
     );
 
+    palRestaPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.consultaPalResta),
+            mergeMap((action) =>
+                this.paletsService.palResta(action.product_id).pipe(
+                    map((num_pal) => PaletActions.consultaPalRestaSuccess({ palResta: num_pal })),
+                    catchError((err)=> of(PaletActions.consultaPalRestaError({payload: err})))
+                ))
+        )
+    );
+
         redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri]));

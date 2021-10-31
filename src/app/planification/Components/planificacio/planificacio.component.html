@@ -1,32 +1,88 @@
-<!-- <h2>Planificació de sortides</h2>
+<h2>Planificació de sortides</h2>
 
 <br>
-<div id="planificacio">
-    <form class="border border-light p-5" [formGroup]="consultaEntForm" (ngSubmit)="getPlanification()">    
+<div id="planificacio" [hidden]="bSubmitted">
+    <form class="border border-light p-5" [formGroup]="planificacioForm" (ngSubmit)="getPlanification()">    
         <div class="mb-3">
             <label for="num_sortida" class="form-label">Número d'albarà de sortida</label>
-            <input type="text" [formControl]="num_sortida" class="form-control" name="num_sortida" placeholder="Escriu el número d'albarà de sortida">
+            <input type="text" [readonly]="bSubmitted" [formControl]="num_sortida" class="form-control" name="num_sortida" placeholder="Escriu el número d'albarà de sortida">
         </div>
         <div class="mb-3">
             <label for="idClient" class="form-label">Selecciona el Client</label>
             <select class="form-select" name="idClient" [formControl]="idClient" aria-label="idClient">
-                <option [value]="idClient.idClient" *ngFor="let idClient of clients">{{idClient.descriptionClient}}</option>
+                <option [value]="client.client_id" *ngFor="let client of clientState$.clients">{{client.description_client}}</option>
             </select>
         </div>
-        <button (click)="goEntry()" class="btn btn-primary">Acceptar</button>
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!planificacioForm.valid">Acceptar</button>
     </form>
 </div>
 
-<div id="dates">
-    <form class="border border-light p-5" [formGroup]="consultaEntForm" (ngSubmit)="getEntrades()">    
-        <div class="mb-3">
-            <label for="data" class="form-label">Selecciona el dia d'inici de consulta:</label>
-            <input type="date" class="form-control" [formControl]="data" name="data" required>
+<div id="planificacio2" [hidden]="!bSubmitted">  
+    <h3>Selecciona les línies de producte</h3>
+    <div class="table-responsive">
+    <table class="table table-hover table-responsive table-bordered">
+        <caption>
+            <button class="btn btn-primary" (click)="open(mymodal)">
+                Agregar nova línia
+                <!-- <span class="glyphicon glyphicon-plus"> </span> -->
+            </button>
+        </caption>
+        <thead>
+        <tr>
+            <td>Albarà de sortida</td>
+            <td>Codi de producte</td>
+            <td>Número de palets</td>
+            <td>Editar</td>
+            <td>Eliminar</td>
+        </tr>
+      </thead>
+      <tbody>
+                <tr *ngFor="let planificat of planificationState$.consultaPlanification">
+                    <td>{{planificat.albara_sortida}}</td>
+                    <td>{{planificat.description_prod}}</td>
+                    <td>{{planificat.num_palets}}</td>
+                    <td>
+                        <!-- <button type="button" class="btn btn-warning"> 
+                          <span><fa-icon [icon]="faPenAlt"></fa-icon></span>
+                        </button> -->
+                    </td>
+                    <td>
+                        <!-- <button class="btn btn-danger" (click)="eliminar(this);">                          
+                          <span><fa-icon [icon]="faTrashAlt"></fa-icon></span>
+                        </button> -->
+                    </td>
+                </tr>
+      </tbody>
+    </table>
+    </div>
+    
+    <ng-template #mymodal let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Selecció de producte</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+          </button>
         </div>
-        <div class="mb-3">
-            <label for="data2" class="form-label">Selecciona el dia final de consulta:</label>
-            <input type="date" class="form-control" [formControl]="data2" name="data2" required>
+        <div class="modal-body">
+          <form class="border border-light p-5" [formGroup]="planificacioForm2" (ngSubmit)="savePlanification()">    
+          <label for="albara_sortida" class="form-label">Albarà de sortida</label>
+          <input type="text" [formControl]="albara_sortida" readonly class="form-control">
+          <label for="product_id" class="form-label">Codi de producte:</label>
+            <select class="form-control" (change)="palResta(this.product_id.value)" [formControl]="product_id">
+                <option [ngValue]="null">Seleccionar un producte</option>
+                <option [ngValue]="product.product_id" *ngFor="let product of productState$.productes">{{product.description_prod}}</option>
+          </select>
+          <!-- stock -->
+          <label for="palRestants" class="form-label">Stock del producte:</label>
+          <input type="text" [formControl]="palRestants" class="form-control" readonly>
+          <!-- final stock -->
+          <label for="num_palets" class="form-label">Número de palets</label>
+          <input type="number" id="num_palets" [formControl]="num_palets" class="form-control">
+          <button class="btn btn-primary my-4" (click)="modal.close('Save click')" type="submit" [disabled]="!planificacioForm2.valid">Afegir</button>  
+        </form>
         </div>
-        <button class="btn btn-primary my-4" type="submit" [disabled]="!consultaEntForm.valid">Acceptar</button>
-    </form>    
-</div> -->
+    </ng-template>
+
+    
+    <button (click)="goOut()" class="btn btn-primary">Sortir</button>
+  </div>

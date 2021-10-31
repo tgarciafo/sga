@@ -83,4 +83,11 @@ export class PaletsService {
     );
   }
 
+  palResta(product_id:number){
+
+    return this.httpClient.get<number>(this.API_ENDPOINT + '/getPalResta/'+ product_id, this.httpOptions).pipe(
+      catchError(this.handleError<number>('palResta'))
+    );
+  }
+
 }

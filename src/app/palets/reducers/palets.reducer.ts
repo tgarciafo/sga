@@ -2,13 +2,15 @@ import { createReducer, on } from '@ngrx/store';
 import { Palet } from '../models/palet';
 import {
     createPalet, createPaletSuccess, createPaletError, contador, contadorSuccess, contadorError, 
-    consultaEntrades, consultaEntradesError, consultaEntradesSuccess, consultaPalEntrades, consultaPalEntradesError, consultaPalEntradesSuccess
+    consultaEntrades, consultaEntradesError, consultaEntradesSuccess, consultaPalEntrades, 
+    consultaPalEntradesError, consultaPalEntradesSuccess, consultaPalResta, consultaPalRestaError,consultaPalRestaSuccess
 } from '../actions/palets.action';
 
 export interface PaletState{
     palets: Palet[];
     palet: Palet | null;
     contador: number | null | unknown;
+    palResta: number | null;
     consulta: any[];
     consultaPal: any[];
     loading: boolean;
@@ -20,6 +22,7 @@ export const initialState: PaletState = {
     palets: [],
     palet: null,
     contador: null,
+    palResta: null,
     consulta: [],
     consultaPal: [],
     loading: false,
@@ -88,6 +91,23 @@ const _paletReducer = createReducer(
         consultaPal: consultaPal
     })),
     on(consultaPalEntradesError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(consultaPalResta, state => ({ ...state, loading: true })),
+    on(consultaPalRestaSuccess, (state, { palResta }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        palResta: palResta
+    })),
+    on(consultaPalRestaError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

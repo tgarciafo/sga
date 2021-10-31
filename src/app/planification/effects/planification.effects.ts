@@ -60,10 +60,10 @@ export class PlanificationEffects {
 
     getPlanification$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(PlanificationActions.getPlanification),
+            ofType(PlanificationActions.getPlanification, PlanificationActions.createPlanificationSuccess),
             mergeMap((action) =>
-                this.planificationService.getPlanification(action.planification.planification_id).pipe(
-                    map((planification) => PlanificationActions.getPlanificationSuccess({ planification })),
+                this.planificationService.getPlanification(action.planification).pipe(
+                    map((consultaPlanification) => PlanificationActions.getPlanificationSuccess( {consultaPlanification:consultaPlanification} )),
                     catchError((err) => of(PlanificationActions.getPlanificationError({ payload: err })))
                 ))
         ));
