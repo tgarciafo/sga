@@ -1,3 +1,4 @@
+declare var parseBarcode: any;
 import { Component, Input, OnInit } from '@angular/core';
 import { Palet } from '../../../models/palet';
 import {DatePipe} from '@angular/common';
