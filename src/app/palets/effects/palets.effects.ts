@@ -5,7 +5,6 @@ import { PaletsService } from '../Services/palets.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { Palet } from '../models/palet';
 
 @Injectable()
 export class PaletsEffects {
@@ -81,6 +80,29 @@ export class PaletsEffects {
                 ))
         )
     );
+
+    consultaSortidesPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.consultaSortides),
+            mergeMap((action) =>
+                this.paletsService.consultaSortida(action.data, action.data2).pipe(
+                    map((consultaS) => PaletActions.consultaSortidesSuccess({ consultaS: consultaS })),
+                    catchError((err)=> of(PaletActions.consultaSortidesError({payload: err})))
+                ))
+        )
+    );
+
+    consultaPalSortidesPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.consultaPalSortides),
+            mergeMap((action) =>
+                this.paletsService.sortidesPal(action.albara).pipe(
+                    map((consultaPalS) => PaletActions.consultaPalSortidesSuccess({ consultaPalS: consultaPalS })),
+                    catchError((err)=> of(PaletActions.consultaPalSortidesError({payload: err})))
+                ))
+        )
+    );
+
 
         redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>

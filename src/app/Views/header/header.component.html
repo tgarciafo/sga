@@ -38,6 +38,7 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/planificacio-sortides">Planificació de sortides</a></li>
               <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/picking">Expedicions</a></li>
+              <li><a class="dropdown-item" routerLink="/consulta-sortides">Consulta de palets de sortida</a></li>
             </ul>
           </li>
           <li class="nav-item" *ngIf="!loginState$.loggedIn"><a class="btn btn-success my-2 mx-2" routerLink="/login">Log In</a></li>

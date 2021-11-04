@@ -6,6 +6,7 @@ import { LocationsRegistradesComponent } from './locations/Components/locations-
 import { RegistreLocationsComponent } from './locations/Components/registre-locations/registre-locations.component';
 import { LoginComponent } from './login/Components/login/login.component';
 import { ConsultaEntradesComponent } from './palets/Components/consulta-entrades/consulta-entrades.component';
+import { ConsultaSortidesComponent } from './palets/Components/consulta-sortides/consulta-sortides.component';
 import { IntroduccioPaletsComponent } from './palets/Components/intro_Pal/introduccio-palets/introduccio-palets.component';
 import { IntroduccioPalets2Component } from './palets/Components/intro_Pal/introduccio-palets2/introduccio-palets2.component';
 import { SortidesComponent } from './palets/Components/sortides/sortides.component';
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: 'consulta-entrades', component: ConsultaEntradesComponent},
   { path: 'planificacio-sortides', component: PlanificacioComponent},
   { path: 'picking', component: SortidesComponent},
+  { path: 'consulta-sortides', component: ConsultaSortidesComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

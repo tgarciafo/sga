@@ -85,3 +85,31 @@ export const sortidaError = createAction(
     '[Palet] Sortida error',
     props<{payload: any}>()
 );
+
+export const consultaSortides = createAction(
+    '[Palet] Consulta Sortides',
+    props<{ data: Date, data2: Date }>()
+);
+
+export const consultaSortidesSuccess = createAction(
+    '[Palet] Consulta Sortides success',
+    props<{ consultaS: any[] }>()
+);
+export const consultaSortidesError = createAction(
+    '[Palet] Consulta Sortides error',
+    props<{payload: any}>()
+);
+
+export const consultaPalSortides = createAction(
+    '[Palet] Consulta Palets Sortides',
+    props<{ albara: string }>()
+);
+
+export const consultaPalSortidesSuccess = createAction(
+    '[Palet] Consulta Palets Sortides success',
+    props<{ consultaPalS: any[] }>()
+);
+export const consultaPalSortidesError = createAction(
+    '[Palet] Consulta Palets Sortides error',
+    props<{payload: any}>()
+);

@@ -105,5 +105,18 @@ export class PaletsService {
       })
     )  
   }
+
+  consultaSortida(data: Date, data2: Date): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/showExpeditions/'+ data +'/'+data2, this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('consultaSortida'))
+    );
+  }
+
+
+  sortidesPal(albara: string): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/showPalExpeditions/'+ albara, this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('consultaPalSortida'))
+    );
+  }
   
 }
