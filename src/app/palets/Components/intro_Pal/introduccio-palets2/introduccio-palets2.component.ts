@@ -105,7 +105,7 @@ export class IntroduccioPalets2Component implements OnInit {
 
     try{
 
-      let answer= parseBarcode.parseBarcode(this.codi);
+      let answer= parseBarcode(this.codi);
 
       return answer.parsedCodeItems.forEach(this.basedades);
       
