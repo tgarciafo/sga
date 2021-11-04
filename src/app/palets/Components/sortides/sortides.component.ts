@@ -1,5 +1,6 @@
+declare var parseBarcode: any;
 import { DatePipe } from '@angular/common';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
@@ -28,6 +29,8 @@ export class SortidesComponent implements OnInit {
   /* Formulari 2 */
 
   public albara_sortida: FormControl;
+  public barcode: FormControl;
+  public sscc: FormControl;
   public sortidaForm2: FormGroup;
   public errorSortida2: any;
   public bSubmitted2: boolean;
@@ -40,15 +43,9 @@ export class SortidesComponent implements OnInit {
   data_sortida = new Date();
   sortida: Sortida;
 
-  @ViewChild('sscc', {static: false}) sscc: ElementRef;
-  @ViewChild("barcode") barcode: ElementRef;
-
-  constructor(private datePipe: DatePipe, barcode: ElementRef, sscc: ElementRef, private formBuilder: FormBuilder, private store: Store<AppState>) {
+  constructor(private datePipe: DatePipe, private formBuilder: FormBuilder, private store: Store<AppState>) {
     this.store.select('planificationApp').subscribe(planifications => this.planificationState$ = planifications);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
-
-    this.sscc=sscc;
-    this.barcode = barcode;
   }
 
   ngOnInit(): void {
@@ -69,26 +66,47 @@ export class SortidesComponent implements OnInit {
     /* Formulari 2 */
 
     this.albara_sortida = new FormControl('', [Validators.required]);
+    this.barcode = new FormControl('', [Validators.required]);
+    this.sscc = new FormControl('', [Validators.required]);
     this.errorSortida2 = '';
 
     this.sortidaForm2 = this.formBuilder.group({
       albara_sortida: this.albara_sortida,
+      barcode: this.barcode,
+      sscc: this.sscc
     });
 
     /* Formulari 2 */
 
   }
 
-  submitForm(){
-    let selectButton = document.getElementById('sendbutton');
+  interpreteBarcode(){
+    "use strict";
 
-    if(selectButton){
-        selectButton.click();
-    }
+    try{
 
-    var submit = document.getElementById('submitbutton');
-    if(submit){
-    submit.click();
+      let answer= parseBarcode(this.codi());
+
+      return answer.parsedCodeItems.forEach(this.basedades);
+
+    } catch (e){
+      console.log(e);
+  }
+    
+  }
+
+  basedades(element: any, index: any,array: any){
+    const ai=element.ai;
+    let data=element.data;
+
+    if (ai=='00'){
+      this.sscc=(data);
+    } 
+  }  
+
+  codi(){
+    if (this.barcode.value != ''){
+      return this.barcode.value;
     }
   }
 
@@ -99,22 +117,6 @@ export class SortidesComponent implements OnInit {
     this.albara_sortida.setValue(this.num_sortida.value);
 
     this.store.dispatch(getPlanificationSortida({albara_sortida:this.albara_sortida.value}));
-
-    this.barcode.nativeElement.focus();
-    
-  }
-
-  clear() {
-
-    let barcode=<HTMLInputElement>document.getElementById('barcode');
-
-    if(barcode){
-      barcode.value="";
-    } 
-
-    let sscc=<HTMLInputElement>document.getElementById('sscc');
-    
-    sscc.value=" ";
     
   }
 
@@ -126,22 +128,18 @@ export class SortidesComponent implements OnInit {
 
     this.sortida={
       albara_sortida: form.albara_sortida,
-      sscc: this.sscc.nativeElement.value,
+      sscc: form.sscc,
       data_sortida: this.datePipe.transform(this.data_sortida, 'yyyy-MM-dd'),
       product_id: this.planificationState$.planifications[0].product_id
     }
   
     this.store.dispatch(sortida({sortida: this.sortida}));
 
-    this.clear();
-
+/*     this.clear();
+ */
     this.sortidaForm2.reset();
 
-    this.barcode.nativeElement.focus();
-
-  }
-
-  
+  } 
 
 }
 

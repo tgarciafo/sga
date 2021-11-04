@@ -13,7 +13,6 @@
         <input type="text" [formControl]="barcode" placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="interpreteBarcode()"  required>
         <label for="barcode2">Escaneja el codi SSCC:</label>
         <input type="text" [formControl]="barcode2" placeholder="Escriure el codi SSCC del palet" name="barcode2" (change)="interpreteBarcode()"  required>
-        <input type="button" class="btn btn-primary" value="Parse" (click)="interpreteBarcode()" id="sendbutton"><br />
       </div>
       <div class="mb-3">
             <label hidden for="lot">Lot:</label>
@@ -33,12 +32,6 @@
             
             <label hidden for="producte">Producte:</label>
             <input type="text" [formControl]="producte" value="{{productState$.producte?.product_id}}" placeholder="producte"  readonly>
-         
-            <!-- <label hidden for="quantitat">Quantitat:</label>
-            <input type="text" #qty id="quantitat" placeholder="quantitat" readonly> -->
-          
-            <!-- <label hidden for="ubicacio">Ubicacio:</label>
-            <input type="text" formControlName="location" id="ubicacio" readonly> -->
       </div>
       <button class="btn btn-primary" type="submit">Guardar</button>
   </form>  

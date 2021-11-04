@@ -24,8 +24,6 @@ export class IntroduccioPalets2Component implements OnInit {
     
   currDate: string | null = '';
 
-  public num_ean: number;
-
   @Input() num_entrada: any = '';
   @Input() location_id: any = NaN;
   @Input() show: boolean= true;
@@ -54,68 +52,64 @@ export class IntroduccioPalets2Component implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(getAllProductes());
     this.store.dispatch(getAllClients());
-  }
 
-  
+    this.palet ={
+      albara_entrada: this.num_entrada.value,
+      data_entrada: '',
+      lot: '',
+      product_id: NaN,
+      client_id: NaN,
+      sscc: NaN,
+      caducitat: new Date,
+      albara_sortida: '',
+      data_sortida: '',
+      location_id: NaN     
+    }
+
+    this.albara_entrada = new FormControl(this.num_entrada.value, [Validators.required]);
+    this.barcode = new FormControl('', [Validators.required]);
+    this.barcode2 = new FormControl('', [Validators.required]);
+    this.lot = new FormControl('', [Validators.required]);
+    this.ean = new FormControl('', [Validators.required]);
+    this.sscc = new FormControl('', [Validators.required]);
+    this.caducitat = new FormControl('', [Validators.required]);
+    this.client = new FormControl(this.productState$.producte?.client_id, [Validators.required]);
+    this.producte = new FormControl(this.productState$.producte?.product_id, [Validators.required]);
+    this.errorEntrada = '';
+
+  this.entradaForm = this.formBuilder.group({
+    albara_entrada: this.albara_entrada,
+    barcode: this.barcode,
+    barcode2: this.barcode2,
+    lot: this.lot,
+    ean: this.ean,
+    sscc: this.sscc,
+    caducitat: this.caducitat,
+    client: this.client,
+    producte: this.producte
+  });
+  }
 
   ngOnChanges(){
     if(this.show2==true){
-      this.palet ={
-        albara_entrada: this.num_entrada.value,
-        data_entrada: '',
-        lot: '',
-        product_id: NaN,
-        client_id: NaN,
-        sscc: NaN,
-        caducitat: new Date,
-        albara_sortida: '',
-        data_sortida: '',
-        location_id: NaN     
-      }
-
-      this.albara_entrada = new FormControl(this.num_entrada.value, [Validators.required]);
-      this.barcode = new FormControl('', [Validators.required]);
-      this.barcode2 = new FormControl('', [Validators.required]);
-      this.lot = new FormControl('', [Validators.required]);
-      this.ean = new FormControl('', [Validators.required]);
-      this.sscc = new FormControl('', [Validators.required]);
-      this.caducitat = new FormControl('', [Validators.required]);
-      this.client = new FormControl(this.productState$.producte?.client_id, [Validators.required]);
-      this.producte = new FormControl(this.productState$.producte?.product_id, [Validators.required]);
-      this.errorEntrada = '';
-
-    this.entradaForm = this.formBuilder.group({
-      albara_entrada: this.albara_entrada,
-      barcode: this.barcode,
-      barcode2: this.barcode2,
-      lot: this.lot,
-      ean: this.ean,
-      sscc: this.sscc,
-      caducitat: this.caducitat,
-      client: this.client,
-      producte: this.producte
-    });
 
       this.store.dispatch(contador({palet: this.palet}));
+
     }
   }  
   
-
   interpreteBarcode(){
     "use strict";
 
     try{
 
-
       let answer= parseBarcode(this.codi());
 
       return answer.parsedCodeItems.forEach(this.basedades);
       
-
     } catch (e){
       console.log(e);
   }
-    
   }
 
   basedades(element: any, index: any,array: any){
@@ -147,32 +141,32 @@ export class IntroduccioPalets2Component implements OnInit {
 
   getProduct(){  
 
-/*   this.num_ean=this.ean.nativeElement.value;
- */
-  this.store.dispatch(getId({ean: this.num_ean}));   
+  this.store.dispatch(getId({ean: this.ean.value}));   
 
   }
   
   goSave(){
+
+    const form= this.entradaForm.value;
         
-        /* this.palet={
+        this.palet={
           albara_entrada: this.num_entrada.value,
           data_entrada: this.currDate,
-          lot: this.lot.nativeElement.value,
-          product_id: this.producte.nativeElement.value,
-          client_id: this.client.nativeElement.value,
-          sscc: this.sscc.nativeElement.value,
-          caducitat: this.caducitat.nativeElement.value,
+          lot: form.lot,
+          product_id: form.ean,
+          client_id: form.client,
+          sscc: form.sscc,
+          caducitat: form.caducitat,
           albara_sortida: '',
           data_sortida: '',
           location_id: this.location_id.value     
-        } */
+        }
 
     this.store.dispatch(createPalet({ palet: this.palet }));
     
-    /* this.clear();
-    this.store.dispatch(contador({albara_entrada: this.num_entrada.value}));
-    this.barcode.nativeElement.focus(); */
+/*     this.clear();
+ *//*     this.store.dispatch(contador({albara_entrada: this.num_entrada.value}));
+ */  
  }  
 
  public buildForm(){
@@ -184,6 +178,5 @@ export class IntroduccioPalets2Component implements OnInit {
 goOut(){
   return window.location.reload();
 }
-
 
 }
