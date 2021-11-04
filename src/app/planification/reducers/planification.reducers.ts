@@ -3,13 +3,15 @@ import { Planification } from '../models/planification';
 import {
     createPlanification, getPlanification, getPlanificationError, getPlanificationSuccess, editPlanification, editPlanificationError, editPlanificationSuccess,
     deletePlanification, deletePlanificationSuccess, deletePlanificationError, getAllPlanifications, getAllPlanificationsSuccess,
-    getAllPlanificationsError, createPlanificationSuccess, createPlanificationError
+    getAllPlanificationsError, createPlanificationSuccess, createPlanificationError, getPlanificationSortida, getPlanificationSortidaError, getPlanificationSortidaSuccess,
+    comptador, comptadorError, comptadorSuccess
 } from '../actions/planification.action';
 
 export interface PlanificationState{
     planifications: Planification[];
     planification: Planification | null;
     consultaPlanification: any[];
+    comptador: number | null | unknown;
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -19,6 +21,7 @@ export const initialState: PlanificationState = {
     planifications: [],
     planification: null,
     consultaPlanification: [],
+    comptador: null,
     loading: false,
     loaded: false,
     error: null
@@ -110,6 +113,40 @@ const _planificationReducer = createReducer(
         consultaPlanification: consultaPlanification
     })),
     on(getPlanificationError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(getPlanificationSortida, state => ({ ...state, loading: true })),
+    on(getPlanificationSortidaSuccess, (state, { planifications} ) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        planifications: planifications
+    })),
+    on(getPlanificationSortidaError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(comptador, state => ({ ...state, loading: true })),
+    on(comptadorSuccess, (state, { num_pal }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        comptador: num_pal
+    })),
+    on(comptadorError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

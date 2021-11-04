@@ -25,10 +25,12 @@ export class PlanificationService {
     return this.httpClient.post(this.API_ENDPOINT + '/planification', planification, {headers: headers});
   }
 
-  getPlanifications(): Observable<Planification[]>{
-    return this.get().pipe(
-        catchError(this.handleError<Planification[]>('getPlanifications', []))
-      );
+  getPlanifications(albara_sortida:string): Observable<Planification[]>{
+
+    return this.httpClient.get<Planification[]>(this.API_ENDPOINT + '/getPlanifications/'+albara_sortida).pipe(
+      catchError(this.handleError<Planification[]>(`getPlanifications albara_sortida=${albara_sortida}`))
+    );
+  
   }
 
   getPlanification(planification: Planification): Observable<Array<any>>{
@@ -55,6 +57,14 @@ export class PlanificationService {
 
     return this.httpClient.delete<Planification>(this.API_ENDPOINT + '/getPlanification/'+id, this.httpOptions).pipe(
       catchError(this.handleError<Planification>('deletePlanification'))
+    );
+  }
+
+  comptador(planifications: Planification[]){
+    const albara = planifications[0].albara_sortida;
+
+    return this.httpClient.get<Number>(this.API_ENDPOINT + '/num_pal_sortida/'+ albara, this.httpOptions).pipe(
+      catchError(this.handleError<Number>('comptador'))
     );
   }
 

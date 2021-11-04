@@ -5,6 +5,7 @@ import { PaletsService } from '../Services/palets.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { Palet } from '../models/palet';
 
 @Injectable()
 export class PaletsEffects {
@@ -66,6 +67,17 @@ export class PaletsEffects {
                 this.paletsService.palResta(action.product_id).pipe(
                     map((num_pal) => PaletActions.consultaPalRestaSuccess({ palResta: num_pal })),
                     catchError((err)=> of(PaletActions.consultaPalRestaError({payload: err})))
+                ))
+        )
+    );
+
+    sortidaPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.sortida),
+            mergeMap((action) =>
+                this.paletsService.sortidaPal(action.sortida).pipe(
+                    map((palet) => PaletActions.sortidaSuccess({ palet: palet })),
+                    catchError((err)=> of(PaletActions.sortidaError({payload: err})))
                 ))
         )
     );

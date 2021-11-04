@@ -45,7 +45,8 @@ export const deletePlanificationError = createAction(
     props<{ payload:any }>()
 );
 
-export const getAllPlanifications = createAction('[Planification] Get all');
+export const getAllPlanifications = createAction(
+    '[Planification] Get all');
 
 export const getAllPlanificationsSuccess = createAction(
     '[Planification] Get all success',
@@ -68,5 +69,33 @@ export const getPlanificationSuccess = createAction(
 
 export const getPlanificationError = createAction(
     '[Planification] Get Planification error',
+    props<{payload: any}>()
+);
+
+export const getPlanificationSortida = createAction(
+    '[Planification] Get Planification Sortida',
+props<{ albara_sortida: string }>());
+
+export const getPlanificationSortidaSuccess = createAction(
+    '[Planification] Get Planification Sortida success',
+    props<{ planifications: Planification[] }>()
+);
+
+export const getPlanificationSortidaError = createAction(
+    '[Planification] Get Planification Sortida error',
+    props<{payload: any}>()
+);
+
+export const comptador = createAction(
+    '[Planification] Comptador',
+    props<{ planifications: Planification[]}>()
+);
+
+export const comptadorSuccess = createAction(
+    '[Planification] Comptador success',
+    props<{ num_pal: number | unknown }>()
+);
+export const comptadorError = createAction(
+    '[Planification] Comptador error',
     props<{payload: any}>()
 );

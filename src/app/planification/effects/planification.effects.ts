@@ -68,6 +68,27 @@ export class PlanificationEffects {
                 ))
         ));
 
+    getPlanificationsSortida$ = createEffect(() =>
+    this.actions$.pipe(
+        ofType(PlanificationActions.getPlanificationSortida),
+        mergeMap((action) =>
+            this.planificationService.getPlanifications(action.albara_sortida).pipe(
+                map((planifications) => PlanificationActions.getPlanificationSortidaSuccess( {planifications} )),
+                catchError((err) => of(PlanificationActions.getPlanificationSortidaError({ payload: err })))
+            ))
+    ));
+
+    comptadorPlanification$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PlanificationActions.comptador, PlanificationActions.getPlanificationSortidaSuccess),
+            mergeMap((action) =>
+                this.planificationService.comptador(action.planifications).pipe(
+                    map((num_pal) => PlanificationActions.comptadorSuccess({ num_pal: num_pal })),
+                    catchError((err)=> of(PlanificationActions.comptadorError({payload: err})))
+                ))
+        )
+    );
+
         redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri]));

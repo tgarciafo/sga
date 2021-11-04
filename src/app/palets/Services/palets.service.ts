@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Palet } from '../models/palet';
 import { Observable, of } from 'rxjs';
-import { catchError} from 'rxjs/operators';
+import { catchError, map} from 'rxjs/operators';
+import { Sortida } from '../models/sortida';
 
 @Injectable({
   providedIn: 'root'
@@ -31,9 +32,9 @@ export class PaletsService {
       );
   }
 
-  getPalet(id: number | undefined): Observable<Palet>{
-    return this.httpClient.get<Palet>(this.API_ENDPOINT + '/getPalet/'+id).pipe(
-      catchError(this.handleError<Palet>(`getPalet id=${id}`))
+  getPalet(sscc: number | undefined): Observable<Palet>{
+    return this.httpClient.get<Palet>(this.API_ENDPOINT + '/getPalet/'+sscc).pipe(
+      catchError(this.handleError<Palet>(`getPalet sscc=${sscc}`))
     );
   }
   
@@ -90,4 +91,19 @@ export class PaletsService {
     );
   }
 
+  sortidaPal(sortida: Sortida){
+
+    return this.getPalet(sortida.sscc).pipe(
+      map((palet)=>{
+
+        palet.data_sortida=sortida.data_sortida;
+        palet.albara_sortida=sortida.albara_sortida;
+
+        return this.httpClient.put<Palet>(this.API_ENDPOINT + '/sortidaPal/'+ palet, this.httpOptions).pipe(
+          catchError(this.handleError<any>('palResta'))
+        );
+      })
+    )  
+  }
+  
 }

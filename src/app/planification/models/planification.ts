@@ -4,5 +4,6 @@ export interface Planification{
     sscc: number;
     albara_sortida: string;
     product_id: number;
+    description_prod: string;
     user_id: number;
 }

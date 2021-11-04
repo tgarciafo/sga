@@ -1,0 +1,71 @@
+<h2>Expedicions</h2>
+
+<br>
+<div id="sortida" [hidden]="bSubmitted">
+    <form class="border border-light p-5" [formGroup]="sortidaForm" (ngSubmit)="getSortida()">    
+        <div class="mb-3">
+            <label for="num_sortida" class="form-label">Número d'albarà de sortida</label>
+            <input type="text" [formControl]="num_sortida" class="form-control" name="num_sortida" placeholder="Escriu el número d'albarà de sortida">
+        </div>
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!sortidaForm.valid">Acceptar</button>
+    </form>
+</div>
+<div id="sortida2" [hidden]="!bSubmitted">  
+    <h3>Picking Sortides</h3>
+    <form class="border border-light p-5" [formGroup]="sortidaForm2" (ngSubmit)="saveSortida()">    
+    <div class="mb-3">
+        <label for="albara_sortida" class="form-label">Número d'albarà: </label>
+        <input type="text" readonly [formControl]="albara_sortida" class="form-control" name="albara_sortida">
+    </div>
+    <div class="mb-3" *ngIf="planificationState$.planifications[0]">
+        <label for="product_id" class="form-label">Referència: </label>
+        <input type="text" readonly class="form-control" value="{{this.planificationState$.planifications[0].description_prod}}" name="product_id">
+    </div>
+    <button class="btn btn-danger my-4" type="button">Eliminar registre</button>
+    <div class="mb-3" *ngIf="planificationState$.comptador">
+        <label for="resta" class="form-label">Número restant de palets per llegir: </label>
+        <input type="number" readonly value="{{this.planificationState$.comptador}}" class="form-control" name="resta">
+    </div>
+    <!-- <div class="mb-3">
+        <label for="barcode">Escaneja el codi SSCC:</label>
+        <input type="text" id="barcode" #barcode placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="submitForm()" required>
+        <input type="button" id="sendbutton" value="Parse">
+    </div> -->
+    <!-- <div class="mb-3">
+        <label for="sscc">SSCC:</label>
+        <input type="text" #sscc placeholder="sscc" readonly id="sscc">
+    </div> -->
+    <div id="barcodeInputDiv">
+        <label for="barcode">Escaneja el codi SSCC:</label>
+        <input type="text" id="barcode" #barcode placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="submitForm()"  required>
+        <input type="button" class="btn btn-primary" value="Parse" id="sendbutton"><br />
+      </div>
+      <div class="mb-3">
+            <!-- <label hidden for="lot">Lot:</label>
+            <input type="text" #lot placeholder="lot" readonly id="lot">
+          
+            <label hidden for="ean">Producte:</label>
+            <input type="text" #ean placeholder="ean" readonly id="ean"> -->
+       
+            <label hidden for="sscc">SSCC:</label>
+            <input type="text" #sscc id="sscc" placeholder="sscc" readonly>
+          
+            <!-- <label hidden for="caducitat">Caducitat:</label>
+            <input type="text" #caducitat id="caducitat" placeholder="caducitat"  readonly>
+            
+            <label hidden for="client">Client:</label>
+            <input type="text" #client id="client" placeholder="client" value="{{productState$.producte?.product_id}}" readonly>
+            
+            <label hidden for="producte">Producte:</label>
+            <input type="text" #producte id="producte" value="{{productState$.producte?.client_id}}" placeholder="producte"  readonly> -->
+         
+            <!-- <label hidden for="quantitat">Quantitat:</label>
+            <input type="text" #qty id="quantitat" placeholder="quantitat" readonly> -->
+          
+            <!-- <label hidden for="ubicacio">Ubicacio:</label>
+            <input type="text" formControlName="location" id="ubicacio" readonly> -->
+      </div>
+    
+    <button class="btn btn-primary my-4" type="submit" [disabled]="!sortidaForm2.valid">Acceptar</button>
+    </form>
+</div>

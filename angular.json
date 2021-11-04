@@ -34,8 +34,6 @@
             "scripts": [
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
               "./node_modules/gs1-barcode-parser/src/BarcodeParser.js",
-              "./node_modules/gs1-barcode-parser/src/BarcodeParserUsage2.js",
-              "./node_modules/gs1-barcode-parser/src/BarcodeParserUsage3.js"
             ]
           },
           "configurations": {

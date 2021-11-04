@@ -7,12 +7,14 @@ import { IntroduccioPaletsComponent } from './Components/intro_Pal/introduccio-p
 import { IntroduccioPalets2Component } from './Components/intro_Pal/introduccio-palets2/introduccio-palets2.component';
 import { ConsultaEntradesComponent } from './Components/consulta-entrades/consulta-entrades.component';
 import { NgxPrintModule } from 'ngx-print';
+import { SortidesComponent } from './Components/sortides/sortides.component';
 
 @NgModule({
   declarations: [
     IntroduccioPaletsComponent,
     IntroduccioPalets2Component,
-    ConsultaEntradesComponent
+    ConsultaEntradesComponent,
+    SortidesComponent
   ],
   imports: [
     CommonModule,

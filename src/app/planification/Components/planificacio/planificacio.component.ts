@@ -104,6 +104,7 @@ export class PlanificacioComponent implements OnInit {
       sscc: 0,      
       albara_sortida: this.num_sortida.value,
       product_id: NaN,
+      description_prod: '',
       user_id: NaN     
     }
 

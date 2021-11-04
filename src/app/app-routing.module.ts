@@ -8,6 +8,7 @@ import { LoginComponent } from './login/Components/login/login.component';
 import { ConsultaEntradesComponent } from './palets/Components/consulta-entrades/consulta-entrades.component';
 import { IntroduccioPaletsComponent } from './palets/Components/intro_Pal/introduccio-palets/introduccio-palets.component';
 import { IntroduccioPalets2Component } from './palets/Components/intro_Pal/introduccio-palets2/introduccio-palets2.component';
+import { SortidesComponent } from './palets/Components/sortides/sortides.component';
 import { PlanificacioComponent } from './planification/Components/planificacio/planificacio.component';
 import { ProductesRegistratsComponent } from './productes/Components/productes-registrats/productes-registrats.component';
 import { RegistreProductesComponent } from './productes/Components/registre-productes/registre-productes.component';
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'consulta-entrades', component: ConsultaEntradesComponent},
   { path: 'planificacio-sortides', component: PlanificacioComponent},
+  { path: 'picking', component: SortidesComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

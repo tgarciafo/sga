@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Palet } from '../models/palet';
+import { Sortida } from '../models/sortida';
 
 export const createPalet = createAction(
     '[Palet] Create Palet',
@@ -68,5 +69,19 @@ export const consultaPalRestaSuccess = createAction(
 );
 export const consultaPalRestaError = createAction(
     '[Palet] Consulta Palets Resta error',
+    props<{payload: any}>()
+);
+
+export const sortida = createAction(
+    '[Palet] Sortida',
+    props<{ sortida: Sortida }>()
+);
+
+export const sortidaSuccess = createAction(
+    '[Palet] Sortida success',
+    props<{ palet: any }>()
+);
+export const sortidaError = createAction(
+    '[Palet] Sortida error',
     props<{payload: any}>()
 );

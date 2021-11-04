@@ -3,7 +3,8 @@ import { Palet } from '../models/palet';
 import {
     createPalet, createPaletSuccess, createPaletError, contador, contadorSuccess, contadorError, 
     consultaEntrades, consultaEntradesError, consultaEntradesSuccess, consultaPalEntrades, 
-    consultaPalEntradesError, consultaPalEntradesSuccess, consultaPalResta, consultaPalRestaError,consultaPalRestaSuccess
+    consultaPalEntradesError, consultaPalEntradesSuccess, consultaPalResta, consultaPalRestaError,
+    consultaPalRestaSuccess, sortidaError, sortidaSuccess, sortida
 } from '../actions/palets.action';
 
 export interface PaletState{
@@ -108,6 +109,31 @@ const _paletReducer = createReducer(
         palResta: palResta
     })),
     on(consultaPalRestaError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(sortida,state => ({ ...state, loading: true })),
+    on(sortidaSuccess, (state, { palet }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        palets: [...state.palets.map((_palet) => {
+            if (_palet.sscc === palet.sscc) {
+                return {
+                    ...palet
+                };
+            } else {
+                return _palet;
+            }
+        })]
+    })),
+    on(sortidaError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,
