@@ -5,5 +5,6 @@ import { ProductesEffects } from "./productes/effects";
 import { LocationsEffects } from "./locations/effects";
 import { PaletsEffects } from "./palets/effects";
 import { PlanificationEffects } from "./planification/effects";
+import { BlockEffects } from "./block/effects";
 
-export const EffectsApp: any[] = [LoginEffects, UserEffects, ClientsEffects, ProductesEffects, LocationsEffects, PaletsEffects, PlanificationEffects];
+export const EffectsApp: any[] = [LoginEffects, UserEffects, ClientsEffects, ProductesEffects, LocationsEffects, PaletsEffects, PlanificationEffects, BlockEffects];

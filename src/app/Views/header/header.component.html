@@ -41,6 +41,15 @@
               <li><a class="dropdown-item" routerLink="/consulta-sortides">Consulta de palets de sortida</a></li>
             </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Bloquejats
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/bloquejar-palets">Bloquejar palets</a></li>
+              <li><a class="dropdown-item" routerLink="/consulta-bloquejats">Consulta de palets bloquejats</a></li>
+            </ul>
+          </li>
           <li class="nav-item" *ngIf="!loginState$.loggedIn"><a class="btn btn-success my-2 mx-2" routerLink="/login">Log In</a></li>
           <li class="nav-item" *ngIf="!loginState$.loggedIn"><a  class="btn btn-success my-2 mx-2" routerLink="/sign-in">Sign In</a></li>
           <li class="nav-item" *ngIf="loginState$.loggedIn"><a  class="btn btn-danger my-2 mx-2" (click)="onClickLogout()">LOGOUT</a></li>
