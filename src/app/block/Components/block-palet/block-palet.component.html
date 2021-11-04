@@ -1,1 +1,42 @@
-<p>block-palet works!</p>
+<h2>Bloquejar i desbloquejar palets</h2>
+
+<br>
+<div id="formulari">
+    <form class="border border-light p-5" [formGroup]="blockForm" (ngSubmit)="saveBlock()">    
+        <div class="mb-3">
+            <label for="sscc" class="form-label">Número sscc</label>
+            <input type="text" [formControl]="sscc" class="form-control" name="sscc" (change)="interpreteBarcode()" placeholder="Escriu el número de sscc">
+        </div>
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!blockForm.valid">Acceptar</button>
+    </form>
+</div>
+
+<div id="bloquejats">  
+    <h3>Palets bloquejats</h3>
+    <div class="table-responsive">
+    <table class="table table-hover table-responsive table-bordered">
+        <thead>
+        <tr>
+            <td>SSCC</td>
+            <td>Client</td>
+            <td>Codi de producte</td>
+            <td>Caducitat</td>
+            <td>Eliminar</td>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let block of blockState$.blocks">
+                <td>{{block.sscc}}</td>
+                <td>{{block.description_client}}</td>
+                <td>{{block.description_prod}}</td>
+                <td>{{block.caducitat}}</td>
+                <td>
+                    <!-- <button class="btn btn-danger" (click)="eliminar(this);">                          
+                        <span><fa-icon [icon]="faTrashAlt"></fa-icon></span>
+                    </button> -->
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
