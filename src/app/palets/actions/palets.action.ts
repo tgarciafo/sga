@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { Bloquejat } from 'src/app/bloquejats/models/bloquejat';
 import { Palet } from '../models/palet';
 import { Sortida } from '../models/sortida';
 

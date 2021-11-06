@@ -27,7 +27,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintModule } from 'ngx-print';
 import { PlanificationModule } from './planification/planification.module';
 import { CookieService } from 'ngx-cookie-service';
-import { BlockModule } from './block/block.module';
+import { BloquejatsModule } from './bloquejats/bloquejats.module';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,7 @@ import { BlockModule } from './block/block.module';
     LocationsModule,
     PaletsModule,
     PlanificationModule,
-    BlockModule,
+    BloquejatsModule,
     StoreModule.forRoot( appReducers, {
       runtimeChecks: {
         strictStateImmutability: false,

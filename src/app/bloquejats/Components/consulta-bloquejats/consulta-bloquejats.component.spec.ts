@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ConsultaBlockComponent } from './consulta-block.component';
+import { ConsultaBloquejatsComponent } from './consulta-bloquejats.component';
 
-describe('ConsultaBlockComponent', () => {
-  let component: ConsultaBlockComponent;
-  let fixture: ComponentFixture<ConsultaBlockComponent>;
+describe('ConsultaBloquejatsComponent', () => {
+  let component: ConsultaBloquejatsComponent;
+  let fixture: ComponentFixture<ConsultaBloquejatsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConsultaBlockComponent ]
+      declarations: [ ConsultaBloquejatsComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ConsultaBlockComponent);
+    fixture = TestBed.createComponent(ConsultaBloquejatsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

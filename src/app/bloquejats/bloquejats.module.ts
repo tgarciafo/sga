@@ -4,13 +4,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgxPrintModule } from 'ngx-print';
-import { BlockPaletComponent } from './Components/block-palet/block-palet.component';
-import { ConsultaBlockComponent } from './Components/consulta-block/consulta-block.component';
+import { BloquejarPaletsComponent } from './Components/bloquejar-palets/bloquejar-palets.component';
+import { ConsultaBloquejatsComponent } from './Components/consulta-bloquejats/consulta-bloquejats.component';
 
 @NgModule({
   declarations: [
-    BlockPaletComponent,
-    ConsultaBlockComponent
+    BloquejarPaletsComponent,
+    ConsultaBloquejatsComponent
   ],
   imports: [
     CommonModule,
@@ -20,4 +20,4 @@ import { ConsultaBlockComponent } from './Components/consulta-block/consulta-blo
     NgxPrintModule
   ]
 })
-export class BlockModule { }
+export class BloquejatsModule { }

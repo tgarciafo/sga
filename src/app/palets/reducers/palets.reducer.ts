@@ -5,7 +5,7 @@ import {
     consultaEntrades, consultaEntradesError, consultaEntradesSuccess, consultaPalEntrades, 
     consultaPalEntradesError, consultaPalEntradesSuccess, consultaPalResta, consultaPalRestaError,
     consultaPalRestaSuccess, sortidaError, sortidaSuccess, sortida, consultaPalSortides,consultaPalSortidesError,
-    consultaPalSortidesSuccess, consultaSortides, consultaSortidesError, consultaSortidesSuccess
+    consultaPalSortidesSuccess, consultaSortides, consultaSortidesError, consultaSortidesSuccess,
 } from '../actions/palets.action';
 
 export interface PaletState{

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BlockPaletComponent } from './block/Components/block-palet/block-palet.component';
-import { ConsultaBlockComponent } from './block/Components/consulta-block/consulta-block.component';
+import { BloquejarPaletsComponent } from './bloquejats/Components/bloquejar-palets/bloquejar-palets.component';
+import { ConsultaBloquejatsComponent } from './bloquejats/Components/consulta-bloquejats/consulta-bloquejats.component';
 import { ClientsRegistratsComponent } from './clients/Components/clients-registrats/clients-registrats.component';
 import { RegistreClientsComponent } from './clients/Components/registre-clients/registre-clients.component';
 import { LocationsRegistradesComponent } from './locations/Components/locations-registrades/locations-registrades.component';
@@ -36,8 +36,8 @@ const routes: Routes = [
   { path: 'planificacio-sortides', component: PlanificacioComponent},
   { path: 'picking', component: SortidesComponent},
   { path: 'consulta-sortides', component: ConsultaSortidesComponent},
-  { path: 'bloquejar-palets', component: BlockPaletComponent},
-  { path: 'consulta-bloquejats', component: ConsultaBlockComponent},
+  { path: 'bloquejar-palets', component: BloquejarPaletsComponent},
+  { path: 'consulta-bloquejats', component: ConsultaBloquejatsComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

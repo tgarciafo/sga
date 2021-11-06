@@ -4,6 +4,7 @@ import { Palet } from '../models/palet';
 import { Observable, of } from 'rxjs';
 import { catchError, map} from 'rxjs/operators';
 import { Sortida } from '../models/sortida';
+import { Bloquejat } from 'src/app/bloquejats/models/bloquejat';
 
 @Injectable({
   providedIn: 'root'

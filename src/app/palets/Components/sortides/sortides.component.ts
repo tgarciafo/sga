@@ -100,7 +100,7 @@ export class SortidesComponent implements OnInit {
     let data=element.data;
 
     if (ai=='00'){
-      this.sscc=(data);
+      this.sscc.setValue(data);
     } 
   }  
 

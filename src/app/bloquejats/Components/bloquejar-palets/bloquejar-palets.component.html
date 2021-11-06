@@ -2,12 +2,13 @@
 
 <br>
 <div id="formulari">
-    <form class="border border-light p-5" [formGroup]="blockForm" (ngSubmit)="saveBlock()">    
+    <form class="border border-light p-5" [formGroup]="bloquejarForm" (ngSubmit)="saveBlock()">    
         <div class="mb-3">
             <label for="sscc" class="form-label">Número sscc</label>
             <input type="text" [formControl]="sscc" class="form-control" name="sscc" (change)="interpreteBarcode()" placeholder="Escriu el número de sscc">
+            <input type="text" [formControl]="ssccF" readonly class="form-control" name="ssccF">
         </div>
-        <button class="btn btn-primary my-4" type="submit" [disabled]="!blockForm.valid">Acceptar</button>
+        <button class="btn btn-primary my-4" type="submit" [disabled]="!bloquejarForm.valid">Acceptar</button>
     </form>
 </div>
 
@@ -25,11 +26,11 @@
         </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let block of blockState$.blocks">
-                <td>{{block.sscc}}</td>
-                <td>{{block.description_client}}</td>
-                <td>{{block.description_prod}}</td>
-                <td>{{block.caducitat}}</td>
+            <tr *ngFor="let bloquejat of bloquejatState$.consultaPalB">
+                <td>{{bloquejat.sscc}}</td>
+                <td>{{bloquejat.client_id}}</td>
+                <td>{{bloquejat.product_id}}</td>
+                <td>{{bloquejat.caducitat}}</td>
                 <td>
                     <!-- <button class="btn btn-danger" (click)="eliminar(this);">                          
                         <span><fa-icon [icon]="faTrashAlt"></fa-icon></span>
