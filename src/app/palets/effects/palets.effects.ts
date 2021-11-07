@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as PaletActions from '../actions';
-import * as BloquejatActions from 'src/app/bloquejats/actions';
 import { PaletsService } from '../Services/palets.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
