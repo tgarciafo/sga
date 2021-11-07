@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgxPrintModule } from 'ngx-print';
 import { PlanificacioComponent } from './Components/planificacio/planificacio.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { PlanificacioComponent } from './Components/planificacio/planificacio.co
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    NgxPrintModule
+    NgxPrintModule,
+    FontAwesomeModule
   ]
 })
 export class PlanificationModule { }

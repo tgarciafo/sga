@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { NgxPrintModule } from 'ngx-print';
 import { BloquejarPaletsComponent } from './Components/bloquejar-palets/bloquejar-palets.component';
 import { ConsultaBloquejatsComponent } from './Components/consulta-bloquejats/consulta-bloquejats.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ConsultaBloquejatsComponent } from './Components/consulta-bloquejats/co
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    NgxPrintModule
+    NgxPrintModule,
+    FontAwesomeModule
   ]
 })
 export class BloquejatsModule { }

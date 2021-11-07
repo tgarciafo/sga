@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginModule } from './login/login.module';
@@ -50,6 +51,7 @@ import { BloquejatsModule } from './bloquejats/bloquejats.module';
     PaletsModule,
     PlanificationModule,
     BloquejatsModule,
+    FontAwesomeModule,
     StoreModule.forRoot( appReducers, {
       runtimeChecks: {
         strictStateImmutability: false,

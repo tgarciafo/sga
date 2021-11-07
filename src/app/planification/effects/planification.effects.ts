@@ -41,7 +41,7 @@ export class PlanificationEffects {
             ofType(PlanificationActions.deletePlanification),
             mergeMap(({id}) =>
                 this.planificationService.deletePlanification(id).pipe(
-                    map(() => PlanificationActions.deletePlanificationSuccess({ id } )),
+                    map((planification) => PlanificationActions.deletePlanificationSuccess({ planification } )),
                     catchError((err) => of(PlanificationActions.deletePlanificationError({payload: err})))
                 ))
         )
@@ -60,9 +60,9 @@ export class PlanificationEffects {
 
     getPlanification$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(PlanificationActions.getPlanification, PlanificationActions.createPlanificationSuccess),
-            mergeMap((action) =>
-                this.planificationService.getPlanification(action.planification).pipe(
+            ofType(PlanificationActions.getPlanification, PlanificationActions.createPlanificationSuccess, PlanificationActions.deletePlanificationSuccess),
+            mergeMap(({planification}) =>
+                this.planificationService.getPlanification(planification).pipe(
                     map((consultaPlanification) => PlanificationActions.getPlanificationSuccess( {consultaPlanification:consultaPlanification} )),
                     catchError((err) => of(PlanificationActions.getPlanificationError({ payload: err })))
                 ))

@@ -37,7 +37,7 @@ export const deletePlanification = createAction(
 
 export const deletePlanificationSuccess = createAction(
     '[Planification] Delete Planification Success',
-    props<{ id:number }>()
+    props<{ planification: Planification }>()
 );
 
 export const deletePlanificationError = createAction(

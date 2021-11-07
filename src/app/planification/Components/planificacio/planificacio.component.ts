@@ -8,13 +8,13 @@ import { ProducteState } from 'src/app/productes/reducers';
 import { PlanificationState } from '../../reducers';
 import {consultaPalResta} from '../../../palets/actions';
 import { getAllProductes } from 'src/app/productes/actions';
-import { createPlanification, getPlanification } from '../../actions';
+import { createPlanification, deletePlanification, getPlanification } from '../../actions';
 import { getAllClients } from 'src/app/clients/actions';
 import { PaletState } from 'src/app/palets/reducers';
 import { UserState } from 'src/app/user/reducers';
 import { Planification } from '../../models/planification';
 import { DatePipe } from '@angular/common';
-
+import { faPenAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-planificacio',
@@ -22,6 +22,9 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./planificacio.component.css']
 })
 export class PlanificacioComponent implements OnInit {
+  
+  faPenAlt = faPenAlt;
+  faTrashAlt = faTrashAlt;
 
   /* Formulari 1 */
 
@@ -157,6 +160,12 @@ export class PlanificacioComponent implements OnInit {
     } else {
       return  `with: ${reason}`;
     }
+  }
+
+  eliminar(id : number){
+
+    this.store.dispatch(deletePlanification({id: id}));
+
   }
 
 }

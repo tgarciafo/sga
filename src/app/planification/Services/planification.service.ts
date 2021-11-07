@@ -52,10 +52,9 @@ export class PlanificationService {
     );
   }
 
-  deletePlanification(planification: Planification | number): Observable<Planification>{
-    const id = typeof planification === 'number' ? planification : planification.planification_id;
+  deletePlanification(id: number): Observable<Planification>{
 
-    return this.httpClient.delete<Planification>(this.API_ENDPOINT + '/getPlanification/'+id, this.httpOptions).pipe(
+    return this.httpClient.delete<Planification>(this.API_ENDPOINT + '/planifications/'+id, this.httpOptions).pipe(
       catchError(this.handleError<Planification>('deletePlanification'))
     );
   }
