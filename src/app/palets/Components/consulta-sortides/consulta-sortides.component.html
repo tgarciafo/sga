@@ -70,12 +70,12 @@
                     <tr *ngFor="let sortidaPal of paletState$.consultaPalS; index as i">
                         <td [attr.data-index]="i+1">{{i+1}}</td>
                         <td>{{sortidaPal.albara_sortida}}</td>
-                        <td>{{sortidaPal.data_sortida}}</td>
+                        <td>{{sortidaPal.data_sortida | date:'dd/MM/yyyy'}}</td>
                         <td>&#8203;{{sortidaPal.sscc}}</td>
                         <td>{{sortidaPal.description_prod}}</td>
                         <td>{{sortidaPal.quantity}}</td>
                         <td>{{sortidaPal.lot}}</td>
-                        <td>{{sortidaPal.caducitat}}</td>
+                        <td>{{sortidaPal.caducitat | date:'dd/MM/yyyy'}}</td>
                     </tr>
                 </tbody>    
             </table>
