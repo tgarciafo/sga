@@ -139,7 +139,9 @@ export class PlanificacioComponent implements OnInit {
 
     }
 
-    this.planificacioForm2.reset();
+    this.product_id.setValue('');
+    this.palRestants.setValue('');
+    this.num_palets.setValue('');
   }
 
   /* Modal */
@@ -162,9 +164,12 @@ export class PlanificacioComponent implements OnInit {
     }
   }
 
-  eliminar(id : number){
+  eliminar(planificat: any){
 
-    this.store.dispatch(deletePlanification({id: id}));
+    const albara = planificat.albara_sortida;
+    const producte = planificat.product_id;
+
+    this.store.dispatch(deletePlanification({product_id: producte, albara_sortida: albara}));
 
   }
 

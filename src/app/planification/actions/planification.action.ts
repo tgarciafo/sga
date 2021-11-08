@@ -32,7 +32,7 @@ export const editPlanificationError = createAction(
 
 export const deletePlanification = createAction(
     '[Planification] Delete Planification',
-    props<{ id:number }>()
+    props<{ product_id:number, albara_sortida: string }>()
 );
 
 export const deletePlanificationSuccess = createAction(

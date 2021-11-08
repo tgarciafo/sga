@@ -39,8 +39,8 @@ export class PlanificationEffects {
     deletePlanification$ = createEffect(() =>
         this.actions$.pipe(
             ofType(PlanificationActions.deletePlanification),
-            mergeMap(({id}) =>
-                this.planificationService.deletePlanification(id).pipe(
+            mergeMap(({product_id, albara_sortida}) =>
+                this.planificationService.deletePlanification(product_id, albara_sortida).pipe(
                     map((planification) => PlanificationActions.deletePlanificationSuccess({ planification } )),
                     catchError((err) => of(PlanificationActions.deletePlanificationError({payload: err})))
                 ))

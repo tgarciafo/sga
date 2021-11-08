@@ -72,11 +72,11 @@ const _planificationReducer = createReducer(
         }
     })),
     on(deletePlanification,  state => ({ ...state, loading: true })),
-    on(deletePlanificationSuccess, (state, { planification }) => ({
+    on(deletePlanificationSuccess, (state, action) => ({
         ...state,
         loading: false,
         loaded: true,
-        planifications: [...state.planifications.filter(plani => plani.planification_id !== planification.planification_id)]
+        planifications: [...state.planifications.filter(plani => plani !== action.planification)]
     })),
     on(deletePlanificationError, (state, { payload }) => ({
         ...state,
