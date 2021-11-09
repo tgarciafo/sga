@@ -1,0 +1,12 @@
+.portada {
+    background-image: url('../../../assets/images/warehouse.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+#title{
+    margin-top: 70px;
+}
+
