@@ -4,9 +4,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import { PaletState } from 'src/app/palets/reducers';
-import { createBloquejat, consultaPalBloquejats } from '../../../bloquejats/actions';
+import { createBloquejat, consultaPalBloquejats, deleteBloquejat } from '../../../bloquejats/actions';
 import { BloquejatState } from '../../../bloquejats/reducers';
 import { Bloquejat } from '../../models/bloquejat';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-bloquejar-palets',
@@ -14,6 +15,8 @@ import { Bloquejat } from '../../models/bloquejat';
   styleUrls: ['./bloquejar-palets.component.css']
 })
 export class BloquejarPaletsComponent implements OnInit {
+
+  faTrashAlt = faTrashAlt;
 
   public sscc: FormControl;
   public ssccF: FormControl;
@@ -84,4 +87,10 @@ export class BloquejarPaletsComponent implements OnInit {
       return this.sscc.value;
     }
   }  
+
+  eliminar(bloquejat_id: number){
+
+    this.store.dispatch(deleteBloquejat({id:bloquejat_id}));
+
+  }
 }

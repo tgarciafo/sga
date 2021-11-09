@@ -5,7 +5,7 @@ import { BloquejatsService } from '../Services/bloquejats.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { createBloquejatSuccess } from '../actions';
+import { createBloquejatSuccess, deleteBloquejat } from '../actions';
 
 @Injectable()
 export class BloquejatsEffects {
@@ -60,7 +60,7 @@ export class BloquejatsEffects {
 
     consultaPaletsBloquejats$ = createEffect(() =>
     this.actions$.pipe(
-        ofType(BloquejatsActions.consultaPalBloquejats, createBloquejatSuccess),
+        ofType(BloquejatsActions.consultaPalBloquejats, createBloquejatSuccess, deleteBloquejat),
         mergeMap(() =>
             this.bloquejatsService.consultaBloquejats().pipe(
                 map((consultaPalB) => BloquejatsActions.consultaPalBloquejatsSuccess({ consultaPalB: consultaPalB })),

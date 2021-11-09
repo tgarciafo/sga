@@ -38,10 +38,9 @@ export class BloquejatsService {
     );
   }
 
-  deleteBloquejat(bloquejat: Bloquejat | number): Observable<Bloquejat>{
-    const id = typeof bloquejat === 'number' ? bloquejat : bloquejat.bloquejat_id;
+  deleteBloquejat(bloquejat_id: number): Observable<Bloquejat>{
 
-    return this.HttpClient.delete<Bloquejat>(this.API_ENDPOINT + '/getBloquejat/'+id, this.httpOptions).pipe(
+    return this.HttpClient.delete<Bloquejat>(this.API_ENDPOINT + '/bloquejats/'+ bloquejat_id, this.httpOptions).pipe(
       catchError(this.handleError<Bloquejat>('deleteBloquejat'))
     );
   }
