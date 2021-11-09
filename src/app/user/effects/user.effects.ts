@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { Actions, Effect, ofType, createEffect } from '@ngrx/effects';
-import { map, filter, catchError, mergeMap, exhaustMap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
+import { map, catchError, exhaustMap } from 'rxjs/operators';
 import * as UserActions from '../actions';
 import { UserService } from '../Services/user.service';
 import { Router } from '@angular/router';

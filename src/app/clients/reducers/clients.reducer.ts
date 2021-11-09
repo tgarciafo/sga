@@ -3,7 +3,7 @@ import { Client } from '../models/client';
 import {
     createClient, getClient, getClientError, getClientSuccess, editClient, editClientError, editClientSuccess,
     deleteClient, deleteClientSuccess, deleteClientError, getAllClients, getAllClientsSuccess,
-    getAllClientsError, createClientSuccess, createClientError
+    getAllClientsError, createClientSuccess, createClientError, addClientUser, addClientUserFailure, addClientUserSuccess
 } from '../actions/clients.action';
 
 export interface ClientState{
@@ -116,7 +116,37 @@ const _clientReducer = createReducer(
             status: payload.status,
             message: payload.message
         }
+    })),
+    
+    on(addClientUser, (state) => ({
+        ...state,
+        error: null,
+        pending: true,
+    })),
+    on(addClientUserSuccess, (state, {client}) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        clients: [...state.clients.map((_client) => {
+            if (_client.client_id === client.client_id) {
+                return {
+                    ...client
+                };
+            } else {
+                return _client;
+            }
+        })]
+    })),
+    on(addClientUserFailure, (state, { payload }) => ({
+        ...state,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        },
+        pending: false,
     }))
+    
 )
 
 export function clientReducer(state: any, action: any) {

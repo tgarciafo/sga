@@ -5,6 +5,7 @@ import { FormControl, FormGroup, FormBuilder, Validators, Form } from '@angular/
 import { createUser } from '../../actions';
 import { User } from '../../models/user';
 import { ClientState } from '../../../clients/reducers';
+import { getAllClients } from 'src/app/clients/actions';
 
 @Component({
   selector: 'app-sign-in',
@@ -34,12 +35,15 @@ export class SignInComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(getAllClients())
+
     this.bSubmitted = false;
     this.name = new FormControl('', [Validators.required]);
     this.password = new FormControl('', [Validators.required]);
     this.email = new FormControl('', [Validators.required]);
     this.type = new FormControl('', [Validators.required]);
     this.user_name = new FormControl('', [Validators.required]);
+    this.client_id = new FormControl('', [Validators.required]);
     this.errorUser = '';
 
     this.regUserForm = this.formBuilder.group({

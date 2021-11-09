@@ -40,9 +40,9 @@
                 <option [ngValue]="null">Selecciona client</option>                
             <option *ngFor="let client of clientState$.clients" [ngValue]="client.client_id">{{client.description_client}}</option>              
         </select>
-            <span style="color: red;" *ngIf="regUserForm.get('client_id').errors && (regUserForm.get('client_id').touched || regUserForm.get('client_id').dirty)">                
+            <!-- <span style="color: red;" *ngIf="regUserForm.get('client_id').errors && (regUserForm.get('client_id').touched || regUserForm.get('client_id').dirty)">                
                 <span *ngIf="regUserForm.get('client_id').errors.required">És obligatori triar el client</span>
-            </span>
+            </span> -->
         </div>
 
 

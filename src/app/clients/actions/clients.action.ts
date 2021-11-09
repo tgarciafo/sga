@@ -70,3 +70,15 @@ export const getClientError = createAction(
     '[Client] Get Client error',
     props<{payload: any}>()
 );
+
+export const addClientUser = createAction('[Client] Add Client User',
+    props<{ client_id: number, user_id: number }>()
+);
+
+export const addClientUserSuccess = createAction('[Client] Add Client User Success',
+    props<{ client: Client  }>()
+);
+
+export const addClientUserFailure = createAction('[Client] Add Client User Failure',
+    props<{ payload: any }>()
+);

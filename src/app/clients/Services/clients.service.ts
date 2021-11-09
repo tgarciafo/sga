@@ -63,6 +63,14 @@ export class ClientsService {
     );
   }
 
+  addUserClient(client_id:number, user_id: number){
+
+    return this.httpClient.put<Client>(this.API_ENDPOINT + '/addUserClient/' + client_id + '/' + user_id, this.httpOptions).pipe(
+      catchError(this.handleError<Client>('addUserClient'))
+    );
+
+  }
+
   /* private log(message: string) {
     this.messageService.add(`ClientService: ${message}`);
   } */
