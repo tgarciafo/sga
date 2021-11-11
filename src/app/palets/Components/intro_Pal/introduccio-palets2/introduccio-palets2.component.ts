@@ -53,20 +53,7 @@ export class IntroduccioPalets2Component implements OnInit {
     this.store.dispatch(getAllProductes());
     this.store.dispatch(getAllClients());
 
-    this.palet ={
-      albara_entrada: this.num_entrada.value,
-      data_entrada: '',
-      lot: '',
-      product_id: NaN,
-      client_id: NaN,
-      sscc: NaN,
-      caducitat: new Date,
-      albara_sortida: '',
-      data_sortida: '',
-      location_id: NaN     
-    }
-
-    this.albara_entrada = new FormControl(this.num_entrada.value, [Validators.required]);
+    this.albara_entrada = new FormControl('', [Validators.required]);
     this.barcode = new FormControl('', [Validators.required]);
     this.barcode2 = new FormControl('', [Validators.required]);
     this.lot = new FormControl('', [Validators.required]);
@@ -81,8 +68,8 @@ export class IntroduccioPalets2Component implements OnInit {
     albara_entrada: this.albara_entrada,
     barcode: this.barcode,
     barcode2: this.barcode2,
-    lot: this.lot,
     ean: this.ean,
+    lot: this.lot,
     sscc: this.sscc,
     caducitat: this.caducitat,
     client: this.client,
@@ -92,6 +79,21 @@ export class IntroduccioPalets2Component implements OnInit {
 
   ngOnChanges(){
     if(this.show2==true){
+
+    this.albara_entrada.setValue(this.num_entrada.value);
+
+    this.palet ={
+      albara_entrada: this.num_entrada.value,
+      data_entrada: '',
+      lot: '',
+      product_id: NaN,
+      client_id: NaN,
+      sscc: NaN,
+      caducitat: new Date,
+      albara_sortida: '',
+      data_sortida: '',
+      location_id: NaN     
+    }
 
       this.store.dispatch(contador({palet: this.palet}));
 
@@ -105,7 +107,7 @@ export class IntroduccioPalets2Component implements OnInit {
 
       let answer= parseBarcode(this.codi());
 
-      return answer.parsedCodeItems.forEach(this.basedades);
+      return answer.parsedCodeItems.forEach(this.basedades, this);
       
     } catch (e){
       console.log(e);
@@ -120,8 +122,10 @@ export class IntroduccioPalets2Component implements OnInit {
       this.lot.setValue(data);
     } else if ((ai=='01') || (ai=='02')){
       this.ean.setValue(data);
+      this.getProduct();
     } else if (ai=='02'){
       this.ean.setValue(data);
+      this.getProduct();
     } else if (ai=='00'){
       this.sscc.setValue(data);
     } else if (ai=='15'){
@@ -147,13 +151,16 @@ export class IntroduccioPalets2Component implements OnInit {
   
   goSave(){
 
+    this.producte.setValue(this.productState$.producte?.product_id);
+    this.client.setValue(this.productState$.producte?.client_id);
+
     const form= this.entradaForm.value;
         
         this.palet={
           albara_entrada: this.num_entrada.value,
           data_entrada: this.currDate,
           lot: form.lot,
-          product_id: form.ean,
+          product_id: form.producte,
           client_id: form.client,
           sscc: form.sscc,
           caducitat: form.caducitat,
@@ -164,19 +171,26 @@ export class IntroduccioPalets2Component implements OnInit {
 
     this.store.dispatch(createPalet({ palet: this.palet }));
     
-/*     this.clear();
- *//*     this.store.dispatch(contador({albara_entrada: this.num_entrada.value}));
- */  
+    this.entradaForm.reset();
+    this.bSubmitted = false;
+    this.albara_entrada.setValue(this.num_entrada.value);  
  }  
 
  public buildForm(){
+
+  this.bSubmitted = true;
+
   this.currDate= this.dp.transform( new Date(), 'yyyy-MM-dd');  
 
   this.goSave(); 
 }
 
+ 
+
 goOut(){
+  /* Falta arreglar
   return window.location.reload();
-}
+  */
+} 
 
 }

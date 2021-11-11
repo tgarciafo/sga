@@ -87,7 +87,7 @@ export class SortidesComponent implements OnInit {
 
       let answer= parseBarcode(this.codi());
 
-      return answer.parsedCodeItems.forEach(this.basedades);
+      return answer.parsedCodeItems.forEach(this.basedades, this);
 
     } catch (e){
       console.log(e);
@@ -135,10 +135,18 @@ export class SortidesComponent implements OnInit {
   
     this.store.dispatch(sortida({sortida: this.sortida}));
 
-/*     this.clear();
- */
     this.sortidaForm2.reset();
 
+    this.bSubmitted2 = false;
+
+    this.albara_sortida.setValue(this.num_sortida.value);
+
+  } 
+
+  goOut(){
+    this.bSubmitted = false;
+    this.sortidaForm.reset();
+    this.sortidaForm2.reset();
   } 
 
 }

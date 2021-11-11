@@ -93,17 +93,10 @@ export class PaletsService {
 
   sortidaPal(sortida: Sortida){
 
-    return this.getPalet(sortida.sscc).pipe(
-      map((palet)=>{
-
-        palet.data_sortida=sortida.data_sortida;
-        palet.albara_sortida=sortida.albara_sortida;
-
-        return this.httpClient.put<Palet>(this.API_ENDPOINT + '/sortidaPal/'+ palet, this.httpOptions).pipe(
-          catchError(this.handleError<any>('palResta'))
-        );
-      })
-    )  
+    return this.httpClient.put<Palet>(this.API_ENDPOINT + '/expeditionPal/'+ sortida.sscc + '/' + sortida.albara_sortida + '/' + sortida.data_sortida, this.httpOptions).pipe(
+      catchError(this.handleError<Palet>('expeditionPal'))
+    );
+      
   }
 
   consultaSortida(data: Date, data2: Date): Observable<Array<any>>{

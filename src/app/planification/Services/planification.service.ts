@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { Palet } from 'src/app/palets/models/palet';
 import { Planification } from '../models/planification';
 
 @Injectable({
@@ -66,6 +67,17 @@ export class PlanificationService {
       catchError(this.handleError<Number>('comptador'))
     );
   }
+
+  deleteLinePlanification(palet: any): Observable<any>{
+
+    const albara_sortida=palet[0].albara_sortida;
+    const product_id=palet[0].product_id;
+
+    return this.httpClient.delete<any>(this.API_ENDPOINT + '/destroyLine/'+ product_id + '/' + albara_sortida, this.httpOptions).pipe(
+      catchError(this.handleError<any>('deleteLinePlanification'))
+    );
+  }
+
 
   /* private log(message: string) {
     this.messageService.add(`ClientService: ${message}`);

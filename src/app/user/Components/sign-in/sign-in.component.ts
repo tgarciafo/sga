@@ -43,7 +43,7 @@ export class SignInComponent implements OnInit {
     this.email = new FormControl('', [Validators.required]);
     this.type = new FormControl('', [Validators.required]);
     this.user_name = new FormControl('', [Validators.required]);
-    this.client_id = new FormControl('', [Validators.required]);
+    this.client_id = new FormControl('', []);
     this.errorUser = '';
 
     this.regUserForm = this.formBuilder.group({
@@ -51,7 +51,7 @@ export class SignInComponent implements OnInit {
       password: this.password,
       email: this.email,
       type: this.type,
-      user_name: this.user_name
+      client_id: this.client_id
     });
   }
 

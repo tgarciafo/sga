@@ -4,7 +4,7 @@ import {
     createPlanification, getPlanification, getPlanificationError, getPlanificationSuccess, editPlanification, editPlanificationError, editPlanificationSuccess,
     deletePlanification, deletePlanificationSuccess, deletePlanificationError, getAllPlanifications, getAllPlanificationsSuccess,
     getAllPlanificationsError, createPlanificationSuccess, createPlanificationError, getPlanificationSortida, getPlanificationSortidaError, getPlanificationSortidaSuccess,
-    comptador, comptadorError, comptadorSuccess
+    comptador, comptadorError, comptadorSuccess, deleteLinePlanification, deleteLinePlanificationError, deleteLinePlanificationSuccess
 } from '../actions/planification.action';
 
 export interface PlanificationState{
@@ -155,7 +155,24 @@ const _planificationReducer = createReducer(
             status: payload.status,
             message: payload.message
         }
-    }))
+    })),
+    on(deleteLinePlanification,  state => ({ ...state, loading: true })),
+    on(deleteLinePlanificationSuccess, (state, action) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        planifications: [...state.planifications.slice(1)]
+    })),
+    on(deleteLinePlanificationError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
 )
 
 export function planificationReducer(state: any, action: any) {

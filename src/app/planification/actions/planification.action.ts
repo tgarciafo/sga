@@ -1,5 +1,7 @@
 import { createAction, props } from '@ngrx/store';
+import { Palet } from 'src/app/palets/models/palet';
 import { Planification } from '../models/planification';
+
 
 export const createPlanification = createAction(
     '[Planification] Create Planification',
@@ -98,4 +100,19 @@ export const comptadorSuccess = createAction(
 export const comptadorError = createAction(
     '[Planification] Comptador error',
     props<{payload: any}>()
+);
+
+export const deleteLinePlanification = createAction(
+    '[Planification] Delete Line Planification',
+    props<{ palet: Palet }>()
+);
+
+export const deleteLinePlanificationSuccess = createAction(
+    '[Planification] Delete Line Planification Success',
+    props<{ albara_sortida: string }>()
+);
+
+export const deleteLinePlanificationError = createAction(
+    '[Planification] Delete Line Planification Error',
+    props<{ payload:any }>()
 );

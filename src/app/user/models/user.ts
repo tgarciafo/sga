@@ -4,5 +4,5 @@ export class User {
     password: string;
     email:string;
     type: string;
-    user: string;    
+    client_id?: number;    
 }

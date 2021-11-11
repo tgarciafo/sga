@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as PlanificationActions from '../actions';
+import * as PaletActions from '../../palets/actions';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { PlanificationService } from '../Services/planification.service';
+import { deleteLinePlanificationSuccess } from '../actions';
 
 @Injectable()
 export class PlanificationEffects {
@@ -70,7 +72,7 @@ export class PlanificationEffects {
 
     getPlanificationsSortida$ = createEffect(() =>
     this.actions$.pipe(
-        ofType(PlanificationActions.getPlanificationSortida),
+        ofType(PlanificationActions.getPlanificationSortida, PlanificationActions.deleteLinePlanificationSuccess),
         mergeMap((action) =>
             this.planificationService.getPlanifications(action.albara_sortida).pipe(
                 map((planifications) => PlanificationActions.getPlanificationSortidaSuccess( {planifications} )),
@@ -85,6 +87,17 @@ export class PlanificationEffects {
                 this.planificationService.comptador(action.planifications).pipe(
                     map((num_pal) => PlanificationActions.comptadorSuccess({ num_pal: num_pal })),
                     catchError((err)=> of(PlanificationActions.comptadorError({payload: err})))
+                ))
+        )
+    );
+
+    deleteLinePlanification$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PlanificationActions.deleteLinePlanification, PaletActions.sortidaSuccess),
+            mergeMap((action) =>
+                this.planificationService.deleteLinePlanification(action.palet).pipe(
+                    map((albara_sortida) => PlanificationActions.deleteLinePlanificationSuccess({albara_sortida} )),
+                    catchError((err) => of(PlanificationActions.deleteLinePlanificationError({payload: err})))
                 ))
         )
     );
