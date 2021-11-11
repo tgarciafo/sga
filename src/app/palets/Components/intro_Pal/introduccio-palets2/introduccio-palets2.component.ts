@@ -10,6 +10,7 @@ import {createPalet, contador} from '../../../actions';
 import { getAllProductes, getId } from '../../../../productes/actions';
 import { getAllClients } from 'src/app/clients/actions';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-introduccio-palets2',
@@ -44,7 +45,7 @@ export class IntroduccioPalets2Component implements OnInit {
   public errorEntrada: any;
   public bSubmitted: boolean;
 
-  constructor(private store: Store<AppState>, private dp:DatePipe, private formBuilder: FormBuilder) { 
+  constructor(public router: Router, private store: Store<AppState>, private dp:DatePipe, private formBuilder: FormBuilder) { 
     this.store.select('producteApp').subscribe(products => this.productState$ = products);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
   }
@@ -185,12 +186,12 @@ export class IntroduccioPalets2Component implements OnInit {
   this.goSave(); 
 }
 
- 
-
 goOut(){
-  /* Falta arreglar
-  return window.location.reload();
-  */
+
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+    this.router.navigate(['/entrada']);
+});
+
 } 
 
 }
