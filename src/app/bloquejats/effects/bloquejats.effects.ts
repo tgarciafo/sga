@@ -30,7 +30,7 @@ export class BloquejatsEffects {
         this.actions$.pipe(
             ofType(BloquejatsActions.createBloquejat),
             mergeMap(action =>
-                this.bloquejatsService.addBloquejat(action.sscc).pipe(
+                this.bloquejatsService.addBloquejat(action.bloquejat).pipe(
                     map((bloquejat) => BloquejatsActions.createBloquejatSuccess({ bloquejat: bloquejat })),
                     catchError((err)=> of(BloquejatsActions.createBloquejatError({payload: err})))
                 ))

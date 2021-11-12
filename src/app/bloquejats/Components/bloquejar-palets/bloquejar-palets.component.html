@@ -6,7 +6,6 @@
         <div class="mb-3">
             <label for="sscc" class="form-label">Número sscc</label>
             <input type="text" [formControl]="sscc" class="form-control" name="sscc" (change)="interpreteBarcode()" placeholder="Escriu el número de sscc">
-            <input type="text" [formControl]="ssccF" readonly class="form-control" name="ssccF">
         </div>
         <button class="btn btn-primary my-4" type="submit" [disabled]="!bloquejarForm.valid">Acceptar</button>
     </form>

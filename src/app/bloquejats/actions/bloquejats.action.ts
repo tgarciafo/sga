@@ -3,7 +3,7 @@ import { Bloquejat } from '../models/bloquejat';
 
 export const createBloquejat = createAction(
     '[Bloquejat] Create Bloquejat',
-    props<{ sscc: number }>()
+    props<{ bloquejat: Bloquejat }>()
 );
 
 export const createBloquejatSuccess = createAction(

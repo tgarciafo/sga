@@ -19,7 +19,6 @@ export class BloquejarPaletsComponent implements OnInit {
   faTrashAlt = faTrashAlt;
 
   public sscc: FormControl;
-  public ssccF: FormControl;
   public bloquejarForm: FormGroup;
   public errorBloquejar: any;
   public bSubmitted: boolean;
@@ -39,12 +38,10 @@ export class BloquejarPaletsComponent implements OnInit {
 
     this.bSubmitted = false;
     this.sscc = new FormControl('', [Validators.required]);
-    this.ssccF = new FormControl('', [Validators.required]);
     this.errorBloquejar = '';
 
     this.bloquejarForm = this.formBuilder.group({
       sscc: this.sscc,
-      ssccF:this.ssccF
     });
   }
 
@@ -52,9 +49,13 @@ export class BloquejarPaletsComponent implements OnInit {
 
     this.bSubmitted = true;
 
-    this.store.dispatch(createBloquejat({sscc: this.sscc.value}));
+    const bloquejat = this.bloquejarForm.value as Bloquejat;
+
+    this.store.dispatch(createBloquejat({bloquejat: bloquejat}));
 
     this.bloquejarForm.reset();
+
+    this.bSubmitted = false;
 
   }
 
@@ -65,7 +66,7 @@ export class BloquejarPaletsComponent implements OnInit {
 
       let answer= parseBarcode(this.codi());
 
-      answer.parsedCodeItems.forEach(this.basedades);
+      answer.parsedCodeItems.forEach(this.basedades, this);
 
     } catch (e){
       console.log(e);
@@ -78,7 +79,7 @@ export class BloquejarPaletsComponent implements OnInit {
     let data=element.data;
 
     if (ai=='00'){
-      this.ssccF.setValue(data);
+      this.sscc.setValue(data);
     } 
   }  
 

@@ -32,8 +32,9 @@ export class BloquejatsService {
     );
   }
 
-  addBloquejat(sscc: number): Observable<Bloquejat>{
-    return this.HttpClient.post<Bloquejat>(this.API_ENDPOINT+'/bloquejats', sscc, this.httpOptions).pipe(
+  addBloquejat(bloquejat: Bloquejat): Observable<Bloquejat>{
+
+    return this.HttpClient.post<Bloquejat>(this.API_ENDPOINT+'/bloquejats', bloquejat, this.httpOptions).pipe(
       catchError(this.handleError<Bloquejat>('addBloquejat'))
     );
   }
