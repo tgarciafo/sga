@@ -6,20 +6,20 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link active"  aria-current="page" routerLink="/home">Inici</a>
+          <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <a class="nav-link" routerLink="/home">Inici</a>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Introducció de dades
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/registre-clients">Registre de Clients</a></li>
-              <li><a class="dropdown-item" routerLink="/clients-registrats">Clients registrats</a></li>
-              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/registre-productes">Registre de productes</a></li>
-              <li><a class="dropdown-item" routerLink="/productes-registrats">Productes registrats</a></li>
-              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/registre-locations">Registrar Ubicacions</a></li>
-              <li><a class="dropdown-item" routerLink="/locations-registrades">Ubicacions Registrades</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/registre-clients">Registre de Clients</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/clients-registrats">Clients registrats</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/registre-productes">Registre de productes</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/productes-registrats">Productes registrats</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/registre-locations">Registrar Ubicacions</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/locations-registrades">Ubicacions Registrades</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -27,8 +27,8 @@
               Entrades
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/entrada">Introducció de palets</a></li>
-              <li><a class="dropdown-item" routerLink="/consulta-entrades">Consulta de palets d'entrada</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/entrada">Introducció de palets</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/consulta-entrades">Consulta de palets d'entrada</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -36,9 +36,9 @@
               Sortides
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/planificacio-sortides">Planificació de sortides</a></li>
-              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/picking">Expedicions</a></li>
-              <li><a class="dropdown-item" routerLink="/consulta-sortides">Consulta de palets de sortida</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/planificacio-sortides">Planificació de sortides</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/picking">Expedicions</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/consulta-sortides">Consulta de palets de sortida</a></li>
             </ul>
           </li>
           <li class="nav-item dropdown">
@@ -46,8 +46,8 @@
               Bloquejats
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/bloquejar-palets">Bloquejar palets</a></li>
-              <li><a class="dropdown-item" routerLink="/consulta-bloquejats">Consulta de palets bloquejats</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/bloquejar-palets">Bloquejar palets</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/consulta-bloquejats">Consulta de palets bloquejats</a></li>
             </ul>
           </li>
           <li class="nav-item" *ngIf="!loginState$.loggedIn"><a class="btn btn-success my-2 mx-2" routerLink="/login">Log In</a></li>

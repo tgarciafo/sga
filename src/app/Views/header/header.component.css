@@ -1,0 +1,11 @@
+.is-active {
+    background-color: rgb(68, 195, 253);  
+}
+
+.is-active a {
+    color: rgb(0, 0, 0);
+}
+
+.active a {
+    color: white;
+}
