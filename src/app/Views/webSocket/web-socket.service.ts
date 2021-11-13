@@ -1,5 +1,4 @@
 import { Injectable, EventEmitter, Output } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Socket } from 'ngx-socket-io';
 
 @Injectable({
