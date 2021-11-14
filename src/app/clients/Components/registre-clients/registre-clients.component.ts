@@ -26,10 +26,12 @@ export class RegistreClientsComponent implements OnInit {
   public errorClient: any;
   public bSubmitted: boolean;
 
-  constructor(private formBuilder: FormBuilder, private store: Store<AppState>, private webSocketService: WebSocketService) { 
+  isAlert = false;
+
+  constructor(private formBuilder: FormBuilder,  private store: Store<AppState>, private webSocketService: WebSocketService) { 
     this.store.select('userApp').subscribe(userResponse => this.user = userResponse.user);
     this.webSocketService.outEven.subscribe(res => {
-      alert(res.alert);
+      this.isAlert = true;
       this.emit=false;
     })
   }
