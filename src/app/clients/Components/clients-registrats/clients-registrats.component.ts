@@ -14,8 +14,6 @@ export class ClientsRegistratsComponent implements OnInit {
 
   clientState$: ClientState;
 
-  public emit= true;
-
   alertMsg: string;
       
   isAlert: boolean = false;
@@ -26,7 +24,6 @@ export class ClientsRegistratsComponent implements OnInit {
       this.store.dispatch(getAllClients());
       this.isAlert = true;
       this.alertMsg = 'Nou client creat';
-      this.emit=false;
     })
   }
 

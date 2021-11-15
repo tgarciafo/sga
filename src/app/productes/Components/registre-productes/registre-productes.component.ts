@@ -6,6 +6,7 @@ import { ClientState } from '../../../clients/reducers';
 import { FormControl, FormGroup, FormBuilder, Validators, Form } from '@angular/forms';
 import { createProducte } from '../../actions';
 import { Producte } from '../../models/producte';
+import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
 @Component({
   selector: 'app-registre-productes',
@@ -27,7 +28,7 @@ export class RegistreProductesComponent implements OnInit {
   public regProductForm: FormGroup;
   public bSubmitted: boolean;
 
-  constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
+  constructor(private formBuilder: FormBuilder, private store: Store<AppState>, private webSocketService: WebSocketService) { 
     this.store.select('clientApp').subscribe(clients => this.clientState$ = clients);
   }
 
@@ -58,7 +59,11 @@ export class RegistreProductesComponent implements OnInit {
 
     this.store.dispatch(createProducte({ producte:form }));
 
-    return this.regProductForm.reset();
+    this.regProductForm.reset();
+
+    const alert = 'Nou producte creat';
+
+    this.webSocketService.producteEvent({alert});
 
   }
 

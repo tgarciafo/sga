@@ -18,22 +18,14 @@ export class RegistreClientsComponent implements OnInit {
 
   public client: Client;
 
-  public emit= true;
-
   public client_code: FormControl;
   public description_client: FormControl;
   public regClientForm: FormGroup;
   public errorClient: any;
   public bSubmitted: boolean;
 
-  isAlert = false;
-
   constructor(private formBuilder: FormBuilder,  private store: Store<AppState>, private webSocketService: WebSocketService) { 
     this.store.select('userApp').subscribe(userResponse => this.user = userResponse.user);
-    this.webSocketService.outEven.subscribe(res => {
-      this.isAlert = true;
-      this.emit=false;
-    })
   }
 
   ngOnInit(): void {
@@ -50,8 +42,6 @@ export class RegistreClientsComponent implements OnInit {
 
   public saveClient(){
 
-    this.emit = true;
-
     const form = this.regClientForm.value as Client;
 
     this.bSubmitted = true;
@@ -62,9 +52,7 @@ export class RegistreClientsComponent implements OnInit {
 
     const alert = 'Nou client creat';
 
-    if(this.emit){
     this.webSocketService.emitEvent({alert});
-    }
   }
 
 }
