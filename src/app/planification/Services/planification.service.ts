@@ -78,6 +78,21 @@ export class PlanificationService {
     );
   }
 
+  consultaPlanifications(): Observable<any[]>{
+
+    return this.httpClient.get<any[]>(this.API_ENDPOINT + '/consultaPlanifications').pipe(
+      catchError(this.handleError<any[]>(`consultaPlanifications`))
+    );
+  
+  }
+
+  deleteEntirePlanification( albara_sortida: string): Observable<Planification>{
+
+    return this.httpClient.delete<Planification>(this.API_ENDPOINT + '/destroyEntire/'+ albara_sortida, this.httpOptions).pipe(
+      catchError(this.handleError<Planification>('deleteEntirePlanification'))
+    );
+  }
+
 
   /* private log(message: string) {
     this.messageService.add(`ClientService: ${message}`);

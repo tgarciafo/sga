@@ -116,3 +116,31 @@ export const deleteLinePlanificationError = createAction(
     '[Planification] Delete Line Planification Error',
     props<{ payload:any }>()
 );
+
+export const consultaPlanifications = createAction(
+    '[Planification] Consulta Planifications');
+
+export const consultaPlanificationsSuccess = createAction(
+    '[Planification] Consulta Planifications Success',
+    props<{ consultaPlanifications: any[] }>()
+);
+
+export const consultaPlanificationsError = createAction(
+    '[Planification] Consulta Planifications Error',
+    props<{ payload:any }>()
+);
+
+export const deleteEntirePlanification = createAction(
+    '[Planification] Delete Entire Planification',
+    props<{ albara_sortida: string }>()
+);
+
+export const deleteEntirePlanificationSuccess = createAction(
+    '[Planification] Delete Entire Planification Success',
+    props<{ planification: Planification }>()
+);
+
+export const deleteEntirePlanificationError = createAction(
+    '[Planification] Delete Entire Planification Error',
+    props<{ payload:any }>()
+);

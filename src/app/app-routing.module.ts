@@ -12,6 +12,7 @@ import { ConsultaSortidesComponent } from './palets/Components/consulta-sortides
 import { IntroduccioPaletsComponent } from './palets/Components/intro_Pal/introduccio-palets/introduccio-palets.component';
 import { IntroduccioPalets2Component } from './palets/Components/intro_Pal/introduccio-palets2/introduccio-palets2.component';
 import { SortidesComponent } from './palets/Components/sortides/sortides.component';
+import { ConsultaPlanificatsComponent } from './planification/Components/consulta-planificats/consulta-planificats.component';
 import { PlanificacioComponent } from './planification/Components/planificacio/planificacio.component';
 import { ProductesRegistratsComponent } from './productes/Components/productes-registrats/productes-registrats.component';
 import { RegistreProductesComponent } from './productes/Components/registre-productes/registre-productes.component';
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'consulta-sortides', component: ConsultaSortidesComponent},
   { path: 'bloquejar-palets', component: BloquejarPaletsComponent},
   { path: 'consulta-bloquejats', component: ConsultaBloquejatsComponent},
+  { path: 'consulta-planificats', component: ConsultaPlanificatsComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

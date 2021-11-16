@@ -4,13 +4,15 @@ import {
     createPlanification, getPlanification, getPlanificationError, getPlanificationSuccess, editPlanification, editPlanificationError, editPlanificationSuccess,
     deletePlanification, deletePlanificationSuccess, deletePlanificationError, getAllPlanifications, getAllPlanificationsSuccess,
     getAllPlanificationsError, createPlanificationSuccess, createPlanificationError, getPlanificationSortida, getPlanificationSortidaError, getPlanificationSortidaSuccess,
-    comptador, comptadorError, comptadorSuccess, deleteLinePlanification, deleteLinePlanificationError, deleteLinePlanificationSuccess
+    comptador, comptadorError, comptadorSuccess, deleteLinePlanification, deleteLinePlanificationError, deleteLinePlanificationSuccess, consultaPlanifications,
+    consultaPlanificationsError, consultaPlanificationsSuccess, deleteEntirePlanification, deleteEntirePlanificationError, deleteEntirePlanificationSuccess
 } from '../actions/planification.action';
 
 export interface PlanificationState{
     planifications: Planification[];
     planification: Planification | null;
     consultaPlanification: any[];
+    consultaPlanifications: any[];
     comptador: number | null | unknown;
     loading: boolean;
     loaded: boolean;
@@ -21,6 +23,7 @@ export const initialState: PlanificationState = {
     planifications: [],
     planification: null,
     consultaPlanification: [],
+    consultaPlanifications: [],
     comptador: null,
     loading: false,
     loaded: false,
@@ -76,7 +79,7 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        planifications: [...state.planifications.filter(plani => plani !== action.planification)]
+        planifications: [...state.planifications.filter(plani => (plani.albara_sortida !== action.planification.albara_sortida) && (plani.product_id !== action.planification.product_id))]
     })),
     on(deletePlanificationError, (state, { payload }) => ({
         ...state,
@@ -173,6 +176,40 @@ const _planificationReducer = createReducer(
             message: payload.message
         }
     })),
+    on(consultaPlanifications, state => ({ ...state, loading: true })),
+    on(consultaPlanificationsSuccess, (state, { consultaPlanifications } ) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        consultaPlanifications: consultaPlanifications
+    })),
+    on(consultaPlanificationsError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(deleteEntirePlanification,  state => ({ ...state, loading: true })),
+    on(deleteEntirePlanificationSuccess, (state, action) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        planifications: [...state.planifications.filter(plani => plani.albara_sortida !== action.planification.albara_sortida)]
+    })),
+    on(deleteEntirePlanificationError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    }))
 )
 
 export function planificationReducer(state: any, action: any) {

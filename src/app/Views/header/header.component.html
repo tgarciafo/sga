@@ -38,6 +38,7 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/planificacio-sortides">Planificació de sortides</a></li>
               <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/picking">Expedicions</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="loginState$.loggedIn" routerLink="/consulta-planificats">Consulta sortides planificades</a></li>
               <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/consulta-sortides">Consulta de palets de sortida</a></li>
             </ul>
           </li>

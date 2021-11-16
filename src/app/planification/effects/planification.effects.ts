@@ -102,6 +102,28 @@ export class PlanificationEffects {
         )
     );
 
+    consultaPlanifications$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PlanificationActions.consultaPlanifications, PlanificationActions.deleteEntirePlanificationSuccess),
+            mergeMap(() =>
+                this.planificationService.consultaPlanifications().pipe(
+                    map((consultaPlanifications) => PlanificationActions.consultaPlanificationsSuccess({consultaPlanifications} )),
+                    catchError((err) => of(PlanificationActions.consultaPlanificationsError({payload: err})))
+                ))
+        )
+    );
+
+    deleteEntirePlanification$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PlanificationActions.deleteEntirePlanification),
+            mergeMap(({albara_sortida}) =>
+                this.planificationService.deleteEntirePlanification(albara_sortida).pipe(
+                    map((planification) => PlanificationActions.deleteEntirePlanificationSuccess({ planification } )),
+                    catchError((err) => of(PlanificationActions.deleteEntirePlanificationError({payload: err})))
+                ))
+        )
+    );
+
         redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri]));

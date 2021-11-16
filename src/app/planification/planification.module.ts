@@ -6,10 +6,12 @@ import { RouterModule } from '@angular/router';
 import { NgxPrintModule } from 'ngx-print';
 import { PlanificacioComponent } from './Components/planificacio/planificacio.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { ConsultaPlanificatsComponent } from './Components/consulta-planificats/consulta-planificats.component';
 
 @NgModule({
   declarations: [
-    PlanificacioComponent
+    PlanificacioComponent,
+    ConsultaPlanificatsComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>Gestió de sortides planificades</h2>
+    
+    <br>    
+        <div class="table-responsive">
+        <table class="table table-hover table-responsive table-bordered">
+            <thead>
+            <tr>
+                <td>Número de sortida</td>
+                <td>Client</td>
+                <td>Quantitat de palets</td>
+                <td>Eliminar Picking</td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let planificat of planificationState$.consultaPlanifications">
+                    <td>{{planificat.albara_sortida}}</td>
+                    <td>{{planificat.description_client}}</td>
+                    <td>{{planificat.num_palets}}</td>
+                    <td>
+                        <button class="btn btn-danger" (click)="eliminar(planificat.albara_sortida);">                          
+                            <span><fa-icon [icon]="faTrashAlt"></fa-icon></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

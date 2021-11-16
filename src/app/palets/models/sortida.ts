@@ -1,5 +1,5 @@
 export interface Sortida {
-    sscc: number;
+    sscc: string;
     product_id: number;
     albara_sortida: string;
     data_sortida: Date | any;

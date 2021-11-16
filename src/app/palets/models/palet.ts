@@ -1,5 +1,5 @@
 export interface Palet {
-    sscc: number;
+    sscc: string;
     product_id: number;
     data_entrada: Date | string | null;
     client_id: number;

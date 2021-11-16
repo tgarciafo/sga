@@ -89,7 +89,7 @@ export class IntroduccioPalets2Component implements OnInit {
       lot: '',
       product_id: NaN,
       client_id: NaN,
-      sscc: NaN,
+      sscc: '',
       caducitat: new Date,
       albara_sortida: '',
       data_sortida: '',
