@@ -130,3 +130,17 @@ export const estocClientError = createAction(
     props<{payload: any}>()
 );
 
+export const estocProduct= createAction(
+    '[Palet] Estoc Product',
+    props<{ product_id: number, data: Date }>()
+);
+
+export const estocProductSuccess = createAction(
+    '[Palet] Estoc Product success',
+    props<{ estocProduct: any[] }>()
+);
+export const estocProductError = createAction(
+    '[Palet] Estoc Product error',
+    props<{payload: any}>()
+);
+

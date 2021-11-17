@@ -113,6 +113,17 @@ export class PaletsEffects {
                 ))
         )
     );
+
+    estocProductPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.estocProduct),
+            mergeMap((action) =>
+                this.paletsService.estocProduct( action.product_id, action.data).pipe(
+                    map((estocProduct) => PaletActions.estocProductSuccess({ estocProduct: estocProduct })),
+                    catchError((err)=> of(PaletActions.estocProductError({payload: err})))
+                ))
+        )
+    );
     
             redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>

@@ -74,6 +74,12 @@ export class ProductesService {
     this.messageService.add(`ClientService: ${message}`);
   } */
 
+  getClientProductes( client_id: number): Observable<Producte[]>{
+    return this.httpClient.get<Producte[]>(this.API_ENDPOINT + '/getClientProduct/'+ client_id).pipe(
+      catchError(this.handleError<Producte[]>(`getClientProduct client_id=${client_id}`))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

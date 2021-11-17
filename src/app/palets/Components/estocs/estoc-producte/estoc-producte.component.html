@@ -1,1 +1,64 @@
-<p>estoc-producte works!</p>
+<div class="container">
+    <h2>Consulta d'estoc per producte</h2>
+    
+    <div id="dades">
+        <form class="border border-light p-5" [formGroup]="estocProductForm" (ngSubmit)="getEstocProduct()">    
+            <div class="mb-3">
+                <label for="data" class="form-label">Selecciona el dia d'inici de consulta:</label>
+                <input type="date" class="form-control" [formControl]="data" name="data" required>
+            </div>
+            <div class="mb-3">
+                <label for="type">Selecciona el client:</label>
+                <select [formControl]="client_id" (change)="onChangeClientValue()" class="form-control mb-4">
+                <option [ngValue]="null">Selecciona client</option>                
+                <option *ngFor="let client of clientState$.clients" [ngValue]="client.client_id">{{client.description_client}}</option>              
+                </select>
+                <span style="color: red;" *ngIf="estocProductForm.get('client_id').errors && (estocProductForm.get('client_id').touched || estocProductForm.get('client_id').dirty)">                
+                    <span *ngIf="estocProductForm.get('client_id').errors.required">El client és obligatori</span>
+                </span>
+            </div>
+            <div class="mb-3">
+                <label for="type">Selecciona el producte:</label>
+                <select [formControl]="product_id" class="form-control mb-4">
+                <option [ngValue]="null">Selecciona producte</option>                
+                <option *ngFor="let product of productState$.productes" [ngValue]="product.product_id">{{product.description_prod}}</option>              
+                </select>
+                <span style="color: red;" *ngIf="estocProductForm.get('product_id').errors && (estocProductForm.get('product_id').touched || estocProductForm.get('product_id').dirty)">                
+                    <span *ngIf="estocProductForm.get('product_id').errors.required">El producte és obligatori</span>
+                </span>
+            </div>
+            <button class="btn btn-primary my-4" type="submit" [disabled]="!estocProductForm.valid">Acceptar</button>
+        </form>    
+    </div>
+    
+    <div id="taulaConsulta">
+        <h2>Estoc per data - {{dataTitle | date:'dd/MM/yyyy'}}</h2>
+        <div class="table-responsive">
+            <table class="table caption-top table-primary table-hover table-striped">    
+                <thead>
+                <tr>
+                    <th scope="col">Producte</th>
+                    <th scope="col">Client</th>
+                    <th scope="col">Caducitat</th>
+                    <th scope="col">Número de palets</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let estoc of paletState$.estocProduct">
+                    <th scope="row">{{estoc.description_prod}}</th>
+                    <td>{{estoc.description_client}}</td>
+                    <td>{{estoc.caducitat | date:'dd/MM/yyyy'}}</td>
+                    <td>{{estoc.num_palets}}</td>
+                </tr>
+                <tr>
+                    <td></td> 
+                    <td></td>
+                    <td><strong>Total:</strong></td>
+                    <td><strong>{{total(paletState$.estocProduct)}}</strong></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    

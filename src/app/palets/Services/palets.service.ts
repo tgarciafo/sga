@@ -119,5 +119,11 @@ export class PaletsService {
       catchError(this.handleError<Array<any>>('estocClient'))
     );
   }
+
+  estocProduct(product_id: number, data: Date): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/estocProduct/' + product_id + '/'+ data , this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('estocProduct'))
+    );
+  }
   
 }

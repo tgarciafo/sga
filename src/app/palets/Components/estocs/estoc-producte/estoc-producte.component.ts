@@ -1,4 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { AppState } from 'src/app/app.reducers';
+import { Store } from '@ngrx/store';
+import { getAllClients } from '../../../../clients/actions';
+import { ClientState } from '../../../../clients/reducers';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { estocProduct } from 'src/app/palets/actions';
+import { PaletState } from 'src/app/palets/reducers';
+import { ProducteState } from 'src/app/productes/reducers';
+import { getClientProducte } from 'src/app/productes/actions';
 
 @Component({
   selector: 'app-estoc-producte',
@@ -7,9 +16,69 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EstocProducteComponent implements OnInit {
 
-  constructor() { }
+ public data: FormControl;
+ public client_id: FormControl;
+ public product_id: FormControl;
+ public estocProductForm: FormGroup;
+ public errorConsulta: any;
+ public bSubmitted: boolean;
+
+ sum: number;
+
+ dataTitle: Date;
+
+  clientState$: ClientState;
+  productState$: ProducteState;
+  paletState$: PaletState;
+
+  constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
+    this.store.select('clientApp').subscribe(clients => this.clientState$ = clients);
+    this.store.select('producteApp').subscribe(products => this.productState$ = products);
+    this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+  }
 
   ngOnInit(): void {
+    this.store.dispatch(getAllClients());
+    this.bSubmitted = false;
+    this.data = new FormControl('', [Validators.required]);
+    this.client_id = new FormControl('', [Validators.required]);
+    this.product_id = new FormControl('', [Validators.required]);
+    this.errorConsulta = '';
+
+    this.estocProductForm = this.formBuilder.group({
+      data: this.data,
+      client_id: this.client_id,
+      product_id: this.product_id
+    });  
+    
+  }
+
+ total(state: any){
+
+    this.sum = state.reduce((      
+      acc: any,
+      obj: any,
+     ) => acc + (obj.num_palets),
+    0);
+
+    return this.sum;
+
+  }
+
+  onChangeClientValue(){
+    this.store.dispatch(getClientProducte({client_id: this.client_id.value}));
+  }
+
+  getEstocProduct(){
+
+    this.bSubmitted = true;
+
+    this.store.dispatch(estocProduct({product_id: this.product_id.value, data: this.data.value}));
+    
+    this.dataTitle = this.data.value;
+
+    this.estocProductForm.reset();
+
   }
 
 }

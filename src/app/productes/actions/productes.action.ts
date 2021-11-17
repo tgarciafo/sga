@@ -84,3 +84,17 @@ export const getIdError = createAction(
     '[Producte] Get Id error',
     props<{payload: any}>()
 );
+
+export const getClientProducte = createAction(
+    '[Producte] Get Client Producte',
+props<{ client_id: number }>());
+
+export const getClientProducteSuccess = createAction(
+    '[Producte] Get Client Producte success',
+    props<{ productes: Producte[] }>()
+);
+
+export const getClientProducteError = createAction(
+    '[Producte] Get Client Producte error',
+    props<{payload: any}>()
+);

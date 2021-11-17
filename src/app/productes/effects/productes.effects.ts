@@ -78,7 +78,15 @@ export class ProductesEffects {
         ))
     ));
 
-
+    getClientProducte$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(ProducteActions.getClientProducte),
+            mergeMap((action) =>
+                this.productesService.getClientProductes(action.client_id).pipe(
+                    map((productes) => ProducteActions.getClientProducteSuccess({ productes: productes })),
+                    catchError((err) => of(ProducteActions.getClientProducteError({ payload: err })))
+                ))
+        ));
 
     redirectTo(uri: string): void {
         this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>

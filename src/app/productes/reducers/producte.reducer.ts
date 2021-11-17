@@ -3,7 +3,8 @@ import { Producte } from '../models/producte';
 import {
     createProducte, getProducte, getProducteError, getProducteSuccess, editProducte, editProducteError, editProducteSuccess,
     deleteProducte, deleteProducteSuccess, deleteProducteError, getAllProductes, getAllProductesSuccess,
-    getAllProductesError, createProducteSuccess, createProducteError, getId, getIdError,getIdSuccess
+    getAllProductesError, createProducteSuccess, createProducteError, getId, getIdError,getIdSuccess, getClientProducte,
+    getClientProducteError,getClientProducteSuccess
 } from '../actions/productes.action';
 
 export interface ProducteState{
@@ -133,7 +134,24 @@ const _producteReducer = createReducer(
             status: payload.status,
             message: payload.message
         }
-    }))
+    })),
+    on(getClientProducte, state => ({ ...state, loading: true })),
+    on(getClientProducteSuccess, (state, { productes }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        productes: [...productes]
+    })),
+    on(getClientProducteError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
 )
 
 export function producteReducer(state: any, action: any) {
