@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import { Bloquejat } from 'src/app/bloquejats/models/bloquejat';
 import { Palet } from '../models/palet';
 import { Sortida } from '../models/sortida';
 
@@ -114,3 +113,20 @@ export const consultaPalSortidesError = createAction(
     '[Palet] Consulta Palets Sortides error',
     props<{payload: any}>()
 );
+
+/* Estocs */
+
+export const estocClient = createAction(
+    '[Palet] Estoc Client',
+    props<{ idClient: number, data: Date }>()
+);
+
+export const estocClientSuccess = createAction(
+    '[Palet] Estoc Client success',
+    props<{ estocClient: any[] }>()
+);
+export const estocClientError = createAction(
+    '[Palet] Estoc Client error',
+    props<{payload: any}>()
+);
+

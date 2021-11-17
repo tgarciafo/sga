@@ -9,6 +9,13 @@ import { RegistreLocationsComponent } from './locations/Components/registre-loca
 import { LoginComponent } from './login/Components/login/login.component';
 import { ConsultaEntradesComponent } from './palets/Components/consulta-entrades/consulta-entrades.component';
 import { ConsultaSortidesComponent } from './palets/Components/consulta-sortides/consulta-sortides.component';
+import { ConsultaSsccProducteComponent } from './palets/Components/estocs/consulta-sscc-producte/consulta-sscc-producte.component';
+import { ConsultaSsccComponent } from './palets/Components/estocs/consulta-sscc/consulta-sscc.component';
+import { EstocAlbaraComponent } from './palets/Components/estocs/estoc-albara/estoc-albara.component';
+import { EstocClientComponent } from './palets/Components/estocs/estoc-client/estoc-client.component';
+import { EstocLotComponent } from './palets/Components/estocs/estoc-lot/estoc-lot.component';
+import { EstocProducteComponent } from './palets/Components/estocs/estoc-producte/estoc-producte.component';
+import { EstocUbicacioComponent } from './palets/Components/estocs/estoc-ubicacio/estoc-ubicacio.component';
 import { IntroduccioPaletsComponent } from './palets/Components/intro_Pal/introduccio-palets/introduccio-palets.component';
 import { IntroduccioPalets2Component } from './palets/Components/intro_Pal/introduccio-palets2/introduccio-palets2.component';
 import { SortidesComponent } from './palets/Components/sortides/sortides.component';
@@ -40,6 +47,13 @@ const routes: Routes = [
   { path: 'bloquejar-palets', component: BloquejarPaletsComponent},
   { path: 'consulta-bloquejats', component: ConsultaBloquejatsComponent},
   { path: 'consulta-planificats', component: ConsultaPlanificatsComponent},
+  { path: 'estoc-client', component: EstocClientComponent},
+  { path: 'estoc-producte', component: EstocProducteComponent},
+  { path: 'estoc-ubicacio', component: EstocUbicacioComponent},
+  { path: 'estoc-albara', component: EstocAlbaraComponent},
+  { path: 'estoc-lot', component: EstocLotComponent},
+  { path: 'consulta-sscc', component: ConsultaSsccComponent},
+  { path: 'consulta-sscc-producte', component: ConsultaSsccProducteComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 

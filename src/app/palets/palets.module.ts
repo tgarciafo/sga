@@ -9,6 +9,13 @@ import { ConsultaEntradesComponent } from './Components/consulta-entrades/consul
 import { NgxPrintModule } from 'ngx-print';
 import { SortidesComponent } from './Components/sortides/sortides.component';
 import { ConsultaSortidesComponent } from './Components/consulta-sortides/consulta-sortides.component';
+import { EstocClientComponent } from './Components/estocs/estoc-client/estoc-client.component';
+import { EstocProducteComponent } from './Components/estocs/estoc-producte/estoc-producte.component';
+import { EstocUbicacioComponent } from './Components/estocs/estoc-ubicacio/estoc-ubicacio.component';
+import { EstocAlbaraComponent } from './Components/estocs/estoc-albara/estoc-albara.component';
+import { EstocLotComponent } from './Components/estocs/estoc-lot/estoc-lot.component';
+import { ConsultaSsccComponent } from './Components/estocs/consulta-sscc/consulta-sscc.component';
+import { ConsultaSsccProducteComponent } from './Components/estocs/consulta-sscc-producte/consulta-sscc-producte.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +23,14 @@ import { ConsultaSortidesComponent } from './Components/consulta-sortides/consul
     IntroduccioPalets2Component,
     ConsultaEntradesComponent,
     SortidesComponent,
-    ConsultaSortidesComponent
+    ConsultaSortidesComponent,
+    EstocClientComponent,
+    EstocProducteComponent,
+    EstocUbicacioComponent,
+    EstocAlbaraComponent,
+    EstocLotComponent,
+    ConsultaSsccComponent,
+    ConsultaSsccProducteComponent
   ],
   imports: [
     CommonModule,

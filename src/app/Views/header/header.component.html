@@ -24,6 +24,20 @@
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Consulta d'estocs
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/estoc-client">Estoc per client</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/estoc-producte">Estoc per producte</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/estoc-ubicacio">Estoc per ubicació</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/estoc-albara">Estoc per albarà</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/estoc-lot">Estoc per lot</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/consulta-sscc">Consulta de dades per SSCC</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/consulta-sscc-producte">Consulta de SSCC per producte</a></li>              
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Entrades
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

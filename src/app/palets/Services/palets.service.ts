@@ -111,5 +111,13 @@ export class PaletsService {
       catchError(this.handleError<Array<any>>('consultaPalSortida'))
     );
   }
+
+  /* Estocs */
+
+  estocClient(idClient: number, data: Date): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/estocClient/' + idClient +'/'+ data , this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('estocClient'))
+    );
+  }
   
 }

@@ -6,6 +6,7 @@ import {
     consultaPalEntradesError, consultaPalEntradesSuccess, consultaPalResta, consultaPalRestaError,
     consultaPalRestaSuccess, sortidaError, sortidaSuccess, sortida, consultaPalSortides,consultaPalSortidesError,
     consultaPalSortidesSuccess, consultaSortides, consultaSortidesError, consultaSortidesSuccess,
+    estocClient, estocClientError, estocClientSuccess
 } from '../actions/palets.action';
 
 export interface PaletState{
@@ -17,6 +18,7 @@ export interface PaletState{
     consultaPal: any[];
     consultaS: any[];
     consultaPalS: any[];
+    estocClient: any[];
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -31,6 +33,7 @@ export const initialState: PaletState = {
     consultaPal: [],
     consultaS: [],
     consultaPalS: [],
+    estocClient: [],
     loading: false,
     loaded: false,
     error: null
@@ -173,6 +176,23 @@ const _paletReducer = createReducer(
         consultaPalS: consultaPalS
     })),
     on(consultaPalSortidesError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(estocClient, state => ({ ...state, loading: true })),
+    on(estocClientSuccess, (state, { estocClient }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        estocClient: estocClient
+    })),
+    on(estocClientError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,
