@@ -125,6 +125,28 @@ export class PaletsEffects {
         )
     );
     
+    estocUbicacioPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.estocUbicacio),
+            mergeMap((action) =>
+                this.paletsService.estocUbicacio( action.client_id, action.location_id, action.data).pipe(
+                    map((estocUbicacio) => PaletActions.estocUbicacioSuccess({ estocUbicacio: estocUbicacio })),
+                    catchError((err)=> of(PaletActions.estocUbicacioError({payload: err})))
+                ))
+        )
+    );
+
+    estocAlbaraPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.estocAlbara),
+            mergeMap((action) =>
+                this.paletsService.estocAlbara( action.num_albara).pipe(
+                    map((estocAlbara) => PaletActions.estocAlbaraSuccess({ estocAlbara: estocAlbara })),
+                    catchError((err)=> of(PaletActions.estocAlbaraError({payload: err})))
+                ))
+        )
+    );
+
             redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri]));

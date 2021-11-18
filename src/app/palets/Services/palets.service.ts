@@ -125,5 +125,17 @@ export class PaletsService {
       catchError(this.handleError<Array<any>>('estocProduct'))
     );
   }
+
+  estocUbicacio(client_id: number, location_id: number, data: Date): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/estocUbicacio/' + client_id + '/' + location_id + '/'+ data , this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('estocUbicacio'))
+    );
+  }
+
+  estocAlbara(num_albara: string): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/estocAlbara/' + num_albara , this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('estocAlbara'))
+    );
+  }
   
 }

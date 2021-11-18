@@ -6,7 +6,8 @@ import {
     consultaPalEntradesError, consultaPalEntradesSuccess, consultaPalResta, consultaPalRestaError,
     consultaPalRestaSuccess, sortidaError, sortidaSuccess, sortida, consultaPalSortides,consultaPalSortidesError,
     consultaPalSortidesSuccess, consultaSortides, consultaSortidesError, consultaSortidesSuccess,
-    estocClient, estocClientError, estocClientSuccess, estocProduct, estocProductError, estocProductSuccess
+    estocClient, estocClientError, estocClientSuccess, estocProduct, estocProductError, estocProductSuccess,
+    estocUbicacio, estocUbicacioError, estocUbicacioSuccess, estocAlbara, estocAlbaraError, estocAlbaraSuccess
 } from '../actions/palets.action';
 
 export interface PaletState{
@@ -20,6 +21,8 @@ export interface PaletState{
     consultaPalS: any[];
     estocClient: any[];
     estocProduct: any[];
+    estocUbicacio: any[];
+    estocAlbara: any[];
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -36,6 +39,8 @@ export const initialState: PaletState = {
     consultaPalS: [],
     estocClient: [],
     estocProduct: [],
+    estocUbicacio: [],
+    estocAlbara: [],
     loading: false,
     loaded: false,
     error: null
@@ -212,6 +217,40 @@ const _paletReducer = createReducer(
         estocProduct: estocProduct
     })),
     on(estocProductError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(estocUbicacio, state => ({ ...state, loading: true })),
+    on(estocUbicacioSuccess, (state, { estocUbicacio }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        estocUbicacio: estocUbicacio
+    })),
+    on(estocUbicacioError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(estocAlbara, state => ({ ...state, loading: true })),
+    on(estocAlbaraSuccess, (state, { estocAlbara }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        estocAlbara: estocAlbara
+    })),
+    on(estocAlbaraError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

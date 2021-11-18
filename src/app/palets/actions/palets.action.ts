@@ -144,3 +144,30 @@ export const estocProductError = createAction(
     props<{payload: any}>()
 );
 
+export const estocUbicacio= createAction(
+    '[Palet] Estoc Ubicacio',
+    props<{ client_id: number, location_id: number, data: Date }>()
+);
+
+export const estocUbicacioSuccess = createAction(
+    '[Palet] Estoc Ubicacio success',
+    props<{ estocUbicacio: any[] }>()
+);
+export const estocUbicacioError = createAction(
+    '[Palet] Estoc Ubicacio error',
+    props<{payload: any}>()
+);
+
+export const estocAlbara= createAction(
+    '[Palet] Estoc Albara',
+    props<{ num_albara: string }>()
+);
+
+export const estocAlbaraSuccess = createAction(
+    '[Palet] Estoc Albara success',
+    props<{ estocAlbara: any[] }>()
+);
+export const estocAlbaraError = createAction(
+    '[Palet] Estoc Albara error',
+    props<{payload: any}>()
+);
