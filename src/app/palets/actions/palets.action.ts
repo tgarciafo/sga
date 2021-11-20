@@ -171,3 +171,17 @@ export const estocAlbaraError = createAction(
     '[Palet] Estoc Albara error',
     props<{payload: any}>()
 );
+
+export const estocLot= createAction(
+    '[Palet] Estoc Lot',
+    props<{ client_id: number, product_id: number, data: Date }>()
+);
+
+export const estocLotSuccess = createAction(
+    '[Palet] Estoc Lot success',
+    props<{ estocLot: any[] }>()
+);
+export const estocLotError = createAction(
+    '[Palet] Estoc Lot error',
+    props<{payload: any}>()
+);

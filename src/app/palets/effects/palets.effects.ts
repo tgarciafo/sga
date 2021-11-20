@@ -147,6 +147,17 @@ export class PaletsEffects {
         )
     );
 
+    estocLotPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.estocLot),
+            mergeMap((action) =>
+                this.paletsService.estocLot( action.client_id, action.product_id, action.data).pipe(
+                    map((estocLot) => PaletActions.estocLotSuccess({ estocLot: estocLot })),
+                    catchError((err)=> of(PaletActions.estocLotError({payload: err})))
+                ))
+        )
+    );
+
             redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri]));
