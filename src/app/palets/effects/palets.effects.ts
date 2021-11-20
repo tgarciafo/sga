@@ -158,6 +158,17 @@ export class PaletsEffects {
         )
     );
 
+    consultaSSCCPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.consultaSSCC),
+            mergeMap((action) =>
+                this.paletsService.consultaSSCC( action.num_sscc).pipe(
+                    map((consultaSSCC) => PaletActions.consultaSSCCSuccess({ consultaSSCC: consultaSSCC })),
+                    catchError((err)=> of(PaletActions.consultaSSCCError({payload: err})))
+                ))
+        )
+    );
+
             redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri]));

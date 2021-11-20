@@ -4,7 +4,7 @@
     <div id="dades">
         <form class="border border-light p-5" [formGroup]="estocAlbaraForm" (ngSubmit)="getEstocAlbara()">    
             <div class="mb-3">
-                <label for="num_albara" class="form-label">Selecciona el dia d'inici de consulta:</label>
+                <label for="num_albara" class="form-label">Escriu el número d'albarà:</label>
                 <input type="text" class="form-control" [formControl]="num_albara" name="num_albara" required>
                 <span style="color: red;" *ngIf="estocAlbaraForm.get('num_albara').errors && (estocAlbaraForm.get('num_albara').touched || estocAlbaraForm.get('num_albara').dirty)">                
                     <span *ngIf="estocAlbaraForm.get('num_albara').errors.required">El número d'albarà és obligatori</span>

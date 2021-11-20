@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { AppState } from 'src/app/app.reducers';
+import { Store } from '@ngrx/store';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PaletState } from 'src/app/palets/reducers';
+import { consultaSSCC } from 'src/app/palets/actions';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-consulta-sscc',
@@ -7,9 +13,56 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConsultaSsccComponent implements OnInit {
 
-  constructor() { }
+ public num_sscc: FormControl;
+ public consultaSSCCForm: FormGroup;
+ public errorConsulta: any;
+ public bSubmitted: boolean;
+
+ ssccTitle: Date;
+
+  paletState$: PaletState;
+
+  constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
+    this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+  }
 
   ngOnInit(): void {
+    this.bSubmitted = false;
+    this.num_sscc = new FormControl('', [Validators.required]);
+    this.errorConsulta = '';
+
+    this.consultaSSCCForm = this.formBuilder.group({
+      num_sscc: this.num_sscc,
+    });  
+    
   }
+
+  getConsultaSSCC(){
+
+    this.bSubmitted = true;
+
+    this.store.dispatch(consultaSSCC({ num_sscc: this.num_sscc.value}));
+    
+    this.ssccTitle = this.num_sscc.value;
+
+    this.consultaSSCCForm.reset();
+
+  }
+
+  fileName= 'consulta.xlsx';  
+
+  exportexcel(): void 
+      {
+        /* table id is passed over here */   
+        let element = document.getElementById('excel-table'); 
+        const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+
+        /* generate workbook and add the worksheet */
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+        /* save to file */
+        XLSX.writeFile(wb, this.fileName);
+      }
 
 }

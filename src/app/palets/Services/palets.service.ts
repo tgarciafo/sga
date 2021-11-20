@@ -143,4 +143,10 @@ export class PaletsService {
       catchError(this.handleError<Array<any>>('estocLot'))
     );
   }
+
+  consultaSSCC(num_sscc: string): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/consultaSSCC/' + num_sscc , this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('consultaSSCC'))
+    );
+  }
 }

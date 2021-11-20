@@ -8,7 +8,7 @@ import {
     consultaPalSortidesSuccess, consultaSortides, consultaSortidesError, consultaSortidesSuccess,
     estocClient, estocClientError, estocClientSuccess, estocProduct, estocProductError, estocProductSuccess,
     estocUbicacio, estocUbicacioError, estocUbicacioSuccess, estocAlbara, estocAlbaraError, estocAlbaraSuccess,
-    estocLot, estocLotError, estocLotSuccess
+    estocLot, estocLotError, estocLotSuccess, consultaSSCC, consultaSSCCError, consultaSSCCSuccess
 } from '../actions/palets.action';
 
 export interface PaletState{
@@ -25,6 +25,7 @@ export interface PaletState{
     estocUbicacio: any[];
     estocAlbara: any[];
     estocLot: any[];
+    consultaSSCC: any[];
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -44,6 +45,7 @@ export const initialState: PaletState = {
     estocUbicacio: [],
     estocAlbara: [],
     estocLot: [],
+    consultaSSCC: [],
     loading: false,
     loaded: false,
     error: null
@@ -271,6 +273,23 @@ const _paletReducer = createReducer(
         estocLot: estocLot
     })),
     on(estocLotError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(consultaSSCC, state => ({ ...state, loading: true })),
+    on(consultaSSCCSuccess, (state, { consultaSSCC }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        consultaSSCC: consultaSSCC
+    })),
+    on(consultaSSCCError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

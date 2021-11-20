@@ -185,3 +185,17 @@ export const estocLotError = createAction(
     '[Palet] Estoc Lot error',
     props<{payload: any}>()
 );
+
+export const consultaSSCC= createAction(
+    '[Palet] consultaSSCC',
+    props<{ num_sscc: string }>()
+);
+
+export const consultaSSCCSuccess = createAction(
+    '[Palet] consultaSSCC success',
+    props<{ consultaSSCC: any[] }>()
+);
+export const consultaSSCCError = createAction(
+    '[Palet] consultaSSCC error',
+    props<{payload: any}>()
+);
