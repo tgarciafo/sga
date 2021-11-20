@@ -28,6 +28,7 @@
                 <thead>
                 <tr>
                     <th scope="col">Producte</th>
+                    <th scope="col">Referència</th>
                     <th scope="col">Client</th>
                     <th scope="col">Caducitat</th>
                     <th scope="col">Número de palets</th>
@@ -36,12 +37,14 @@
                 <tbody>
                 <tr *ngFor="let estoc of paletState$.estocClient">
                     <th scope="row">{{estoc.description_prod}}</th>
+                    <td>{{estoc.reference}}</td>
                     <td>{{estoc.description_client}}</td>
                     <td>{{estoc.caducitat | date:'dd/MM/yyyy'}}</td>
                     <td>{{estoc.num_palets}}</td>
                 </tr>
                 <tr>
                     <td></td> 
+                    <td></td>
                     <td></td>
                     <td><strong>Total:</strong></td>
                     <td><strong>{{total(paletState$.estocClient)}}</strong></td>
