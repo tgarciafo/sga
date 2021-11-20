@@ -8,7 +8,8 @@ import {
     consultaPalSortidesSuccess, consultaSortides, consultaSortidesError, consultaSortidesSuccess,
     estocClient, estocClientError, estocClientSuccess, estocProduct, estocProductError, estocProductSuccess,
     estocUbicacio, estocUbicacioError, estocUbicacioSuccess, estocAlbara, estocAlbaraError, estocAlbaraSuccess,
-    estocLot, estocLotError, estocLotSuccess, consultaSSCC, consultaSSCCError, consultaSSCCSuccess
+    estocLot, estocLotError, estocLotSuccess, consultaSSCC, consultaSSCCError, consultaSSCCSuccess,
+    consultaSsccProduct, consultaSsccProductError, consultaSsccProductSuccess
 } from '../actions/palets.action';
 
 export interface PaletState{
@@ -26,6 +27,7 @@ export interface PaletState{
     estocAlbara: any[];
     estocLot: any[];
     consultaSSCC: any[];
+    consultaSsccProduct: any[];
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -46,6 +48,7 @@ export const initialState: PaletState = {
     estocAlbara: [],
     estocLot: [],
     consultaSSCC: [],
+    consultaSsccProduct: [],
     loading: false,
     loaded: false,
     error: null
@@ -290,6 +293,23 @@ const _paletReducer = createReducer(
         consultaSSCC: consultaSSCC
     })),
     on(consultaSSCCError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(consultaSsccProduct, state => ({ ...state, loading: true })),
+    on(consultaSsccProductSuccess, (state, { consultaSsccProduct }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        consultaSsccProduct: consultaSsccProduct
+    })),
+    on(consultaSsccProductError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

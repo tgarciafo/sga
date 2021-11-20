@@ -149,4 +149,10 @@ export class PaletsService {
       catchError(this.handleError<Array<any>>('consultaSSCC'))
     );
   }
+
+  consultaSsccProduct(product_id: number, data: Date, caducitat: Date): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/consultaSsccProduct/' + product_id + '/'+ data + '/' + caducitat, this.httpOptions).pipe(
+      catchError(this.handleError<Array<any>>('consultaSsccProduct'))
+    );
+  }
 }

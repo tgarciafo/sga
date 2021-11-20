@@ -169,6 +169,17 @@ export class PaletsEffects {
         )
     );
 
+    consultaSsccProductPalets$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(PaletActions.consultaSsccProduct),
+            mergeMap((action) =>
+                this.paletsService.consultaSsccProduct( action.product_id, action.data, action.caducitat).pipe(
+                    map((consultaSsccProduct) => PaletActions.consultaSsccProductSuccess({ consultaSsccProduct: consultaSsccProduct })),
+                    catchError((err)=> of(PaletActions.consultaSsccProductError({payload: err})))
+                ))
+        )
+    );
+
             redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
             this.router.navigate([uri]));

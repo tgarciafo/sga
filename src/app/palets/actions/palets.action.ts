@@ -199,3 +199,17 @@ export const consultaSSCCError = createAction(
     '[Palet] consultaSSCC error',
     props<{payload: any}>()
 );
+
+export const consultaSsccProduct= createAction(
+    '[Palet] consultaSsccProduct',
+    props<{ product_id: number, data: Date, caducitat: Date }>()
+);
+
+export const consultaSsccProductSuccess = createAction(
+    '[Palet] consultaSsccProduct Success',
+    props<{ consultaSsccProduct: any[] }>()
+);
+export const consultaSsccProductError = createAction(
+    '[Palet] consultaSsccProduct Error',
+    props<{payload: any}>()
+);
