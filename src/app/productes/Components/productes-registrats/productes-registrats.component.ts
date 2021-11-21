@@ -23,7 +23,7 @@ export class ProductesRegistratsComponent implements OnInit {
     this.webSocketService.producteEven.subscribe(res => {
       this.store.dispatch(getAllProductes());
       this.isAlert = true;
-      this.alertMsg = 'Nou producte creat';
+      this.alertMsg = res.alert;
     })
   }
 

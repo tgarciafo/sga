@@ -20,10 +20,10 @@ export class ClientsRegistratsComponent implements OnInit {
 
   constructor(private store: Store<AppState>, private webSocketService: WebSocketService) { 
     this.store.select('clientApp').subscribe(clients => this.clientState$ = clients);
-    this.webSocketService.outEven.subscribe(res => {
+    this.webSocketService.clientEven.subscribe(res => {
       this.store.dispatch(getAllClients());
       this.isAlert = true;
-      this.alertMsg = 'Nou client creat';
+      this.alertMsg = res.alert;
     })
   }
 

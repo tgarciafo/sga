@@ -6,9 +6,11 @@ import { Socket } from 'ngx-socket-io';
 })
 export class WebSocketService extends Socket {
 
-  @Output() outEven: EventEmitter<any> = new EventEmitter();
+  @Output() clientEven: EventEmitter<any> = new EventEmitter();
   @Output() producteEven: EventEmitter<any> = new EventEmitter();
   @Output() entradaEven: EventEmitter<any> = new EventEmitter();
+  @Output() sortidaEven: EventEmitter<any> = new EventEmitter();
+  @Output() bloquejarEven: EventEmitter<any> = new EventEmitter();
 
   constructor() {
     super({
@@ -19,13 +21,15 @@ export class WebSocketService extends Socket {
         },
       }
     })
-    this.listen();
+    this.listenClient();
     this.listenProduct();
     this.listenEntrada();
+    this.listenSortida();
+    this.listenBloquejar();
   }
 
-  listen = () => {
-    this.ioSocket.on('evento', (res: any) => this.outEven.emit(res));   
+  listenClient = () => {
+    this.ioSocket.on('client', (res: any) => this.clientEven.emit(res));   
   }
 
   listenProduct = () => {
@@ -38,8 +42,18 @@ export class WebSocketService extends Socket {
 
   }
 
-  emitEvent = ( payload = {}) => {
-    this.ioSocket.emit('evento', payload)
+  listenSortida = () => {
+    this.ioSocket.on('sortida', (res: any) => this.sortidaEven.emit(res));   
+
+  }
+
+  listenBloquejar = () => {
+    this.ioSocket.on('bloquejar', (res: any) => this.bloquejarEven.emit(res));   
+
+  }
+
+  clientEvent = ( payload = {}) => {
+    this.ioSocket.emit('client', payload)
   }
 
   producteEvent = ( payload = {}) => {
@@ -50,4 +64,11 @@ export class WebSocketService extends Socket {
     this.ioSocket.emit('entrada', payload)
   }
 
+  sortidaEvent = ( payload = {}) => {
+    this.ioSocket.emit('sortida', payload)
+  }
+
+  bloquejarEvent = ( payload = {}) => {
+    this.ioSocket.emit('bloquejar', payload)
+  }
 }

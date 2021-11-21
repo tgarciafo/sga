@@ -4,6 +4,7 @@ import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import {createLocation} from '../../actions';
 import { Location } from '../../models/location';
+import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
 @Component({
   selector: 'app-registre-locations',
@@ -19,7 +20,7 @@ export class RegistreLocationsComponent implements OnInit {
   public errorLocation: any;
   public bSubmitted: boolean;
 
-  constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
+  constructor(private formBuilder: FormBuilder, private store: Store<AppState>, private webSocketService: WebSocketService) { 
   }
 
   ngOnInit(): void {
@@ -40,7 +41,11 @@ export class RegistreLocationsComponent implements OnInit {
 
     this.store.dispatch(createLocation({ location: form  }))
    
-    return this.regLocationForm.reset();
+    this.regLocationForm.reset();
+
+    const alert = 'Nova ubicació creada';
+
+    this.webSocketService.bloquejarEvent({alert});
 
   }
 

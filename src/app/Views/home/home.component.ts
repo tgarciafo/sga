@@ -15,15 +15,12 @@ export class HomeComponent implements OnInit {
 
   userState$: UserState;
 
-  constructor( private webSocketService: WebSocketService, private store: Store<AppState>) { 
+  constructor( private store: Store<AppState>) { 
     this.store.select('userApp').subscribe(user => this.userState$ = user);
 
   }
 
   ngOnInit() {
-    this.webSocketService.outEven.subscribe(res => {
-      console.log(res);
-    })
   }
   /* ngOnDestroy() {
     this.webSocketService.disconnect();

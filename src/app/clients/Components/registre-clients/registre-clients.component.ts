@@ -52,7 +52,7 @@ export class RegistreClientsComponent implements OnInit {
 
     const alert = 'Nou client creat';
 
-    this.webSocketService.emitEvent({alert});
+    this.webSocketService.clientEvent({alert});
   }
 
 }

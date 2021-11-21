@@ -9,6 +9,7 @@ import { PaletState } from '../../reducers';
 import { Sortida } from '../../models/sortida';
 import { sortida } from '../../actions';
 import { getPlanificationSortida } from 'src/app/planification/actions';
+import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
 @Component({
   selector: 'app-sortides',
@@ -40,12 +41,23 @@ export class SortidesComponent implements OnInit {
   planificationState$: PlanificationState;
   paletState$: PaletState;
 
+  alertMsg: string;
+      
+  isAlert: boolean = false;
+
   data_sortida = new Date();
   sortida: Sortida;
 
-  constructor(private datePipe: DatePipe, private formBuilder: FormBuilder, private store: Store<AppState>) {
+  constructor(private datePipe: DatePipe, private webSocketService: WebSocketService, private formBuilder: FormBuilder, private store: Store<AppState>) {
     this.store.select('planificationApp').subscribe(planifications => this.planificationState$ = planifications);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+    this.webSocketService.sortidaEven.subscribe(res => {
+      if (this.albara_sortida.value == res.albara){
+        this.store.dispatch(getPlanificationSortida({albara_sortida:this.albara_sortida.value}));
+        this.isAlert = true;
+        this.alertMsg = res.alerta;
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -78,6 +90,10 @@ export class SortidesComponent implements OnInit {
 
     /* Formulari 2 */
 
+  }
+
+  close(){
+    this.isAlert = false;
   }
 
   interpreteBarcode(){
@@ -140,6 +156,10 @@ export class SortidesComponent implements OnInit {
     this.bSubmitted2 = false;
 
     this.albara_sortida.setValue(this.num_sortida.value);
+
+    const alert = 'Nou palet llegit';
+
+    this.webSocketService.sortidaEvent({alerta: alert, albara: this.num_sortida.value});
 
   } 
 
