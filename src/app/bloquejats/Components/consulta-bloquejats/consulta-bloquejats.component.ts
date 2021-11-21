@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { consultaPalBloquejats } from '../../actions';
 import { BloquejatState } from '../../reducers';
 import * as XLSX from 'xlsx';
+import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
 @Component({
   selector: 'app-consulta-bloquejats',
@@ -14,12 +15,25 @@ export class ConsultaBloquejatsComponent implements OnInit {
 
   bloquejatState$: BloquejatState;
 
-  constructor(private store: Store<AppState>) {
+  alertMsg: string;
+      
+  isAlert: boolean = false;
+
+  constructor(private store: Store<AppState>, private webSocketService: WebSocketService) {
     this.store.select('bloquejatsApp').subscribe(bloquejats => this.bloquejatState$ = bloquejats);
-   }
+    this.webSocketService.bloquejarEven.subscribe(res => {
+      this.store.dispatch(consultaPalBloquejats());
+      this.isAlert = true;
+      this.alertMsg = res.alert;
+    }) 
+  }
 
   ngOnInit(): void {
     this.store.dispatch(consultaPalBloquejats());
+  }
+
+  close(){
+    this.isAlert = false;
   }
 
   fileName= 'consulta.xlsx';  

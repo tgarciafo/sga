@@ -61,6 +61,8 @@ export class RegistreProductesComponent implements OnInit {
 
     this.regProductForm.reset();
 
+    this.bSubmitted = false;
+
     const alert = 'Nou producte creat';
 
     this.webSocketService.producteEvent({alert});

@@ -8,6 +8,7 @@ import { createBloquejat, consultaPalBloquejats, deleteBloquejat } from '../../.
 import { BloquejatState } from '../../../bloquejats/reducers';
 import { Bloquejat } from '../../models/bloquejat';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
 @Component({
   selector: 'app-bloquejar-palets',
@@ -28,9 +29,18 @@ export class BloquejarPaletsComponent implements OnInit {
   bloquejatState$: BloquejatState;
   paletState$: PaletState;
 
-  constructor(private formBuilder: FormBuilder, private store: Store<AppState>) {
+  alertMsg: string;
+      
+  isAlert: boolean = false;
+
+  constructor(private formBuilder: FormBuilder, private store: Store<AppState>, private webSocketService: WebSocketService) {
     this.store.select('bloquejatsApp').subscribe(bloquejats => this.bloquejatState$ = bloquejats);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+    this.webSocketService.bloquejarEven.subscribe(res => {
+      this.store.dispatch(consultaPalBloquejats());
+      this.isAlert = true;
+      this.alertMsg = res.alert;
+    }) 
   }
 
   ngOnInit(): void {
@@ -45,6 +55,10 @@ export class BloquejarPaletsComponent implements OnInit {
     });
   }
 
+  close(){
+    this.isAlert = false;
+  }
+
   saveBlock(){
 
     this.bSubmitted = true;
@@ -56,6 +70,10 @@ export class BloquejarPaletsComponent implements OnInit {
     this.bloquejarForm.reset();
 
     this.bSubmitted = false;
+
+    const alert = 'Nou palet bloquejat';
+
+    this.webSocketService.bloquejarEvent({alert});
 
   }
 
