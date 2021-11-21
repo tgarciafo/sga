@@ -11,6 +11,7 @@ import { getAllProductes, getId } from '../../../../productes/actions';
 import { getAllClients } from 'src/app/clients/actions';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
 @Component({
   selector: 'app-introduccio-palets2',
@@ -22,6 +23,10 @@ export class IntroduccioPalets2Component implements OnInit {
 
   productState$: ProducteState;
   paletState$: PaletState;
+
+  alertMsg: string;
+      
+  isAlert: boolean = false;
     
   currDate: string | null = '';
 
@@ -45,9 +50,16 @@ export class IntroduccioPalets2Component implements OnInit {
   public errorEntrada: any;
   public bSubmitted: boolean;
 
-  constructor(public router: Router, private store: Store<AppState>, private dp:DatePipe, private formBuilder: FormBuilder) { 
+  constructor(public router: Router, private webSocketService: WebSocketService, private store: Store<AppState>, private dp:DatePipe, private formBuilder: FormBuilder) { 
     this.store.select('producteApp').subscribe(products => this.productState$ = products);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+    this.webSocketService.entradaEven.subscribe(res => {
+      if (this.albara_entrada.value == res.albara){
+      this.store.dispatch(contador({palet: this.palet}));
+      this.isAlert = true;
+      this.alertMsg = res.alerta;
+      }
+    })
   }
 
   ngOnInit(): void {
@@ -76,6 +88,10 @@ export class IntroduccioPalets2Component implements OnInit {
     client: this.client,
     producte: this.producte
   });
+  }
+
+  close(){
+    this.isAlert = false;
   }
 
   ngOnChanges(){
@@ -175,6 +191,10 @@ export class IntroduccioPalets2Component implements OnInit {
     this.entradaForm.reset();
     this.bSubmitted = false;
     this.albara_entrada.setValue(this.num_entrada.value);  
+
+    const alert = 'Nou palet llegit';
+
+    this.webSocketService.entradaEvent({alerta: alert, albara: this.num_entrada.value});
  }  
 
  public buildForm(){

@@ -8,6 +8,7 @@ export class WebSocketService extends Socket {
 
   @Output() outEven: EventEmitter<any> = new EventEmitter();
   @Output() producteEven: EventEmitter<any> = new EventEmitter();
+  @Output() entradaEven: EventEmitter<any> = new EventEmitter();
 
   constructor() {
     super({
@@ -20,6 +21,7 @@ export class WebSocketService extends Socket {
     })
     this.listen();
     this.listenProduct();
+    this.listenEntrada();
   }
 
   listen = () => {
@@ -31,12 +33,21 @@ export class WebSocketService extends Socket {
 
   }
 
+  listenEntrada = () => {
+    this.ioSocket.on('entrada', (res: any) => this.entradaEven.emit(res));   
+
+  }
+
   emitEvent = ( payload = {}) => {
     this.ioSocket.emit('evento', payload)
   }
 
   producteEvent = ( payload = {}) => {
     this.ioSocket.emit('producte', payload)
+  }
+
+  entradaEvent = ( payload = {}) => {
+    this.ioSocket.emit('entrada', payload)
   }
 
 }
