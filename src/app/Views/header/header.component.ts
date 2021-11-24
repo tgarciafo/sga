@@ -15,13 +15,17 @@ export class HeaderComponent implements OnInit {
 
   loginState$: LoginState;
   userState$: UserState;
+  userType: string | undefined;
 
   constructor( public router: Router,
                private store: Store<AppState>){}
 
   ngOnInit(): void {
     this.store.select('loginApp').subscribe(login => this.loginState$ = login);
-    this.store.select('userApp').subscribe(user => this.userState$ = user);
+    this.store.select('userApp').subscribe(user => {
+      this.userType = user.user?.type;
+      this.userState$ = user
+    });
   }
 
   // Se inicializa el componente

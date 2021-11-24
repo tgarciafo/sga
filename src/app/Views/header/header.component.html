@@ -9,16 +9,16 @@
           <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
             <a class="nav-link" routerLink="/home">Inici</a>
           </li>
-          <li class="nav-item dropdown" *ngIf="loginState$.loggedIn && userState$.user.type !== 'Client'">
+          <li class="nav-item dropdown" *ngIf="(loginState$.loggedIn) && (userType !== 'Client')">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Introducció de dades
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="userState$.user.type === 'Admin'" routerLink="/registre-clients">Registre de Clients</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="userType === 'Admin'" routerLink="/registre-clients">Registre de Clients</a></li>
               <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/clients-registrats">Clients registrats</a></li>
-              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="userState$.user.type === 'Admin'" routerLink="/registre-productes">Registre de productes</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="userType === 'Admin'" routerLink="/registre-productes">Registre de productes</a></li>
               <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/productes-registrats">Productes registrats</a></li>
-              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="userState$.user.type === 'Admin'" routerLink="/registre-locations">Registrar Ubicacions</a></li>
+              <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" *ngIf="userType === 'Admin'" routerLink="/registre-locations">Registrar Ubicacions</a></li>
               <li routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}"><a class="dropdown-item" routerLink="/locations-registrades">Ubicacions Registrades</a></li>
             </ul>
           </li>
