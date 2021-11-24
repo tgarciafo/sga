@@ -79,7 +79,7 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        planifications: [...state.planifications.filter(plani => (plani.albara_sortida !== action.planification.albara_sortida) && (plani.product_id !== action.planification.product_id))]
+        planifications: [...state.planifications.filter(plani => ((plani.albara_sortida !== action.planification.albara_sortida) && (plani.product_id !== action.planification.product_id)))]
     })),
     on(deletePlanificationError, (state, { payload }) => ({
         ...state,

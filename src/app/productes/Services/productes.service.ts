@@ -25,9 +25,9 @@ export class ProductesService {
     return this.httpClient.post(this.API_ENDPOINT + '/products', producte, {headers: headers});
   }
 
-  getProductes(): Observable<Producte[]>{
+  getProductes(): Observable<any[]>{
     return this.get().pipe(
-        catchError(this.handleError<Producte[]>('getProducts', []))
+        catchError(this.handleError<any[]>('getProducts', []))
       );
   }
 
@@ -74,9 +74,9 @@ export class ProductesService {
     this.messageService.add(`ClientService: ${message}`);
   } */
 
-  getClientProductes( client_id: number): Observable<Producte[]>{
-    return this.httpClient.get<Producte[]>(this.API_ENDPOINT + '/getClientProduct/'+ client_id).pipe(
-      catchError(this.handleError<Producte[]>(`getClientProduct client_id=${client_id}`))
+  getClientProductes( client_id: number): Observable<any[]>{
+    return this.httpClient.get<any[]>(this.API_ENDPOINT + '/getClientProduct/'+ client_id).pipe(
+      catchError(this.handleError<any[]>(`getClientProduct client_id=${client_id}`))
     );
   }
 

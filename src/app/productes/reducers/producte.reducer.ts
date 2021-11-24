@@ -8,7 +8,7 @@ import {
 } from '../actions/productes.action';
 
 export interface ProducteState{
-    productes: Producte[];
+    productes: any[];
     producte: Producte | null;
     loading: boolean;
     loaded: boolean;

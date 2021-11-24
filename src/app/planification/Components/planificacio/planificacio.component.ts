@@ -7,7 +7,7 @@ import { ClientState } from 'src/app/clients/reducers';
 import { ProducteState } from 'src/app/productes/reducers';
 import { PlanificationState } from '../../reducers';
 import {consultaPalResta} from '../../../palets/actions';
-import { getAllProductes } from 'src/app/productes/actions';
+import { getAllProductes, getClientProducte } from 'src/app/productes/actions';
 import { createPlanification, deletePlanification, getPlanification } from '../../actions';
 import { getAllClients } from 'src/app/clients/actions';
 import { PaletState } from 'src/app/palets/reducers';
@@ -15,6 +15,7 @@ import { UserState } from 'src/app/user/reducers';
 import { Planification } from '../../models/planification';
 import { DatePipe } from '@angular/common';
 import { faPenAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
 @Component({
   selector: 'app-planificacio',
@@ -61,16 +62,26 @@ export class PlanificacioComponent implements OnInit {
 
   paletR: number | null;
 
-  constructor(private datePipe: DatePipe, private formBuilder: FormBuilder, private store: Store<AppState>, private modalService: NgbModal) { 
+  alertMsg: string;
+      
+  isAlert: boolean = false;
+
+  constructor(private datePipe: DatePipe, private webSocketService: WebSocketService, private formBuilder: FormBuilder, private store: Store<AppState>, private modalService: NgbModal) { 
     this.store.select('clientApp').subscribe(clients => this.clientState$ = clients);
     this.store.select('producteApp').subscribe(products => this.productState$ = products);
     this.store.select('planificationApp').subscribe(planifications => this.planificationState$ = planifications);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
     this.store.select('userApp').subscribe(user => this.userState$ = user);
+    this.webSocketService.planificarEven.subscribe(res => {
+      if (res.albara == this.num_sortida.value){
+      this.store.dispatch(getPlanification({planification: this.planification}));
+      this.isAlert = true;
+      this.alertMsg = res.alert;
+      }
+    })
   }
 
   ngOnInit(): void {
-    this.store.dispatch(getAllProductes());
     this.store.dispatch(getAllClients());
 
     this.bSubmitted = false;
@@ -84,9 +95,15 @@ export class PlanificacioComponent implements OnInit {
     });
   }
 
+  close(){
+    this.isAlert = false;
+  }
+
   getPlanification(){
     this.bSubmitted = true;
     this.bSubmitted2 = false;
+
+    this.store.dispatch(getClientProducte({client_id: this.idClient.value}));
 
     this.albara_sortida = new FormControl(this.num_sortida.value, [Validators.required]);
     this.product_id = new FormControl('', [Validators.required]);
@@ -117,6 +134,7 @@ export class PlanificacioComponent implements OnInit {
 
   goOut(){
     this.bSubmitted = false;
+    this.productState$.productes=[];
     this.planificacioForm.reset();
   }
 
@@ -139,9 +157,15 @@ export class PlanificacioComponent implements OnInit {
 
     }
 
+    this.bSubmitted2 = false;
+
     this.product_id.setValue('');
     this.palRestants.setValue('');
     this.num_palets.setValue('');
+
+    const alert = 'Palets afegits a la planificació';
+
+    this.webSocketService.planificarEvent({alert: alert, albara: this.num_sortida.value});
   }
 
   /* Modal */
@@ -171,6 +195,9 @@ export class PlanificacioComponent implements OnInit {
 
     this.store.dispatch(deletePlanification({product_id: producte, albara_sortida: albara}));
 
+    const alert2 = 'Palets eliminats a la planificació';
+
+    this.webSocketService.planificarEvent({alert: alert2, albara: this.num_sortida.value});
   }
 
 }

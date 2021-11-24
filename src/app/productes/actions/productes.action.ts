@@ -49,7 +49,7 @@ export const getAllProductes = createAction('[Producte] Get all');
 
 export const getAllProductesSuccess = createAction(
     '[Producte] Get all success',
-    props<{ productes: Producte[] }>()
+    props<{ productes: any[] }>()
 );
 
 export const getAllProductesError = createAction(
@@ -91,7 +91,7 @@ props<{ client_id: number }>());
 
 export const getClientProducteSuccess = createAction(
     '[Producte] Get Client Producte success',
-    props<{ productes: Producte[] }>()
+    props<{ productes: any[] }>()
 );
 
 export const getClientProducteError = createAction(

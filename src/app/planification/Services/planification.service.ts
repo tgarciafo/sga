@@ -34,8 +34,10 @@ export class PlanificationService {
   
   }
 
-  getPlanification(planification: Planification): Observable<Array<any>>{
-    const albara_sortida= planification.albara_sortida;
+  getPlanification(planification: Planification | string): Observable<Array<any>>{
+    
+    const albara_sortida= typeof planification === 'string' ? planification : planification.albara_sortida;
+
     return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/getPlanification/'+albara_sortida).pipe(
       catchError(this.handleError<Array<any>>(`getPlanification albara_sortida=${albara_sortida}`))
     );
@@ -53,10 +55,10 @@ export class PlanificationService {
     );
   }
 
-  deletePlanification(product_id: number, albara_sortida: string): Observable<Planification>{
+  deletePlanification(product_id: number, albara_sortida: string): Observable<any>{
 
-    return this.httpClient.delete<Planification>(this.API_ENDPOINT + '/destroy/'+ product_id + '/' + albara_sortida, this.httpOptions).pipe(
-      catchError(this.handleError<Planification>('deletePlanification'))
+    return this.httpClient.delete<any>(this.API_ENDPOINT + '/destroy/' + product_id + '/' + albara_sortida, this.httpOptions).pipe(
+      catchError(this.handleError<any>('deletePlanification'))
     );
   }
 

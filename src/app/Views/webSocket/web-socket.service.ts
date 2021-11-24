@@ -11,6 +11,7 @@ export class WebSocketService extends Socket {
   @Output() entradaEven: EventEmitter<any> = new EventEmitter();
   @Output() sortidaEven: EventEmitter<any> = new EventEmitter();
   @Output() bloquejarEven: EventEmitter<any> = new EventEmitter();
+  @Output() planificarEven: EventEmitter<any> = new EventEmitter();
 
   constructor() {
     super({
@@ -26,6 +27,7 @@ export class WebSocketService extends Socket {
     this.listenEntrada();
     this.listenSortida();
     this.listenBloquejar();
+    this.listenPlanificar();
   }
 
   listenClient = () => {
@@ -52,6 +54,10 @@ export class WebSocketService extends Socket {
 
   }
 
+  listenPlanificar = () => {
+    this.ioSocket.on('planificar', (res: any) => this.planificarEven.emit(res));
+  }
+
   clientEvent = ( payload = {}) => {
     this.ioSocket.emit('client', payload)
   }
@@ -70,5 +76,9 @@ export class WebSocketService extends Socket {
 
   bloquejarEvent = ( payload = {}) => {
     this.ioSocket.emit('bloquejar', payload)
+  }
+
+  planificarEvent = ( payload = {}) => {
+    this.ioSocket.emit('planificar', payload)
   }
 }
