@@ -2,7 +2,7 @@
     <h2>Registre d'usuaris nous</h2> 
     <form class="border border-light p-5" [formGroup]="regUserForm" (ngSubmit)="saveUser()"> 
         
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="name" class="form-label">Nom i cognoms</label>
             <input type="text" class="form-control mb-4" [formControl]="name" placeholder="Escriu el teu nom i cognoms">
             <span style="color: red;" *ngIf="regUserForm.get('name').errors && (regUserForm.get('name').touched || regUserForm.get('name').dirty) ">
@@ -12,7 +12,7 @@
             </span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-6">
             <label for="email" class="form-label">Email:</label>
             <input type="text" class="form-control mb-4" [formControl]="email" placeholder="Escriu el teu correu electrònic">
             <span style="color: red;" *ngIf="(regUserForm.get('email').errors && (regUserForm.get('email').touched) || regUserForm.get('email').dirty) ">
@@ -21,10 +21,10 @@
             </span>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-3">
             <label for="type" class="form-label">Tipus d'usuari:</label>
-            <select [formControl]="type" class="form-control mb-4">
-                <option value=" " [selected]="true">Selecciona tipus</option>
+            <select [formControl]="type" class="form-select mb-4">
+                <option value=" " selected>Selecciona tipus</option>
                 <option value="Admin" >Administrador/a</option>
                 <option value="Magatzem" >Magatzem</option>
                 <option value="Client" >Client</option>
@@ -32,10 +32,10 @@
             <span style="color: red;" *ngIf="type.invalid && type?.errors.invalidWord">És obligatori triar un tipus d'usuari</span>
         </div>
 
-        <div *ngIf="type.value === 'Client'" class="form-group">
+        <div *ngIf="type.value === 'Client'" class="form-group col-md-3">
             <label for="client_id" class="form-label">Client:</label>
-            <select [formControl]="client_id" class="form-control mb-4">
-                <option value=" " [selected]="true">Selecciona tipus</option>
+            <select [formControl]="client_id" class="form-select mb-4">
+                <option [ngValue]=" " selected>Selecciona tipus</option>
                 <option *ngFor="let client of clientState$.clients" [ngValue]="client.client_id">{{client.description_client}}</option>              
             </select>
             <span style="color: red;" *ngIf="client_id.invalid && client_id?.errors.invalidWord">És obligatori triar un client</span>
