@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { SignInComponent } from './Components/sign-in/sign-in.component';
 import { NgxPrintModule } from 'ngx-print';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NgxPrintModule } from 'ngx-print';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    NgxPrintModule
+    NgxPrintModule,
+    FontAwesomeModule
   ]
 })
 export class UserModule { }

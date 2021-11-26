@@ -4,21 +4,21 @@
         
         <div class="form-group">
             <label for="name" class="form-label">Nom i cognoms</label>
-            <input type="text" class="form-control" [formControl]="name" placeholder="Escriu el teu nom i cognoms">
+            <input type="text" class="form-control mb-4" [formControl]="name" placeholder="Escriu el teu nom i cognoms">
             <span style="color: red;" *ngIf="regUserForm.get('name').errors && (regUserForm.get('name').touched || regUserForm.get('name').dirty) ">
                 <span *ngIf="regUserForm.get('name').errors.required">El nom i cognoms són obligatoris</span>
-                <!-- <span *ngIf="regUserForm.get('name').errors.pattern">No és permès utilitzar caràcters especials ni espais al davant o al darrera</span>
-                <span *ngIf="regUserForm.get('name').errors.minlength || regUserForm.get('name').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span> -->
+                <span *ngIf="regUserForm.get('name').errors.pattern">No és permès utilitzar caràcters especials ni espais al davant o al darrera</span>
+                <span *ngIf="regUserForm.get('name').errors.minlength || regUserForm.get('name').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters</span>
             </span>
         </div>
 
         <div class="form-group">
             <label for="email" class="form-label">Email:</label>
-            <input type="text" class="form-control" [formControl]="email" placeholder="Escriu el teu correu electrònic">
+            <input type="text" class="form-control mb-4" [formControl]="email" placeholder="Escriu el teu correu electrònic">
             <span style="color: red;" *ngIf="(regUserForm.get('email').errors && (regUserForm.get('email').touched) || regUserForm.get('email').dirty) ">
                 <span *ngIf="regUserForm.get('email').errors?.required">El correu electrònic és obligatori</span>
-<!--                 <span *ngIf="regUserForm.get('email').errors?.pattern"> El correu electrònic ha de ser en el format següent: name@domin.com</span>
- -->            </span>
+                <span *ngIf="regUserForm.get('email').errors?.pattern"> El correu electrònic ha de ser en el format següent: name@domin.com</span>
+            </span>
         </div>
 
         <div class="form-group">
@@ -29,41 +29,55 @@
                 <option value="Magatzem" >Magatzem</option>
                 <option value="Client" >Client</option>
             </select>
-            <span style="color: red;" *ngIf="regUserForm.get('type').errors && (regUserForm.get('type').touched || regUserForm.get('type').dirty)">                
-                <span *ngIf="regUserForm.get('type').errors.required">És obligatori triar un tipus d'usuari</span>
-            </span>
+            <span style="color: red;" *ngIf="type.invalid && type?.errors.invalidWord">És obligatori triar un tipus d'usuari</span>
         </div>
 
         <div *ngIf="type.value === 'Client'" class="form-group">
             <label for="client_id" class="form-label">Client:</label>
             <select [formControl]="client_id" class="form-control mb-4">
-                <option [ngValue]="null">Selecciona client</option>                
-            <option *ngFor="let client of clientState$.clients" [ngValue]="client.client_id">{{client.description_client}}</option>              
-        </select>
-            <!-- <span style="color: red;" *ngIf="regUserForm.get('client_id').errors && (regUserForm.get('client_id').touched || regUserForm.get('client_id').dirty)">                
-                <span *ngIf="regUserForm.get('client_id').errors.required">És obligatori triar el client</span>
-            </span> -->
+                <option value=" " [selected]="true">Selecciona tipus</option>
+                <option *ngFor="let client of clientState$.clients" [ngValue]="client.client_id">{{client.description_client}}</option>              
+            </select>
+            <span style="color: red;" *ngIf="client_id.invalid && client_id?.errors.invalidWord">És obligatori triar un client</span>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <label for="password"  class="form-label">Contrasenya:</label>
+                    <div class="input-group mb-4">
+                        <input [type]="isActive ? 'password' : 'text'" class="form-control" [formControl]="password" placeholder="Escriu la contrasenya">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button"><fa-icon (click)="show()" [icon]="isActive ? faEye : faEyeSlash"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <span style="color: red;" *ngIf="regUserForm.get('password').errors && (regUserForm.get('password').touched || regUserForm.get('password').dirty) ">
+                        <span *ngIf="regUserForm.get('password').errors?.required">La contrasenya és obligatòria</span>
+                        <span *ngIf="regUserForm.get('password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
+                    </span>
+                </div>
+            </div>
         </div>
 
-
-        <div class="form-group">
-            <label for="password"  class="form-label">Contrasenya:</label>
-            <input type="password" class="form-control" [formControl]="password" placeholder="Escriu la contrasenya">
-            <span style="color: red;" *ngIf="regUserForm.get('password').errors && (regUserForm.get('password').touched || regUserForm.get('password').dirty) ">
-                <span *ngIf="regUserForm.get('password').errors?.required">La contrasenya és obligatòria</span>
-<!--                 <span *ngIf="regUserForm.get('password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
- -->            </span>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="input-group">
+                    <label for="repeat_password" class="form-label">Repeteix la contrasenya:</label>
+                    <div class="input-group mb-4">
+                        <input [type]="isActive2 ? 'password' : 'text'" class="form-control" [formControl]="repeat_password" placeholder="Torna a escriure la contrasenya">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button"><fa-icon (click)="show2()" [icon]="isActive2 ? faEye : faEyeSlash"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <span style="color: red;" *ngIf="regUserForm.get('repeat_password').errors && (regUserForm.get('repeat_password').touched || regUserForm.get('repeat_password').dirty) ">
+                        <span *ngIf="regUserForm.get('repeat_password').errors?.required">És obligatori repetir la  contrasenya</span>
+                        <span *ngIf="regUserForm.get('repeat_password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
+                    </span>
+                    <span style="color: red;" *ngIf="validatorEquality()">Les contrasenyes han de coincidir</span>
+                </div>
+            </div>
         </div>
-
-        <!-- <div class="form-group">
-            <label for="repeat_password" class="form-label">Repeteix la contrasenya:</label>
-            <input type="password" class="form-control" [formControl]="repeat_password" placeholder="Torna a escriure la contrasenya">
-            <span style="color: red;" *ngIf="regUserForm.get('repeat_password').errors && (regUserForm.get('repeat_password').touched || regUserForm.get('repeat_password').dirty) ">
-                <span *ngIf="regUserForm.get('repeat_password').errors?.required">És obligatori repetir la  contrasenya</span>
-                <span *ngIf="regUserForm.get('repeat_password').errors.minlength">El camp ha de contenir mínim 8 caràcters</span>
-            </span>
-            <span style="color: red;" *ngIf="validatorEquality()">Les contrasenyes han de coincidir</span>
-        </div> -->
 
         <!-- Podria indicar error usuari ja existeix -->
         
