@@ -29,7 +29,7 @@
     </div>
     <div class="mb-3">
         <label for="barcode">Escaneja el codi SSCC:</label>
-        <input type="text" [formControl]="barcode" placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="interpreteBarcode()" required>
+        <input type="text" [libFocus]="focus" [setFocus]="focusEvent" [formControl]="barcode" placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="interpreteBarcode()" required>
     </div>
     <div class="mb-3">
         <label for="sscc">SSCC:</label>

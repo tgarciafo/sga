@@ -1,6 +1,6 @@
 declare var parseBarcode: any;
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
@@ -47,6 +47,9 @@ export class SortidesComponent implements OnInit {
 
   data_sortida = new Date();
   sortida: Sortida;
+
+  focus = true;
+  focusEvent= new EventEmitter<boolean>();
 
   constructor(private datePipe: DatePipe, private webSocketService: WebSocketService, private formBuilder: FormBuilder, private store: Store<AppState>) {
     this.store.select('planificationApp').subscribe(planifications => this.planificationState$ = planifications);
@@ -96,6 +99,10 @@ export class SortidesComponent implements OnInit {
     this.isAlert = false;
   }
 
+  setFocus(){
+    return this.focusEvent.emit(true);
+  }
+
   interpreteBarcode(){
     "use strict";
 
@@ -133,7 +140,7 @@ export class SortidesComponent implements OnInit {
     this.albara_sortida.setValue(this.num_sortida.value);
 
     this.store.dispatch(getPlanificationSortida({albara_sortida:this.albara_sortida.value}));
-    
+    this.setFocus();
   }
 
   saveSortida(){
@@ -156,6 +163,8 @@ export class SortidesComponent implements OnInit {
     this.bSubmitted2 = false;
 
     this.albara_sortida.setValue(this.num_sortida.value);
+
+    this.setFocus();
 
     const alert = 'Nou palet llegit';
 

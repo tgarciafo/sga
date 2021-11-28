@@ -12,6 +12,7 @@ import { getAllClients } from 'src/app/clients/actions';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-introduccio-palets2',
@@ -49,6 +50,9 @@ export class IntroduccioPalets2Component implements OnInit {
   public entradaForm: FormGroup;
   public errorEntrada: any;
   public bSubmitted: boolean;
+
+  focus = true;
+  focusEvent= new EventEmitter<boolean>();
 
   constructor(public router: Router, private webSocketService: WebSocketService, private store: Store<AppState>, private dp:DatePipe, private formBuilder: FormBuilder) { 
     this.store.select('producteApp').subscribe(products => this.productState$ = products);
@@ -114,6 +118,7 @@ export class IntroduccioPalets2Component implements OnInit {
 
       this.store.dispatch(contador({palet: this.palet}));
 
+      this.setFocus();
     }
   }  
   
@@ -125,6 +130,22 @@ export class IntroduccioPalets2Component implements OnInit {
       let answer= parseBarcode(this.codi());
 
       return answer.parsedCodeItems.forEach(this.basedades, this);
+      
+    } catch (e){
+      console.log(e);
+  }
+  }
+
+  interpreteBarcode2(){
+    "use strict";
+
+    try{
+
+      let answer= parseBarcode(this.codi());
+
+      answer.parsedCodeItems.forEach(this.basedades, this);
+
+      return this.buildForm();
       
     } catch (e){
       console.log(e);
@@ -165,6 +186,10 @@ export class IntroduccioPalets2Component implements OnInit {
   this.store.dispatch(getId({ean: this.ean.value}));   
 
   }
+
+  setFocus(){
+    return this.focusEvent.emit(true);
+  }
   
   goSave(){
 
@@ -188,9 +213,17 @@ export class IntroduccioPalets2Component implements OnInit {
 
     this.store.dispatch(createPalet({ palet: this.palet }));
     
-    this.entradaForm.reset();
+    this.barcode.setValue('');
+    this.barcode2.setValue('');
+    this.lot.setValue('');
+    this.ean.setValue('');
+    this.sscc.setValue('');
+    this.caducitat.setValue('');
+    this.client.setValue('');
+    this.producte.setValue('');
     this.bSubmitted = false;
-    this.albara_entrada.setValue(this.num_entrada.value);  
+    
+    this.setFocus();
 
     const alert = 'Nou palet llegit';
 

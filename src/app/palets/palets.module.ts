@@ -16,6 +16,7 @@ import { EstocAlbaraComponent } from './Components/estocs/estoc-albara/estoc-alb
 import { EstocLotComponent } from './Components/estocs/estoc-lot/estoc-lot.component';
 import { ConsultaSsccComponent } from './Components/estocs/consulta-sscc/consulta-sscc.component';
 import { ConsultaSsccProducteComponent } from './Components/estocs/consulta-sscc-producte/consulta-sscc-producte.component';
+import { AngularInputFocusModule } from 'angular-input-focus';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ConsultaSsccProducteComponent } from './Components/estocs/consulta-sscc
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    NgxPrintModule
+    NgxPrintModule,
+    AngularInputFocusModule
   ]
 })
 export class PaletsModule { }

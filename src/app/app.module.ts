@@ -34,7 +34,7 @@ import { BloquejatsModule } from './bloquejats/bloquejats.module';
   declarations: [
     AppComponent,
     HeaderComponent,
-    HomeComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
