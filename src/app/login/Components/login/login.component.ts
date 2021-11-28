@@ -4,6 +4,7 @@ import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { LoginState } from '../../reducers';
 import * as LoginAction from '../../actions';
+import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +20,10 @@ export class LoginComponent implements OnInit {
 
   loginState$: LoginState;
 
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+
+  isActive: boolean = true;
 
   constructor( private store: Store<AppState>,private formBuilder: FormBuilder) 
   { 
@@ -34,6 +39,14 @@ export class LoginComponent implements OnInit {
       email: this.email,
       password: this.password,
     });
+  }
+
+  show(){
+    if (this.isActive == true){
+    return this.isActive = false;
+    } else {
+      return this.isActive = true;
+    }
   }
 
   public checkLogin(){

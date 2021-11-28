@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { NgxPrintModule } from 'ngx-print';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { NgxPrintModule } from 'ngx-print';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    NgxPrintModule
+    NgxPrintModule,
+    FontAwesomeModule
   ]
 })
 export class LoginModule { }

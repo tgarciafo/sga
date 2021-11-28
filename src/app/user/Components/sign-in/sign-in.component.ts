@@ -34,7 +34,6 @@ export class SignInComponent implements OnInit {
   public password: FormControl;
   public email: FormControl;
   public type: FormControl;
-  public user_name: FormControl;
   public client_id: FormControl;
   public repeat_password: FormControl;
   public regUserForm: FormGroup;
@@ -50,19 +49,18 @@ export class SignInComponent implements OnInit {
 
     this.bSubmitted = false;
     this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
-    this.password = new FormControl('', [Validators.required, Validators.minLength(8)]);
     this.email = new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}$')]);
     this.type = new FormControl('', [Validators.required, checkWord(/ /)]);
-    this.user_name = new FormControl('', [Validators.required]);
     this.client_id = new FormControl('', [checkWord(/ /)]);
+    this.password = new FormControl('', [Validators.required, Validators.minLength(8)]);
     this.repeat_password = new FormControl('', [Validators.required, Validators.minLength(8)])
 
     this.regUserForm = this.formBuilder.group({
       name: this.name,
-      password: this.password,
       email: this.email,
       type: this.type,
       client_id: this.client_id,
+      password: this.password,
       repeat_password: this.repeat_password
     }, {
       validators: checkEquality
