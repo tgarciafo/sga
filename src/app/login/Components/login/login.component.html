@@ -1,22 +1,30 @@
 <div class="container">    
-    <form class="text-center border border-light p-5" [formGroup]="loginForm" (ngSubmit)="checkLogin()">    
-        <!-- Email -->
-        <input type="email" [formControl]="email" class="form-control mb-4" placeholder="User E-mail">
+    <h2>Entrar al compte d'usuari</h2> 
+    <form class="border border-light p-5" [formGroup]="loginForm" (ngSubmit)="checkLogin()">
+        <div class="row justify-content-center">
+        <div class="form-group col-md-6">    
+        <label for="email" class="form-label">Correu electrònic usuari:</label>
+        <input type="email" [formControl]="email" class="form-control mb-4" placeholder="Correu electrònic de l'usuari">
         <span style="color: red;" *ngIf="loginForm.get('email').errors && (loginForm.get('email').touched || loginForm.get('email').dirty)">
-            <span *ngIf="loginForm.get('email').errors.required">Email is required</span> 
-            <span *ngIf="loginForm.get('email').errors.email">Email doesn't have a correct format</span>   
+            <span *ngIf="loginForm.get('email').errors.required">El correu electrònic és obligatori</span> 
+            <span *ngIf="loginForm.get('email').errors.email">El correu electrònic no té el format correcte.</span>   
         </span>
-        <!-- Password -->
-        <input type="password" [formControl]="password" class="form-control mb-4" placeholder="User Password">
+        </div>
+        </div>
+        <div class="row justify-content-center">
+        <div class="form-group col-md-6">
+        <label for="password" class="form-label">Contrasenya</label>
+        <input type="password" [formControl]="password" class="form-control mb-4" placeholder="Contrasenya de l'usuari">
         <span style="color: red;" *ngIf="loginForm.get('password').errors && (loginForm.get('password').touched || loginForm.get('password').dirty)">
-            <span *ngIf="loginForm.get('password').errors.required">User pwd is required</span>    
+            <span *ngIf="loginForm.get('password').errors.required">La contrasenya és obligatòria.</span>    
         </span>
-        <!-- <div class="row">
+        </div>
+        <div class="text-center">
             <h3 style="color: red;" *ngIf="loginState$.error && (bSubmitted)">
-                Invalid user or password
+                L'usuari o la contrasenya són incorrectes.
             </h3>
-        </div> -->
-        <!-- Sign in button -->
-        <button class="btn btn-primary my-4" type="submit" [disabled]="!loginForm.valid">Sign in</button>
+            <button class="btn btn-primary my-4" type="submit" [disabled]="!loginForm.valid">Log in</button>
+        </div>
+        </div>
     </form>    
 </div>

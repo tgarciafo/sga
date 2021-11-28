@@ -9,6 +9,7 @@ import { getAllClients } from 'src/app/clients/actions';
 import { checkWord } from '../../../Shared/Directives/check-word.validator';
 import { checkEquality } from 'src/app/Shared/Directives/check-equality.validator';
 import { faEye, faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import { UserState } from '../../reducers';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,6 +24,7 @@ export class SignInComponent implements OnInit {
   public user: User;
 
   clientState$: ClientState;
+  userState$: UserState;
 
   isActive: boolean = true;
   isActive2: boolean = true;
@@ -35,12 +37,12 @@ export class SignInComponent implements OnInit {
   public user_name: FormControl;
   public client_id: FormControl;
   public repeat_password: FormControl;
-  public errorUser: any;
   public regUserForm: FormGroup;
   public bSubmitted: boolean;
 
   constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
     this.store.select('clientApp').subscribe(clients => this.clientState$ = clients);
+    this.store.select('userApp').subscribe(users => this.userState$ = users);
   }
 
   ngOnInit(): void {
@@ -54,7 +56,6 @@ export class SignInComponent implements OnInit {
     this.user_name = new FormControl('', [Validators.required]);
     this.client_id = new FormControl('', [checkWord(/ /)]);
     this.repeat_password = new FormControl('', [Validators.required, Validators.minLength(8)])
-    this.errorUser = '';
 
     this.regUserForm = this.formBuilder.group({
       name: this.name,
