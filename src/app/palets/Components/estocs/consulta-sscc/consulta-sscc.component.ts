@@ -1,3 +1,4 @@
+declare var parseBarcode: any;
 import { Component, OnInit } from '@angular/core';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
@@ -38,6 +39,36 @@ export class ConsultaSsccComponent implements OnInit {
     this.store.dispatch(consultaSSCC({ num_sscc: '0'}));
     
   }
+
+  interpreteBarcode(){
+    "use strict";
+
+    try{
+
+      let answer= parseBarcode(this.codi());
+
+      answer.parsedCodeItems.forEach(this.basedades, this);
+
+    } catch (e){
+      console.log(e);
+  }
+    
+  }
+
+  basedades(element: any, index: any,array: any){
+    const ai=element.ai;
+    let data=element.data;
+
+    if (ai=='00'){
+      this.num_sscc.setValue(data);
+    } 
+  }  
+
+  codi(){
+    if (this.num_sscc.value != ''){
+      return this.num_sscc.value;
+    }
+  }  
 
   getConsultaSSCC(){
 

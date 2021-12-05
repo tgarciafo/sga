@@ -3,19 +3,25 @@
 
 <div id="dates">
     <form class="border border-light p-5" [formGroup]="consultaEntForm" (ngSubmit)="getEntrades()">    
-        <div class="mb-3">
-            <label for="data" class="form-label">Selecciona el dia d'inici de consulta:</label>
-            <input type="date" class="form-control" [formControl]="data" name="data" required>
+        <div class="row">
+            <div class="form-group col-md-3 offset-md-3">
+                <label for="data" class="form-label mt-4">Selecciona el dia d'inici de consulta:</label>
+                <input type="date" class="form-control mb-2" [formControl]="data" name="data" required>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="data2" class="form-label">Selecciona el dia final de consulta:</label>
-            <input type="date" class="form-control" [formControl]="data2" name="data2" required>
+        <div class="row">
+            <div class="form-group col-md-3 offset-md-3">
+                <label for="data2" class="form-label mt-4">Selecciona el dia final de consulta:</label>
+                <input type="date" class="form-control mb-2" [formControl]="data2" name="data2" required>
+            </div>
         </div>
-        <button class="btn btn-primary my-4" type="submit" [disabled]="!consultaEntForm.valid">Acceptar</button>
+        <div class="offset-md-3">
+            <button class="btn btn-primary my-4" type="submit" [disabled]="!consultaEntForm.valid">Acceptar</button>
+        </div>
     </form>    
 </div>
 
-<div id="taulaConsulta">
+<div id="taulaConsulta" class="mb-2">
     <div class="table-responsive">
         <table class="table caption-top table-primary table-hover table-striped">    
             <thead>
@@ -33,7 +39,7 @@
                 <td>{{entrada.data_entrada | date:'dd/MM/yyyy'}}</td>
                 <td>{{entrada.description_client}}</td>
                 <td>{{entrada.num_palets}}</td>
-                <td><button class="btn btn-outline-primary" (click)="open(mymodal, entrada.albara_entrada)">Open My Modal</button></td>
+                <td><button class="btn btn-dark" (click)="open(mymodal, entrada.albara_entrada)">Detall palets</button></td>
             </tr>
             </tbody>
         </table>
@@ -42,16 +48,14 @@
 
 <ng-template #mymodal let-modal>
     <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">SSCC palets entrades</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">×</span>
-    </button>
+        <h4 class="modal-title" id="modal-basic-title">SSCC palets entrades</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
         <h2>Consulta d'estocs per albarà</h2>
-        <div>
-            <button name="client_excel" id="client_excel" class="btn btn-success" (click)="exportexcel()">Exportar a Excel</button>
-            <button printSectionId="print-section" ngxPrint type="button" class="btn btn-primary">Imprimir</button>
+        <div class="offset-md-1 mb-2">
+            <button name="producte_excel" id="producte_excel" class="btn btn-success mx-4 my-3" (click)="exportexcel()">Exportar a Excel</button>
+            <button printSectionId="print-section" ngxPrint type="button" class="btn btn-primary mx-4 my-3">Imprimir</button>
         </div>
         <div id="print-section" class="table-responsive">
             <table id="excel-table" class='table table-hover'>
@@ -83,7 +87,7 @@
         </div>                
     </div>
     <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+        <button type="button" class="btn btn-dark" (click)="modal.close('Save click')">Ok</button>
     </div>
 </ng-template>
 </div>

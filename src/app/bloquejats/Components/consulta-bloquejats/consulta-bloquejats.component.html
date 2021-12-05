@@ -1,41 +1,41 @@
 <div class="container">
-<h2>LLista de palets bloquejats</h2>
-<div>
-    <button name="client_excel" id="client_excel" class="btn btn-success" (click)="exportexcel()">Exportar a Excel</button>
-    <button printSectionId="print-section" ngxPrint type="button" class="btn btn-primary">Imprimir</button>
-</div>
-<div id="print-section">
-<div class="table-responsive">
-<table id="excel-table" class="table caption-top table-primary table-hover table-striped">    
-    <thead>
-      <tr>
-        <th scope="col">SSCC</th>
-        <th scope="col">Client</th>
-        <th scope="col">Codi de producte</th>
-        <th scope="col">Caducitat</th>
-        <th scope="col">Ubicació</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let bloquejat of bloquejatState$.consultaPalB">
-        <th scope="row">&#8203;{{bloquejat.sscc}}</th>
-        <td>{{bloquejat.description_client}}</td>
-        <td>{{bloquejat.description_prod}}</td>
-        <td>{{bloquejat.caducitat | date:'dd/MM/yyyy'}}</td>
-        <td>{{bloquejat.location_description}}</td>
-      </tr>
-    </tbody>
-</table>
-</div>
-</div>
-<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-  </symbol>
-</svg>
-<div *ngIf="isAlert" class="alert alert-warning d-flex justify-content-between m-3 col-md-3" role="alert">
-  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-  <p>{{alertMsg}}</p>
-  <button type="button" class="btn-close"  aria-label="Close" (click)="close()"></button>
-</div>
+  <h2>LLista de palets bloquejats</h2>
+  <div class="offset-md-1 mb-2">
+    <button name="producte_excel" id="producte_excel" class="btn btn-success mx-4 my-3" (click)="exportexcel()">Exportar a Excel</button>
+    <button printSectionId="print-section" ngxPrint type="button" class="btn btn-primary mx-4 my-3">Imprimir</button>
+  </div>
+  <div id="print-section">
+    <div class="table-responsive">
+      <table id="excel-table" class="table caption-top table-primary table-hover table-striped">    
+          <thead>
+            <tr>
+              <th scope="col">SSCC</th>
+              <th scope="col">Client</th>
+              <th scope="col">Codi de producte</th>
+              <th scope="col">Caducitat</th>
+              <th scope="col">Ubicació</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let bloquejat of bloquejatState$.consultaPalB">
+              <th scope="row">&#8203;{{bloquejat.sscc}}</th>
+              <td>{{bloquejat.description_client}}</td>
+              <td>{{bloquejat.description_prod}}</td>
+              <td>{{bloquejat.caducitat | date:'dd/MM/yyyy'}}</td>
+              <td>{{bloquejat.location_description}}</td>
+            </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+    </symbol>
+  </svg>
+  <div *ngIf="isAlert" class="alert alert-warning d-flex justify-content-between m-3 col-md-3" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+    <p>{{alertMsg}}</p>
+    <button type="button" class="btn-close"  aria-label="Close" (click)="close()"></button>
+  </div>
 </div>

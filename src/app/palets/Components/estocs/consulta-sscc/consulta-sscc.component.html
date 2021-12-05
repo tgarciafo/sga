@@ -4,9 +4,9 @@
     <div id="dades">
         <form class="border border-light p-5" [formGroup]="consultaSSCCForm" (ngSubmit)="getConsultaSSCC()">    
             <div class="row">
-                <div class="form-group col-md-3 offset-md-3">
+                <div class="form-group col-md-4 offset-md-3">
                     <label for="num_sscc" class="form-label mt-4">Escriu el número SSCC:</label>
-                    <input type="text" class="form-control mb-2" [formControl]="num_sscc" name="num_sscc" required>
+                    <input type="text" class="form-control mb-2" [formControl]="num_sscc" name="num_sscc" (change)="interpreteBarcode()" placeholder="Escriu el número de sscc" required>
                     <span style="color: red;" *ngIf="consultaSSCCForm.get('num_sscc').errors && (consultaSSCCForm.get('num_sscc').touched || consultaSSCCForm.get('num_sscc').dirty)">                
                         <span *ngIf="consultaSSCCForm.get('num_sscc').errors.required">El número SSCC és obligatori</span>
                     </span>
@@ -54,9 +54,9 @@
                 </tbody>
             </table>
         </div>
-        <div>
-            <button name="sscc_excel" id="sscc_excel" class="btn btn-success" (click)="exportexcel()">Exportar a Excel</button>
-            <button printSectionId="print-section" ngxPrint type="button" class="btn btn-primary">Imprimir</button>
+        <div class="offset-md-1 mb-2">
+            <button name="producte_excel" id="producte_excel" class="btn btn-success mx-4 my-3" (click)="exportexcel()">Exportar a Excel</button>
+            <button printSectionId="print-section" ngxPrint type="button" class="btn btn-primary mx-4 my-3">Imprimir</button>
         </div>
     </div>
 </div>

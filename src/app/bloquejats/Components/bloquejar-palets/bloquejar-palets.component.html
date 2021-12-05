@@ -4,41 +4,45 @@
 <br>
 <div id="formulari">
     <form class="border border-light p-5" [formGroup]="bloquejarForm" (ngSubmit)="saveBlock()">    
-        <div class="mb-3">
-            <label for="sscc" class="form-label">Número sscc</label>
-            <input type="text" [formControl]="sscc" class="form-control" name="sscc" (change)="interpreteBarcode()" placeholder="Escriu el número de sscc">
+        <div class="row">
+            <div class="form-group col-md-4 offset-md-3">
+                <label for="sscc" class="form-label mt-4">Número sscc</label>
+                <input type="text" [formControl]="sscc" class="form-control mb-2" name="sscc" (change)="interpreteBarcode()" placeholder="Escriu el número de sscc">
+            </div>
         </div>
-        <button class="btn btn-primary my-4" type="submit" [disabled]="!bloquejarForm.valid">Acceptar</button>
+        <div class="offset-md-3">
+            <button class="btn btn-primary my-4" type="submit" [disabled]="!bloquejarForm.valid">Acceptar</button>
+        </div>
     </form>
 </div>
 
 <div id="bloquejats">  
     <h3>Palets bloquejats</h3>
     <div class="table-responsive">
-    <table class="table table-hover table-responsive table-bordered">
-        <thead>
-        <tr>
-            <td>SSCC</td>
-            <td>Client</td>
-            <td>Codi de producte</td>
-            <td>Caducitat</td>
-            <td>Eliminar</td>
-        </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let bloquejat of bloquejatState$.consultaPalB">
-                <td>{{bloquejat.sscc}}</td>
-                <td>{{bloquejat.description_client}}</td>
-                <td>{{bloquejat.description_prod}}</td>
-                <td>{{bloquejat.caducitat | date:'dd/MM/yyyy'}}</td>
-                <td>
-                    <button class="btn btn-danger" (click)="eliminar(bloquejat.bloquejat_id);">                          
-                        <span><fa-icon [icon]="faTrashAlt"></fa-icon></span>
-                    </button>
-                </td>
+        <table class="table table-hover table-responsive table-bordered">
+            <thead>
+            <tr>
+                <td>SSCC</td>
+                <td>Client</td>
+                <td>Codi de producte</td>
+                <td>Caducitat</td>
+                <td>Eliminar</td>
             </tr>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bloquejat of bloquejatState$.consultaPalB">
+                    <td>{{bloquejat.sscc}}</td>
+                    <td>{{bloquejat.description_client}}</td>
+                    <td>{{bloquejat.description_prod}}</td>
+                    <td>{{bloquejat.caducitat | date:'dd/MM/yyyy'}}</td>
+                    <td>
+                        <button class="btn btn-danger" (click)="eliminar(bloquejat.bloquejat_id);">                          
+                            <span><fa-icon [icon]="faTrashAlt"></fa-icon></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
