@@ -37,7 +37,8 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        planifications: [...state.planifications, planification]
+        planifications: [...state.planifications, planification],
+        error: null
     })),
     on(createPlanificationError, (state, { payload }) => ({
         ...state,
@@ -62,7 +63,8 @@ const _planificationReducer = createReducer(
             } else {
                 return _planification;
             }
-        })]
+        })],
+        error: null
     })),
     on(editPlanificationError, (state, { payload }) => ({
         ...state,
@@ -79,7 +81,8 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        planifications: [...state.planifications.filter(plani => ((plani.albara_sortida !== action.planification.albara_sortida) && (plani.product_id !== action.planification.product_id)))]
+        planifications: [...state.planifications.filter(plani => ((plani.albara_sortida !== action.planification.albara_sortida) && (plani.product_id !== action.planification.product_id)))],
+        error: null
     })),
     on(deletePlanificationError, (state, { payload }) => ({
         ...state,
@@ -96,7 +99,8 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        planifications: [...planifications]
+        planifications: [...planifications],
+        error: null
     })),
     on(getAllPlanificationsError, (state, { payload }) => ({
         ...state,
@@ -113,7 +117,8 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        consultaPlanification: consultaPlanification
+        consultaPlanification: consultaPlanification,
+        error: null
     })),
     on(getPlanificationError, (state, { payload }) => ({
         ...state,
@@ -130,7 +135,8 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        planifications: planifications
+        planifications: planifications,
+        error: null
     })),
     on(getPlanificationSortidaError, (state, { payload }) => ({
         ...state,
@@ -147,7 +153,8 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        comptador: num_pal
+        comptador: num_pal,
+        error: null
     })),
     on(comptadorError, (state, { payload }) => ({
         ...state,
@@ -164,7 +171,8 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        planifications: [...state.planifications.slice(1)]
+        planifications: [...state.planifications.slice(1)],
+        error: null
     })),
     on(deleteLinePlanificationError, (state, { payload }) => ({
         ...state,
@@ -181,7 +189,8 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        consultaPlanifications: consultaPlanifications
+        consultaPlanifications: consultaPlanifications,
+        error: null
     })),
     on(consultaPlanificationsError, (state, { payload }) => ({
         ...state,
@@ -198,7 +207,8 @@ const _planificationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        planifications: [...state.planifications.filter(plani => plani.albara_sortida !== action.planification.albara_sortida)]
+        planifications: [...state.planifications.filter(plani => plani.albara_sortida !== action.planification.albara_sortida)],
+        error: null
     })),
     on(deleteEntirePlanificationError, (state, { payload }) => ({
         ...state,

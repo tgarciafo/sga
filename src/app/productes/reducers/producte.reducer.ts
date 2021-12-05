@@ -30,7 +30,8 @@ const _producteReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        productes: [...state.productes, producte]
+        productes: [...state.productes, producte],
+        error: null
     })),
     on(createProducteError, (state, { payload }) => ({
         ...state,
@@ -55,7 +56,8 @@ const _producteReducer = createReducer(
             } else {
                 return _producte;
             }
-        })]
+        })],
+        error: null
     })),
     on(editProducteError, (state, { payload }) => ({
         ...state,
@@ -72,7 +74,8 @@ const _producteReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        productes: [...state.productes.filter(producte => producte.product_id !== id)]
+        productes: [...state.productes.filter(producte => producte.product_id !== id)],
+        error: null
     })),
     on(deleteProducteError, (state, { payload }) => ({
         ...state,
@@ -89,7 +92,8 @@ const _producteReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        productes: [...productes]
+        productes: [...productes],
+        error: null
     })),
     on(getAllProductesError, (state, { payload }) => ({
         ...state,
@@ -107,6 +111,7 @@ const _producteReducer = createReducer(
         loading: false,
         loaded: true,
         producte: producte,
+        error: null
     })),
     on(getProducteError, (state, { payload }) => ({
         ...state,
@@ -123,7 +128,8 @@ const _producteReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        producte: producte
+        producte: producte,
+        error: null
     })),
     on(getIdError, (state, { payload }) => ({
         ...state,
@@ -140,7 +146,8 @@ const _producteReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        productes: [...productes]
+        productes: [...productes],
+        error: null
     })),
     on(getClientProducteError, (state, { payload }) => ({
         ...state,

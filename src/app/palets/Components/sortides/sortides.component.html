@@ -18,7 +18,7 @@
         <label for="albara_sortida" class="form-label">Número d'albarà: </label>
         <input type="text" readonly [formControl]="albara_sortida" class="form-control" name="albara_sortida">
     </div>
-    <div class="mb-3" *ngIf="planificationState$.planifications[0]">
+    <div class="mb-3" *ngIf="planificationState$.planifications[0]; else Out">
         <label for="product_id" class="form-label">Referència: </label>
         <input type="text" readonly class="form-control" value="{{this.planificationState$.planifications[0].description_prod}}" name="product_id">
     </div>
@@ -35,7 +35,13 @@
         <label for="sscc">SSCC:</label>
         <input type="text" placeholder="sscc" readonly [formControl]="sscc">
     </div>
-    
+    <ng-template #Out>
+        <div class="text-center">
+            <h3 style="color: red;">
+                Picking finalitzat.
+            </h3>        
+        </div>
+    </ng-template>
     <button class="btn btn-primary my-4" type="submit" [disabled]="!sortidaForm2.valid">Acceptar</button>
     </form>
     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">

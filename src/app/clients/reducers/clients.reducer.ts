@@ -29,7 +29,8 @@ const _clientReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        clients: [...state.clients, client]
+        clients: [...state.clients, client],
+        error: null
     })),
     on(createClientError, (state, { payload }) => ({
         ...state,
@@ -54,7 +55,8 @@ const _clientReducer = createReducer(
             } else {
                 return _client;
             }
-        })]
+        })],
+        error: null
     })),
     on(editClientError, (state, { payload }) => ({
         ...state,
@@ -71,7 +73,8 @@ const _clientReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        clients: [...state.clients.filter(client => client.client_id !== id)]
+        clients: [...state.clients.filter(client => client.client_id !== id)],
+        error: null
     })),
     on(deleteClientError, (state, { payload }) => ({
         ...state,
@@ -88,7 +91,8 @@ const _clientReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        clients: [...clients]
+        clients: [...clients],
+        error: null
     })),
     on(getAllClientsError, (state, { payload }) => ({
         ...state,
@@ -106,6 +110,7 @@ const _clientReducer = createReducer(
         loading: false,
         loaded: true,
         client: client,
+        error: null
     })),
     on(getClientError, (state, { payload }) => ({
         ...state,
@@ -135,7 +140,8 @@ const _clientReducer = createReducer(
             } else {
                 return _client;
             }
-        })]
+        })],
+        error: null
     })),
     on(addClientUserFailure, (state, { payload }) => ({
         ...state,

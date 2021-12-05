@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Credentials } from '../models/credentials';
 import { User } from '../../user/models/user';
-import { throwError, Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, exhaustMap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,7 @@ export class LoginService {
             return user;
           } else
           {
-            throw throwError('Invalid username or password');
+            throw new Error("L'usuari o la contrasenya són incorrectes.");
           }         
         })
       );      

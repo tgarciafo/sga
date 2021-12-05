@@ -14,7 +14,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="form-group col-md-6">
-                <label for="email" class="form-label">Email:</label>
+                <label for="email" class="form-label mt-4">Email:</label>
                 <input type="text" class="form-control mb-2" [formControl]="email" placeholder="Escriu el teu correu electrònic">
                 <span style="color: red;" *ngIf="(regUserForm.get('email').errors && (regUserForm.get('email').touched) || regUserForm.get('email').dirty) ">
                     <span *ngIf="regUserForm.get('email').errors?.required">El correu electrònic és obligatori. </span>
@@ -24,7 +24,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="form-group col-md-3">
-                <label for="type" class="form-label">Tipus d'usuari:</label>
+                <label for="type" class="form-label mt-4">Tipus d'usuari:</label>
                 <select [formControl]="type" class="form-select mb-2">
                     <option value=" " selected>Selecciona tipus</option>
                     <option value="Admin" >Administrador/a</option>
@@ -36,7 +36,7 @@
         </div>
         <div class="row justify-content-center">
             <div *ngIf="type.value === 'Client'" class="form-group col-md-3">
-                <label for="client_id" class="form-label">Client:</label>
+                <label for="client_id" class="form-label mt-4">Client:</label>
                 <select [formControl]="client_id" class="form-select mb-2">
                     <option [ngValue]=" " selected>Selecciona client</option>
                     <option *ngFor="let client of clientState$.clients" [ngValue]="client.client_id">{{client.description_client}}</option>              
@@ -46,7 +46,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="form-group col-md-6">
-                <label for="password"  class="form-label mt-2">Contrasenya:</label>
+                <label for="password"  class="form-label mt-4">Contrasenya:</label>
                 <div class="input-group mb-2">
                     <input [type]="isActive ? 'password' : 'text'" class="form-control mb-2" [formControl]="password" placeholder="Escriu la contrasenya">
                     <div class="input-group-btn">
@@ -62,7 +62,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="form-group col-md-6">
-                <label for="repeat_password" class="form-label mt-2">Repeteix la contrasenya:</label>
+                <label for="repeat_password" class="form-label mt-4">Repeteix la contrasenya:</label>
                 <div class="input-group mb-2">
                     <input [type]="isActive2 ? 'password' : 'text'" class="form-control mb-2" [formControl]="repeat_password" placeholder="Torna a escriure la contrasenya">
                     <div class="input-group-btn">
@@ -78,8 +78,8 @@
             </div>
         </div>
         <div class="text-center">
-            <h3 style="color: red;" *ngIf="userState$.error && bSubmitted">
-                Error: aquest correu electrònic ja és utilitzat per un altre usuari.
+            <h3 style="color: red;" *ngIf="userState$.error && bSubmitted && !regUserForm.valid">
+                {{userState$.error.message}}
             </h3>
             <button class="btn btn-primary my-4" type="submit" [disabled]="!regUserForm.valid">Guardar Usuari</button>
         </div>               

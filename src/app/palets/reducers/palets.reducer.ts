@@ -61,7 +61,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        palets: [...state.palets, palet]
+        palets: [...state.palets, palet],
+        error: null
     })),
     on(createPaletError, (state, { payload }) => ({
         ...state,
@@ -78,7 +79,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        contador: num_pal
+        contador: num_pal,
+        error: null
     })),
     on(contadorError, (state, { payload }) => ({
         ...state,
@@ -95,7 +97,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        consulta: consulta
+        consulta: consulta,
+        error: null
     })),
     on(consultaEntradesError, (state, { payload }) => ({
         ...state,
@@ -112,7 +115,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        consultaPal: consultaPal
+        consultaPal: consultaPal,
+        error: null
     })),
     on(consultaPalEntradesError, (state, { payload }) => ({
         ...state,
@@ -129,7 +133,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        palResta: palResta
+        palResta: palResta,
+        error: null
     })),
     on(consultaPalRestaError, (state, { payload }) => ({
         ...state,
@@ -154,7 +159,8 @@ const _paletReducer = createReducer(
             } else {
                 return _palet;
             }
-        })]
+        })],
+        error: null
     })),
     on(sortidaError, (state, { payload }) => ({
         ...state,
@@ -171,7 +177,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        consultaS: consultaS
+        consultaS: consultaS,
+        error: null
     })),
     on(consultaSortidesError, (state, { payload }) => ({
         ...state,
@@ -188,7 +195,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        consultaPalS: consultaPalS
+        consultaPalS: consultaPalS,
+        error: null
     })),
     on(consultaPalSortidesError, (state, { payload }) => ({
         ...state,
@@ -205,7 +213,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        estocClient: estocClient
+        estocClient: estocClient,
+        error: null
     })),
     on(estocClientError, (state, { payload }) => ({
         ...state,
@@ -222,7 +231,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        estocProduct: estocProduct
+        estocProduct: estocProduct,
+        error: null
     })),
     on(estocProductError, (state, { payload }) => ({
         ...state,
@@ -239,7 +249,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        estocUbicacio: estocUbicacio
+        estocUbicacio: estocUbicacio,
+        error: null
     })),
     on(estocUbicacioError, (state, { payload }) => ({
         ...state,
@@ -256,7 +267,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        estocAlbara: estocAlbara
+        estocAlbara: estocAlbara,
+        error: null
     })),
     on(estocAlbaraError, (state, { payload }) => ({
         ...state,
@@ -273,7 +285,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        estocLot: estocLot
+        estocLot: estocLot,
+        error: null
     })),
     on(estocLotError, (state, { payload }) => ({
         ...state,
@@ -290,7 +303,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        consultaSSCC: consultaSSCC
+        consultaSSCC: consultaSSCC,
+        error: null
     })),
     on(consultaSSCCError, (state, { payload }) => ({
         ...state,
@@ -307,7 +321,8 @@ const _paletReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        consultaSsccProduct: consultaSsccProduct
+        consultaSsccProduct: consultaSsccProduct,
+        error: null
     })),
     on(consultaSsccProductError, (state, { payload }) => ({
         ...state,

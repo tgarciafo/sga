@@ -167,7 +167,7 @@ export class IntroduccioPalets2Component implements OnInit {
     } else if (ai=='00'){
       this.sscc.setValue(data);
     } else if (ai=='15'){
-      data=data.toLocaleDateString();
+      data=data.toLocaleDateString('es-ES');
       data=data.split("/").reverse().join("-");
       this.caducitat.setValue(data);
     } 

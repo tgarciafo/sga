@@ -32,7 +32,8 @@ const _bloquejatReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        bloquejats: [...state.bloquejats, bloquejat]
+        bloquejats: [...state.bloquejats, bloquejat],
+        error: null
     })),
     on(createBloquejatError, (state, { payload }) => ({
         ...state,
@@ -49,7 +50,8 @@ const _bloquejatReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        bloquejats: [...state.bloquejats.filter(bloquejat => bloquejat.bloquejat_id !== id)]
+        bloquejats: [...state.bloquejats.filter(bloquejat => bloquejat.bloquejat_id !== id)],
+        error: null
     })),
     on(deleteBloquejatError, (state, { payload }) => ({
         ...state,
@@ -66,7 +68,8 @@ const _bloquejatReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        bloquejats: [...bloquejats]
+        bloquejats: [...bloquejats],
+        error: null
     })),
     on(getAllBloquejatsError, (state, { payload }) => ({
         ...state,
@@ -84,6 +87,7 @@ const _bloquejatReducer = createReducer(
         loading: false,
         loaded: true,
         bloquejat: bloquejat,
+        error: null
     })),
     on(getBloquejatError, (state, { payload }) => ({
         ...state,
@@ -100,7 +104,8 @@ const _bloquejatReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        consultaPalB: consultaPalB
+        consultaPalB: consultaPalB,
+        error: null
     })),
     on(consultaPalBloquejatsError, (state, { payload }) => ({
         ...state,

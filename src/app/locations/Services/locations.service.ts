@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Location } from '../models/location';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, exhaustMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -44,14 +44,17 @@ export class LocationsService {
   }
 
   addLocation(location:Location): Observable<Location>{
-    /* return this.userExist(user).pipe(
+    return this.locationExist(location).pipe(
       exhaustMap((exist) => {
       if (exist){
-        throw throwError('That email is already assigned to another user.');
+        throw new Error('Ja hi ha una ubicació registrada amb aquesta descripció.');
       }
-      else { */
-    return this.httpClient.post<Location>(this.API_ENDPOINT+'/locations', location, this.httpOptions).pipe(
-      catchError(this.handleError<Location>('addLocation'))
+      else {
+        return this.httpClient.post<Location>(this.API_ENDPOINT+'/locations', location, this.httpOptions).pipe(
+          catchError(this.handleError<Location>('addLocation'))
+        );
+        }
+      })
     );
   }
 
@@ -63,15 +66,26 @@ export class LocationsService {
     );
   }
 
-  /* private log(message: string) {
-    this.messageService.add(`LocationService: ${message}`);
-  } */
-
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
-/*       this.log(`${operation} failed: ${error.message}`);
- */      return of(result as T);
+      return of(result as T);
     };
   }
+
+  locationExist(location: Location): Observable<boolean> {
+    return this.httpClient.get<Location[]>(this.API_ENDPOINT + '/locations').pipe(
+      map((locations) => {
+        if ((locations.find(x => x.location_description == location.location_description) === undefined))
+        {
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      })
+    );
+  }
+
 }

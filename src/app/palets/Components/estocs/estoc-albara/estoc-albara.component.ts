@@ -36,6 +36,8 @@ export class EstocAlbaraComponent implements OnInit {
     this.estocAlbaraForm = this.formBuilder.group({
       num_albara: this.num_albara,
     });  
+
+    this.store.dispatch(estocAlbara({ num_albara: '0'}));
     
   }
 

@@ -63,11 +63,18 @@ export class PlanificationService {
   }
 
   comptador(planifications: Planification[]){
-    const albara = planifications[0].albara_sortida;
 
-    return this.httpClient.get<Number>(this.API_ENDPOINT + '/num_pal_sortida/'+ albara, this.httpOptions).pipe(
-      catchError(this.handleError<Number>('comptador'))
-    );
+    if(planifications[0] == undefined){
+        const albara = '0';
+        return this.httpClient.get<Number>(this.API_ENDPOINT + '/num_pal_sortida/'+ albara, this.httpOptions).pipe(
+          catchError(this.handleError<Number>('comptador'))
+        );
+    } else {
+      const albara = planifications[0].albara_sortida;
+      return this.httpClient.get<Number>(this.API_ENDPOINT + '/num_pal_sortida/'+ albara, this.httpOptions).pipe(
+        catchError(this.handleError<Number>('comptador'))
+      );
+    }
   }
 
   deleteLinePlanification(palet: any): Observable<any>{

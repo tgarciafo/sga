@@ -44,7 +44,7 @@ export class EstocClientComponent implements OnInit {
       data: this.data,
       client_id: this.client_id
     });  
-    
+
   }
 
  total(state: any){

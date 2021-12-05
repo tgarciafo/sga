@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import {createLocation} from '../../actions';
 import { Location } from '../../models/location';
 import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
+import { LocationState } from '../../reducers';
 
 @Component({
   selector: 'app-registre-locations',
@@ -17,16 +18,17 @@ export class RegistreLocationsComponent implements OnInit {
 
   public location_description: FormControl;
   public regLocationForm: FormGroup;
-  public errorLocation: any;
   public bSubmitted: boolean;
 
+  locationState$: LocationState;
+
   constructor(private formBuilder: FormBuilder, private store: Store<AppState>, private webSocketService: WebSocketService) { 
+    this.store.select('locationApp').subscribe(locations => this.locationState$ = locations);
   }
 
   ngOnInit(): void {
     this.bSubmitted = false;
     this.location_description = new FormControl('', [Validators.required]);
-    this.errorLocation = '';
 
     this.regLocationForm = this.formBuilder.group({
       location_description: this.location_description,

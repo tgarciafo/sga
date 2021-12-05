@@ -34,6 +34,8 @@ export class ConsultaSsccComponent implements OnInit {
     this.consultaSSCCForm = this.formBuilder.group({
       num_sscc: this.num_sscc,
     });  
+
+    this.store.dispatch(consultaSSCC({ num_sscc: '0'}));
     
   }
 

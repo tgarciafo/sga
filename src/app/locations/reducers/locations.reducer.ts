@@ -29,7 +29,8 @@ const _locationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        locations: [...state.locations, location]
+        locations: [...state.locations, location],
+        error: null
     })),
     on(createLocationError, (state, { payload }) => ({
         ...state,
@@ -54,7 +55,8 @@ const _locationReducer = createReducer(
             } else {
                 return _location;
             }
-        })]
+        })],
+        error: null
     })),
     on(editLocationError, (state, { payload }) => ({
         ...state,
@@ -71,7 +73,8 @@ const _locationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        locations: [...state.locations.filter(location => location.location_id !== id)]
+        locations: [...state.locations.filter(location => location.location_id !== id)],
+        error: null
     })),
     on(deleteLocationError, (state, { payload }) => ({
         ...state,
@@ -88,7 +91,8 @@ const _locationReducer = createReducer(
         ...state,
         loading: false,
         loaded: true,
-        locations: [...locations]
+        locations: [...locations],
+        error: null
     })),
     on(getAllLocationsError, (state, { payload }) => ({
         ...state,
@@ -106,6 +110,7 @@ const _locationReducer = createReducer(
         loading: false,
         loaded: true,
         location: location,
+        error: null
     })),
     on(getLocationError, (state, { payload }) => ({
         ...state,

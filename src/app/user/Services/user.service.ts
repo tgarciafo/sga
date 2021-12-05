@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user';
 import { Credentials } from '../../login/models/credentials';
-import { throwError, Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, exhaustMap } from 'rxjs/operators';
 
@@ -30,7 +30,7 @@ export class UserService {
             return user;
           } else
           {
-            throw throwError('Invalid username or password');
+            throw new Error("L'usuari o la contrasenya són incorrectes.");
           }         
         })
       );      
@@ -68,7 +68,7 @@ export class UserService {
     return this.userExist(user).pipe(
       exhaustMap((exist) => {
       if (exist){
-        throw throwError('That email is already assigned to another user.');
+        throw new Error('Aquest correu electrònic està assignat a un altre usuari.');
       }
       else {
         return this.http.post<User>(this.API_ENDPOINT+'/users', user, this.httpOptions).pipe(

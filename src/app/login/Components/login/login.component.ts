@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.bSubmitted = false;
-    this.email = new FormControl('', [Validators.required, Validators.email]);
+    this.email = new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}$')]);
     this.password = new FormControl('', [Validators.required]);
     this.loginForm = this.formBuilder.group({
       email: this.email,
@@ -57,6 +57,8 @@ export class LoginComponent implements OnInit {
       password: this.password.value,
     };
         this.store.dispatch(LoginAction.login({credentials}));
+
+        this.loginForm.reset();
 
   }
 

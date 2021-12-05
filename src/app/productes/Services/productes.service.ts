@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Producte } from '../models/producte';
 import { Observable, of } from 'rxjs';
-import { catchError} from 'rxjs/operators';
+import { catchError, map, exhaustMap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -44,14 +44,17 @@ export class ProductesService {
   }
 
   addProducte(producte:Producte): Observable<Producte>{
-    /* return this.userExist(user).pipe(
+    return this.productExist(producte).pipe(
       exhaustMap((exist) => {
       if (exist){
-        throw throwError('That email is already assigned to another user.');
+        throw new Error('Ja hi ha un producte registrat amb aquesta referència o ean.');
       }
-      else { */
-    return this.httpClient.post<Producte>(this.API_ENDPOINT+'/products', producte, this.httpOptions).pipe(
-      catchError(this.handleError<Producte>('addProducte'))
+      else {
+        return this.httpClient.post<Producte>(this.API_ENDPOINT+'/products', producte, this.httpOptions).pipe(
+          catchError(this.handleError<Producte>('addProducte'))
+        );
+        }
+      })
     );
   }
 
@@ -70,10 +73,6 @@ export class ProductesService {
     );
   }
 
-  /* private log(message: string) {
-    this.messageService.add(`ClientService: ${message}`);
-  } */
-
   getClientProductes( client_id: number): Observable<any[]>{
     return this.httpClient.get<any[]>(this.API_ENDPOINT + '/getClientProduct/'+ client_id).pipe(
       catchError(this.handleError<any[]>(`getClientProduct client_id=${client_id}`))
@@ -83,9 +82,23 @@ export class ProductesService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
-/*       this.log(`${operation} failed: ${error.message}`);
- */      return of(result as T);
+      return of(result as T);
     };
+  }
+
+  productExist(producte: Producte): Observable<boolean> {
+    return this.httpClient.get<Producte[]>(this.API_ENDPOINT + '/products').pipe(
+      map((productes) => {
+        if ((productes.find(x => x.ean == producte.ean) === undefined) && (productes.find(x => x.reference == producte.reference) === undefined))
+        {
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      })
+    );
   }
 
 }

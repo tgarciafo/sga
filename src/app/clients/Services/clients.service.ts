@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Client } from '../models/client';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, exhaustMap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,6 @@ export class ClientsService {
 
   get(){
     return this.httpClient.get<Client[]>(this.API_ENDPOINT + '/clients');
-  }
-
-  save(client: Client){
-    const headers= new HttpHeaders({'Content-Type': 'application/json' });
-    return this.httpClient.post(this.API_ENDPOINT + '/clients', client, {headers: headers});
   }
 
   getClients(): Observable<Client[]>{
@@ -44,14 +39,17 @@ export class ClientsService {
   }
 
   addClient(client:Client): Observable<Client>{
-    /* return this.userExist(user).pipe(
+    return this.clientExist(client).pipe(
       exhaustMap((exist) => {
       if (exist){
-        throw throwError('That email is already assigned to another user.');
+        throw new Error('Ja hi ha un client registrat amb aquest codi o descripció de client.');
       }
-      else { */
-    return this.httpClient.post<Client>(this.API_ENDPOINT+'/clients', client, this.httpOptions).pipe(
-      catchError(this.handleError<Client>('addClient'))
+      else {
+        return this.httpClient.post<Client>(this.API_ENDPOINT+'/clients', client, this.httpOptions).pipe(
+          catchError(this.handleError<Client>('addClient'))
+    );
+      }
+    })
     );
   }
 
@@ -71,16 +69,26 @@ export class ClientsService {
 
   }
 
-  /* private log(message: string) {
-    this.messageService.add(`ClientService: ${message}`);
-  } */
-
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
-/*       this.log(`${operation} failed: ${error.message}`);
- */      return of(result as T);
+      return of(result as T);
     };
+  }
+
+  clientExist(client: Client): Observable<boolean> {
+    return this.httpClient.get<Client[]>(this.API_ENDPOINT + '/clients').pipe(
+      map((clients) => {
+        if ((clients.find(x => x.description_client === client.description_client) === undefined) && (clients.find(x => x.client_code === client.client_code) === undefined))
+        {
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      })
+    );
   }
 
 }

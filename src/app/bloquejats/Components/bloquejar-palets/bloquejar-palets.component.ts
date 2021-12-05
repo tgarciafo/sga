@@ -110,6 +110,7 @@ export class BloquejarPaletsComponent implements OnInit {
   eliminar(bloquejat_id: number){
 
     this.store.dispatch(deleteBloquejat({id:bloquejat_id}));
+    this.store.dispatch(consultaPalBloquejats());
 
   }
 }

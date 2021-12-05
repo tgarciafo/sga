@@ -50,6 +50,8 @@ export class ConsultaSsccProducteComponent implements OnInit {
       client_id: this.client_id,
       product_id: this.product_id
     });  
+
+    this.store.dispatch(consultaSsccProduct({product_id: 0, data: new Date('1999-01-01'), caducitat: new Date('1999-01-01')}));
     
   }
 
