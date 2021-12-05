@@ -1,99 +1,126 @@
 <div class="container">
-<h2>Planificació de sortides</h2>
+  <h2>Planificació de sortides</h2>
 
-<br>
-<div id="planificacio" [hidden]="bSubmitted">
-    <form class="border border-light p-5" [formGroup]="planificacioForm" (ngSubmit)="getPlanification()">    
-        <div class="mb-3">
-            <label for="num_sortida" class="form-label">Número d'albarà de sortida</label>
-            <input type="text" [readonly]="bSubmitted" [formControl]="num_sortida" class="form-control" name="num_sortida" placeholder="Escriu el número d'albarà de sortida">
+  <br>
+  <div id="planificacio" [hidden]="bSubmitted">
+      <form class="border border-light p-5" [formGroup]="planificacioForm" (ngSubmit)="getPlanification()">    
+        <div class="row">
+          <div class="form-group col-md-5 offset-md-3">
+              <label for="num_sortida" class="form-label mt-4">Número d'albarà de sortida</label>
+              <input type="text" [readonly]="bSubmitted" [formControl]="num_sortida" class="form-control mb-2" name="num_sortida" placeholder="Escriu el número d'albarà de sortida">
+              <span style="color: red;" *ngIf="planificacioForm.get('num_sortida').errors && (planificacioForm.get('num_sortida').touched || planificacioForm.get('num_sortida').dirty)">
+                <span *ngIf="planificacioForm.get('num_sortida').errors.required">El núm d'albarà és obligatori</span> 
+              </span>
+          </div>
         </div>
-        <div class="mb-3">
-            <label for="idClient" class="form-label">Selecciona el Client</label>
-            <select class="form-select" name="idClient" [formControl]="idClient" aria-label="idClient">
-                <option [value]="client.client_id" *ngFor="let client of clientState$.clients">{{client.description_client}}</option>
+        <div class="row">
+          <div class="form-group col-md-4 offset-md-3">
+            <label for="idClient" class="form-label mt-4">Selecciona el Client</label>
+            <select class="form-select mb-2" name="idClient" [formControl]="idClient" aria-label="idClient">
+              <option [ngValue]="null">Selecciona client</option>                
+              <option [value]="client.client_id" *ngFor="let client of clientState$.clients">{{client.description_client}}</option>
             </select>
+            <span style="color: red;" *ngIf="planificacioForm.get('idClient').errors && (planificacioForm.get('idClient').touched || planificacioForm.get('idClient').dirty)">                
+              <span *ngIf="planificacioForm.get('idClient').errors.required">El client és obligatori</span>
+            </span>
+          </div>
         </div>
-        <button class="btn btn-primary my-4" type="submit" [disabled]="!planificacioForm.valid">Acceptar</button>
-    </form>
-</div>
+        <div class="offset-md-3">
+          <button class="btn btn-primary my-4" type="submit" [disabled]="!planificacioForm.valid">Acceptar</button>
+        </div>
+      </form>
+  </div>
 
-<div id="planificacio2" [hidden]="!bSubmitted">  
+  <div id="planificacio2" [hidden]="!bSubmitted">  
     <h3>Selecciona les línies de producte</h3>
     <div class="table-responsive">
-    <table class="table table-hover table-responsive table-bordered">
-        <caption>
-            <button class="btn btn-primary" (click)="open(mymodal)">
-                Agregar nova línia
-                <!-- <span class="glyphicon glyphicon-plus"> </span> -->
-            </button>
-        </caption>
-        <thead>
-        <tr>
-            <td>Albarà de sortida</td>
-            <td>Codi de producte</td>
-            <td>Número de palets</td>
-            <td>Editar</td>
-            <td>Eliminar</td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let planificat of planificationState$.consultaPlanification">
-          <td>{{planificat.albara_sortida}}</td>
-          <td>{{planificat.description_prod}}</td>
-          <td>{{planificat.num_palets}}</td>
-          <td>
-            <button type="button" class="btn btn-warning"> 
-              <span><fa-icon [icon]="faPenAlt"></fa-icon></span>
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-danger" (click)="eliminar(planificat);">                          
-              <span><fa-icon [icon]="faTrashAlt"></fa-icon></span>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+      <table class="table table-hover table-responsive table-bordered">
+          <caption>
+              <button class="btn btn-primary m-3" (click)="open(mymodal)">
+                  Agregar nova línia
+                  <span class="mx-2"><fa-icon [icon]="faPlus"></fa-icon></span>              
+              </button>
+          </caption>
+          <thead>
+          <tr>
+              <td>Albarà de sortida</td>
+              <td>Codi de producte</td>
+              <td>Número de palets</td>
+              <td>Eliminar</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let planificat of planificationState$.consultaPlanification">
+            <td>{{planificat.albara_sortida}}</td>
+            <td>{{planificat.description_prod}}</td>
+            <td>{{planificat.num_palets}}</td>
+            <td>
+              <button class="btn btn-danger" (click)="eliminar(planificat);">                          
+                <span><fa-icon [icon]="faTrashAlt"></fa-icon></span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     
     <ng-template #mymodal let-modal>
         <div class="modal-header">
           <h4 class="modal-title" id="modal-basic-title">Selecció de producte</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">×</span>
-          </button>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
         </div>
         <div class="modal-body">
-          <form class="border border-light p-5" [formGroup]="planificacioForm2" (ngSubmit)="savePlanification()">    
-          <label for="albara_sortida" class="form-label">Albarà de sortida</label>
-          <input type="text" [formControl]="albara_sortida" readonly class="form-control">
-          <label for="product_id" class="form-label">Codi de producte:</label>
-            <select class="form-control" (change)="palResta(this.product_id.value)" [formControl]="product_id">
-                <option [ngValue]="null">Seleccionar un producte</option>
-                <option [ngValue]="product.product_id" *ngFor="let product of productState$.productes">{{product.description_prod}}</option>
-          </select>
-          <!-- stock -->
-          <label for="palRestants" class="form-label">Stock del producte:</label>
-          <input type="text" [formControl]="palRestants" class="form-control" readonly>
-          <!-- final stock -->
-          <label for="num_palets" class="form-label">Número de palets</label>
-          <input type="number" id="num_palets" [formControl]="num_palets" class="form-control">
-          <button class="btn btn-primary my-4" (click)="modal.close('Save click')" type="submit" [disabled]="!planificacioForm2.valid">Afegir</button>  
-        </form>
+          <form class="border border-light p-5" [formGroup]="planificacioForm2" (ngSubmit)="savePlanification()">   
+            <div class="row">
+              <div class="form-group col-md-4 offset-md-3"> 
+                <label for="albara_sortida" class="form-label mt-4">Albarà de sortida</label>
+                <input type="text" [formControl]="albara_sortida" class="form-control mb-2" readonly class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4 offset-md-3"> 
+                <label for="product_id" class="form-label mt-4">Codi de producte:</label>
+                <select class="form-select mb-2" (change)="palResta(this.product_id.value)" [formControl]="product_id">
+                  <option [ngValue]="product.product_id" *ngFor="let product of productState$.productes">{{product.description_prod}}</option>
+                </select>
+                <span style="color: red;" *ngIf="planificacioForm2.get('product_id').errors && (planificacioForm2.get('product_id').touched || planificacioForm2.get('product_id').dirty)">                
+                  <span *ngIf="planificacioForm2.get('product_id').errors.required">El producte és obligatori</span>
+                </span>
+              </div>
+            </div>
+            <!-- stock -->
+            <div class="row">
+              <div class="form-group col-md-3 offset-md-3"> 
+                <label for="palRestants" class="form-label">Stock del producte:</label>
+                <input type="text" [formControl]="palRestants" class="form-control" readonly>
+              </div>
+            </div>
+            <!-- final stock -->
+            <div class="row">
+              <div class="form-group col-md-3 offset-md-3"> 
+                <label for="num_palets" class="form-label">Número de palets</label>
+                <input type="number" id="num_palets" [formControl]="num_palets" class="form-control">
+              </div>
+            </div>
+            <div class="offset-md-3">
+              <button class="btn btn-primary my-4" (click)="modal.close('Save click')" type="submit" [disabled]="!planificacioForm2.valid">Afegir</button>  
+            </div>
+          </form>
         </div>
     </ng-template>
-
-    <button (click)="goOut()" class="btn btn-primary">Sortir</button>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+      <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </symbol>
+    </svg>
+    <div *ngIf="isAlert" class="alert alert-warning d-flex justify-content-between m-3 col-md-3" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+      <p>{{alertMsg}}</p>
+      <button type="button" class="btn-close"  aria-label="Close" (click)="close()"></button>
+    </div>
+    <div class="offset-md-1 mb-4">
+      <button (click)="goOut()" class="btn btn-danger">Sortir</button>
+    </div>
   </div>
-  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-      <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-    </symbol>
-  </svg>
-  <div *ngIf="isAlert" class="alert alert-warning d-flex justify-content-between m-3 col-md-3" role="alert">
-    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-    <p>{{alertMsg}}</p>
-    <button type="button" class="btn-close"  aria-label="Close" (click)="close()"></button>
-  </div>
+  
 </div>

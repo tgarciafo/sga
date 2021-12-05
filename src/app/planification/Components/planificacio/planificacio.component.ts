@@ -7,14 +7,14 @@ import { ClientState } from 'src/app/clients/reducers';
 import { ProducteState } from 'src/app/productes/reducers';
 import { PlanificationState } from '../../reducers';
 import {consultaPalResta} from '../../../palets/actions';
-import { getAllProductes, getClientProducte } from 'src/app/productes/actions';
+import { getClientProducte } from 'src/app/productes/actions';
 import { createPlanification, deletePlanification, getPlanification } from '../../actions';
 import { getAllClients } from 'src/app/clients/actions';
 import { PaletState } from 'src/app/palets/reducers';
 import { UserState } from 'src/app/user/reducers';
 import { Planification } from '../../models/planification';
 import { DatePipe } from '@angular/common';
-import { faPenAlt, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
 @Component({
@@ -24,7 +24,7 @@ import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 })
 export class PlanificacioComponent implements OnInit {
   
-  faPenAlt = faPenAlt;
+  faPlus = faPlus;
   faTrashAlt = faTrashAlt;
 
   /* Formulari 1 */
@@ -32,7 +32,6 @@ export class PlanificacioComponent implements OnInit {
   public num_sortida: FormControl;
   public idClient: FormControl;
   public planificacioForm: FormGroup;
-  public errorPlanificacio: any;
   public bSubmitted: boolean;
 
   /* Fi Formulari 1 */
@@ -44,7 +43,6 @@ export class PlanificacioComponent implements OnInit {
   public palRestants: FormControl;
   public num_palets: FormControl;
   public planificacioForm2: FormGroup;
-  public errorPlanificacio2: any;
   public bSubmitted2: boolean;
 
   /* Fi Formulari 2 */
@@ -87,7 +85,6 @@ export class PlanificacioComponent implements OnInit {
     this.bSubmitted = false;
     this.num_sortida = new FormControl('', [Validators.required]);
     this.idClient = new FormControl('', [Validators.required]);
-    this.errorPlanificacio = '';
 
     this.planificacioForm = this.formBuilder.group({
       num_sortida: this.num_sortida,
@@ -109,7 +106,6 @@ export class PlanificacioComponent implements OnInit {
     this.product_id = new FormControl('', [Validators.required]);
     this.palRestants = new FormControl('', []);
     this.num_palets = new FormControl('', [Validators.required]); 
-    this.errorPlanificacio2 = '';
 
     this.planificacioForm2 = this.formBuilder.group({
       data_sortida: this.datePipe.transform(this.data_sortida, 'yyyy-MM-dd'),
