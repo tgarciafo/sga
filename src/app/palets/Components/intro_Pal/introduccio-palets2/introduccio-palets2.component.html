@@ -1,39 +1,36 @@
 <div id="llegir2" [hidden]="!show2">  
   <form class="border border-light p-5" [formGroup]="entradaForm">    
-      <div class="mb-3">
-          <label for="albara_entrada" class="form-label">Número d'albarà d'entrada</label>
-          <input type="text" readonly [formControl]="albara_entrada" required class="form-control">
+    <div class="row">
+      <div class="form-group col-md-4 offset-md-3">
+          <label for="albara_entrada" class="form-label mt-4">Número d'albarà d'entrada</label>
+          <input type="text" readonly [formControl]="albara_entrada" required class="form-control mb-2">
       </div>
-      <div class="mb-3">
-        <label for="contador" class="form-label">Número de palets:</label>
-        <input type="text" value="{{paletState$.contador}}" readonly class="form-control" id="contador">
+    </div>
+    <div class="row">
+      <div class="form-group col-md-4 offset-md-3">
+        <label for="contador" class="form-label mt-4">Número de palets:</label>
+        <input type="text" value="{{paletState$.contador}}" readonly class="form-control mb-2" id="contador">
       </div>
-      <div id="barcodeInputDiv">
-        <label for="barcode">Escaneja el codi SSCC:</label>
-        <input type="text" [libFocus]="focus" [setFocus]="focusEvent" [formControl]="barcode" placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="interpreteBarcode()"  required>
-        <label for="barcode2">Escaneja el codi SSCC:</label>
-        <input type="text" [formControl]="barcode2" placeholder="Escriure el codi SSCC del palet" name="barcode2" (change)="interpreteBarcode2()"  required>
+    </div>
+    <div class="row">
+      <div class="form-group col-md-4 offset-md-3">
+        <label for="barcode" class="form-label mt-4">Escaneja el codi SSCC:</label>
+        <input type="text" [libFocus]="focus" class="form-control mb-2" [setFocus]="focusEvent" [formControl]="barcode" placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="interpreteBarcode()"  required>
+        <label for="barcode2" class="form-label mt-4">Escaneja el codi SSCC:</label>
+        <input type="text" [formControl]="barcode2" class="form-control mb-4" placeholder="Escriure el codi SSCC del palet" name="barcode2" (change)="interpreteBarcode2()"  required>
       </div>
-      <div class="mb-3">
-            <label hidden for="lot">Lot:</label>
-            <input type="text" placeholder="lot" readonly [formControl]="lot">
-          
-            <label hidden for="ean">Producte:</label>
-            <input type="text" placeholder="ean" readonly [formControl]="ean">
-       
-            <label hidden for="sscc">SSCC:</label>
-            <input type="text" [formControl]="sscc" placeholder="sscc" readonly>
-          
-            <label hidden for="caducitat">Caducitat:</label>
-            <input type="text" [formControl]="caducitat" placeholder="caducitat"  readonly>
-            
-            <label hidden for="client">Client:</label>
-            <input type="text" [formControl]="client" placeholder="client" value="{{productState$.producte?.client_id}}" readonly>
-            
-            <label hidden for="producte">Producte:</label>
-            <input type="text" [formControl]="producte" value="{{productState$.producte?.product_id}}" placeholder="producte"  readonly>
-      </div>
-      <button class="btn btn-primary" type="submit">Guardar</button>
+    </div>
+    <div hidden class="mb-3">
+      <input type="text" placeholder="lot" readonly [formControl]="lot">
+      <input type="text" placeholder="ean" readonly [formControl]="ean">
+      <input type="text" [formControl]="sscc" placeholder="sscc" readonly>
+      <input type="text" [formControl]="caducitat" placeholder="caducitat"  readonly>
+      <input type="text" [formControl]="client" placeholder="client" value="{{productState$.producte?.client_id}}" readonly>
+      <input type="text" [formControl]="producte" value="{{productState$.producte?.product_id}}" placeholder="producte"  readonly>
+    </div>
+    <div class="offset-md-3">
+      <button class="btn btn-primary" type="submit">Entrar palet</button>
+    </div>
   </form>  
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
@@ -45,5 +42,7 @@
     <p>{{alertMsg}}</p>
     <button type="button" class="btn-close"  aria-label="Close" (click)="close()"></button>
   </div>
-    <button (click)="goOut()" class="btn btn-primary">Sortir</button>
+  <div class="offset-md-2 mb-4">
+    <button (click)="goOut()" class="btn btn-danger">Sortir</button>
   </div>
+</div>

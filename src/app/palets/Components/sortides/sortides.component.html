@@ -1,59 +1,80 @@
 <div class="container">
-<h2>Expedicions</h2>
-
-<br>
-<div id="sortida" [hidden]="bSubmitted">
-    <form class="border border-light p-5" [formGroup]="sortidaForm" (ngSubmit)="getSortida()">    
-        <div class="mb-3">
-            <label for="num_sortida" class="form-label">Número d'albarà de sortida</label>
-            <input type="text" [formControl]="num_sortida" class="form-control" name="num_sortida" placeholder="Escriu el número d'albarà de sortida">
+    <h2>Expedicions</h2>
+    <br>
+    <div id="sortida" [hidden]="bSubmitted">
+        <form class="border border-light p-5" [formGroup]="sortidaForm" (ngSubmit)="getSortida()">    
+            <div class="row">
+                <div class="form-group col-md-5 offset-md-3">
+                    <label for="num_sortida" class="form-label mt-4">Número d'albarà de sortida</label>
+                    <input type="text" [formControl]="num_sortida" class="form-control mb-2" name="num_sortida" placeholder="Escriu el número d'albarà de sortida">
+                    <span style="color: red;" *ngIf="sortidaForm.get('num_sortida').errors && (sortidaForm.get('num_sortida').touched || sortidaForm.get('num_sortida').dirty)">
+                        <span *ngIf="sortidaForm.get('num_sortida').errors.required">El núm d'albarà és obligatori</span> 
+                    </span>
+                </div>
+            </div>        
+            <div class="offset-md-3">
+                <button class="btn btn-primary my-4" type="submit" [disabled]="!sortidaForm.valid">Acceptar</button>
+            </div>
+        </form>
+    </div>
+    <div id="sortida2" [hidden]="!bSubmitted">  
+        <h3>Picking Sortides</h3>
+        <form class="border border-light p-5" [formGroup]="sortidaForm2" (ngSubmit)="saveSortida()">    
+            <div class="row">
+                <div class="form-group col-md-4 offset-md-3">
+                    <label for="albara_sortida" class="form-label mt-4">Número d'albarà: </label>
+                    <input type="text" readonly [formControl]="albara_sortida" class="form-control mb-2" name="albara_sortida">
+                </div>
+            </div>
+            <div class="row" *ngIf="planificationState$.planifications[0]; else Out">
+                <div class="form-group col-md-4 offset-md-3">
+                    <label for="product_id" class="form-label">Referència: </label>
+                    <input type="text" readonly class="form-control" value="{{this.planificationState$.planifications[0].description_prod}}" name="product_id">
+                </div>
+            </div>
+            <div class="offset-md-3">
+                <button class="btn btn-danger my-4" type="button">Eliminar registre</button>
+            </div>
+            <div class="row" *ngIf="planificationState$.comptador">
+                <div class="form-group col-md-3 offset-md-3">
+                    <label for="resta" class="form-label mt-4">Número restant de palets per llegir: </label>
+                    <input type="number" id="contador" readonly value="{{this.planificationState$.comptador}}" class="form-control mb-2" name="resta">
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-4 offset-md-3">
+                    <label for="barcode" class="form-label mt-4">Escaneja el codi SSCC:</label>
+                    <input type="text" [libFocus]="focus" class="form-control mb-4" [setFocus]="focusEvent" [formControl]="barcode" placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="interpreteBarcode()" required>
+                </div>         
+            </div>
+            <div hidden class="mb-3">
+                <input type="text" placeholder="sscc" readonly [formControl]="sscc">
+            </div>
+            <ng-template #Out>
+                <div class="row text-center">
+                    <div class="form-group col-md-4 offset-md-3">
+                        <h3 style="color: red;">
+                            Picking finalitzat.
+                        </h3>      
+                    </div>  
+                </div>
+            </ng-template>
+            <div class="offset-md-3">
+                <button class="btn btn-primary my-4" type="submit" [disabled]="!sortidaForm2.valid">Acceptar</button>
+            </div>    
+        </form>
+        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+            </symbol>
+        </svg>
+        <div *ngIf="isAlert" class="alert alert-warning d-flex justify-content-between m-3 col-md-3" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+            <p>{{alertMsg}}</p>
+            <button type="button" class="btn-close"  aria-label="Close" (click)="close()"></button>
         </div>
-        <button class="btn btn-primary my-4" type="submit" [disabled]="!sortidaForm.valid">Acceptar</button>
-    </form>
-</div>
-<div id="sortida2" [hidden]="!bSubmitted">  
-    <h3>Picking Sortides</h3>
-    <form class="border border-light p-5" [formGroup]="sortidaForm2" (ngSubmit)="saveSortida()">    
-    <div class="mb-3">
-        <label for="albara_sortida" class="form-label">Número d'albarà: </label>
-        <input type="text" readonly [formControl]="albara_sortida" class="form-control" name="albara_sortida">
-    </div>
-    <div class="mb-3" *ngIf="planificationState$.planifications[0]; else Out">
-        <label for="product_id" class="form-label">Referència: </label>
-        <input type="text" readonly class="form-control" value="{{this.planificationState$.planifications[0].description_prod}}" name="product_id">
-    </div>
-    <button class="btn btn-danger my-4" type="button">Eliminar registre</button>
-    <div class="mb-3" *ngIf="planificationState$.comptador">
-        <label for="resta" class="form-label">Número restant de palets per llegir: </label>
-        <input type="number" readonly value="{{this.planificationState$.comptador}}" class="form-control" name="resta">
-    </div>
-    <div class="mb-3">
-        <label for="barcode">Escaneja el codi SSCC:</label>
-        <input type="text" [libFocus]="focus" [setFocus]="focusEvent" [formControl]="barcode" placeholder="Escriure el codi SSCC del palet" name="barcode" (change)="interpreteBarcode()" required>
-    </div>
-    <div class="mb-3">
-        <label for="sscc">SSCC:</label>
-        <input type="text" placeholder="sscc" readonly [formControl]="sscc">
-    </div>
-    <ng-template #Out>
-        <div class="text-center">
-            <h3 style="color: red;">
-                Picking finalitzat.
-            </h3>        
+        <div class="offset-md-2 mb-4">
+            <button (click)="goOut()" class="btn btn-danger">Sortir</button>
         </div>
-    </ng-template>
-    <button class="btn btn-primary my-4" type="submit" [disabled]="!sortidaForm2.valid">Acceptar</button>
-    </form>
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-        <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
-          <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-        </symbol>
-      </svg>
-      <div *ngIf="isAlert" class="alert alert-warning d-flex justify-content-between m-3 col-md-3" role="alert">
-        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-        <p>{{alertMsg}}</p>
-        <button type="button" class="btn-close"  aria-label="Close" (click)="close()"></button>
-      </div>
-    <button (click)="goOut()" class="btn btn-primary">Sortir</button>
-</div>
+    </div>
 </div>

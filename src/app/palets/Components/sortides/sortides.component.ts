@@ -22,7 +22,6 @@ export class SortidesComponent implements OnInit {
 
   public num_sortida: FormControl;
   public sortidaForm: FormGroup;
-  public errorSortida: any;
   public bSubmitted: boolean;
 
   /* Fi Formulari 1 */
@@ -33,7 +32,6 @@ export class SortidesComponent implements OnInit {
   public barcode: FormControl;
   public sscc: FormControl;
   public sortidaForm2: FormGroup;
-  public errorSortida2: any;
   public bSubmitted2: boolean;
 
   /* Fi Formulari 2 */
@@ -70,7 +68,6 @@ export class SortidesComponent implements OnInit {
     /* Formulari 1 */
 
     this.num_sortida = new FormControl('', [Validators.required]);
-    this.errorSortida = '';
 
     this.sortidaForm = this.formBuilder.group({
       num_sortida: this.num_sortida,
@@ -83,7 +80,6 @@ export class SortidesComponent implements OnInit {
     this.albara_sortida = new FormControl('', [Validators.required]);
     this.barcode = new FormControl('', [Validators.required]);
     this.sscc = new FormControl('', [Validators.required]);
-    this.errorSortida2 = '';
 
     this.sortidaForm2 = this.formBuilder.group({
       albara_sortida: this.albara_sortida,
@@ -110,7 +106,9 @@ export class SortidesComponent implements OnInit {
 
       let answer= parseBarcode(this.codi());
 
-      return answer.parsedCodeItems.forEach(this.basedades, this);
+      answer.parsedCodeItems.forEach(this.basedades, this);
+
+      return this.saveSortida();
 
     } catch (e){
       console.log(e);

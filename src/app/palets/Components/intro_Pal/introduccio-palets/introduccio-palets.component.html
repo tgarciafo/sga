@@ -3,24 +3,32 @@
 <br>
 <div id="entrada" [hidden]="!show">
     <form class="border border-light p-5" [formGroup]="regEntradaForm" (ngSubmit)="goEntry()">         
-        <label for="num_entrada" class="form-label">Número d'albarà d'entrada</label>
-        <input type="text" class="form-control" [formControl]="num_entrada" placeholder="Escriu el número d'albarà d'entrada">
-        
-        <span style="color: red;" *ngIf="regEntradaForm.get('num_entrada').errors && (regEntradaForm.get('num_entrada').touched || regEntradaForm.get('num_entrada').dirty)">
-            <span *ngIf="regEntradaForm.get('num_entrada').errors.required">El núm d'albarà és obligatori</span> 
-        </span>
-
-        <label for="type">Selecciona la ubicació:</label>
-        <select [formControl]="location_id" class="form-control mb-4">
-            <option [ngValue]="null">Selecciona ubicació</option>                
-            <option *ngFor="let location of locationState$.locations" [ngValue]="location.location_id">{{location.location_description}}</option>              
-        </select>
-        
-        <span style="color: red;" *ngIf="regEntradaForm.get('location_id').errors && (regEntradaForm.get('location_id').touched || regEntradaForm.get('location_id').dirty)">                
-            <span *ngIf="regEntradaForm.get('location_id').errors.required">La ubicació és obligatòria</span>
-        </span>       
-        
-        <button class="btn btn-primary my-4" type="submit" [disabled]="!regEntradaForm.valid">Acceptar</button>
+        <div class="row">
+            <div class="form-group col-md-5 offset-md-3">
+                <label for="num_entrada" class="form-label mt-4">Número d'albarà d'entrada</label>
+                <input type="text" class="form-control mb-2" [formControl]="num_entrada" placeholder="Escriu el número d'albarà d'entrada">
+                
+                <span style="color: red;" *ngIf="regEntradaForm.get('num_entrada').errors && (regEntradaForm.get('num_entrada').touched || regEntradaForm.get('num_entrada').dirty)">
+                    <span *ngIf="regEntradaForm.get('num_entrada').errors.required">El núm d'albarà és obligatori</span> 
+                </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4 offset-md-3">
+                <label for="type" class="form-label mt-4">Selecciona la ubicació:</label>
+                    <select [formControl]="location_id" class="form-select mb-2">
+                        <option [ngValue]="null">Selecciona ubicació</option>                
+                        <option *ngFor="let location of locationState$.locations" [ngValue]="location.location_id">{{location.location_description}}</option>              
+                    </select>
+                
+                <span style="color: red;" *ngIf="regEntradaForm.get('location_id').errors && (regEntradaForm.get('location_id').touched || regEntradaForm.get('location_id').dirty)">                
+                    <span *ngIf="regEntradaForm.get('location_id').errors.required">La ubicació és obligatòria</span>
+                </span>  
+            </div>
+        </div>     
+        <div class="offset-md-3">
+            <button class="btn btn-primary my-4" type="submit" [disabled]="!regEntradaForm.valid">Acceptar</button>
+        </div>
     </form>    
 </div>
 <app-introduccio-palets2 [num_entrada]="num_entrada" [location_id]="location_id" [show]="show" [show2]="show2"></app-introduccio-palets2>
