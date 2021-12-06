@@ -213,3 +213,6 @@ export const consultaSsccProductError = createAction(
     '[Palet] consultaSsccProduct Error',
     props<{payload: any}>()
 );
+
+export const paletReset = createAction('[Palet] Reset');
+

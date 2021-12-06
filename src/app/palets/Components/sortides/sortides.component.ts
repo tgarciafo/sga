@@ -7,7 +7,7 @@ import { AppState } from 'src/app/app.reducers';
 import { PlanificationState } from 'src/app/planification/reducers';
 import { PaletState } from '../../reducers';
 import { Sortida } from '../../models/sortida';
-import { sortida } from '../../actions';
+import { paletReset, sortida } from '../../actions';
 import { getPlanificationSortida } from 'src/app/planification/actions';
 import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
@@ -170,6 +170,7 @@ export class SortidesComponent implements OnInit {
 
   goOut(){
     this.bSubmitted = false;
+    this.store.dispatch(paletReset());
     this.sortidaForm.reset();
     this.sortidaForm2.reset();
   } 

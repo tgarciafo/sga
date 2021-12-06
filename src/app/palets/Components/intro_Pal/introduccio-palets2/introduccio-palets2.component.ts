@@ -6,7 +6,7 @@ import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { ProducteState } from 'src/app/productes/reducers';
 import { PaletState } from 'src/app/palets/reducers';
-import {createPalet, contador} from '../../../actions';
+import {createPalet, contador, paletReset} from '../../../actions';
 import { getAllProductes, getId } from '../../../../productes/actions';
 import { getAllClients } from 'src/app/clients/actions';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -251,6 +251,7 @@ export class IntroduccioPalets2Component implements OnInit {
 }
 
 goOut(){
+  this.store.dispatch(paletReset());
 
   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
     this.router.navigate(['/entrada']);

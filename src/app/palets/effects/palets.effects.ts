@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as PaletActions from '../actions';
 import { PaletsService } from '../Services/palets.service';
-import { mergeMap, map, catchError } from 'rxjs/operators';
+import { mergeMap, map, catchError, tap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { paletReset } from '../actions';
 
 @Injectable()
 export class PaletsEffects {
@@ -179,6 +180,14 @@ export class PaletsEffects {
                 ))
         )
     );
+
+    resetPalets$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(PaletActions.paletReset),
+      tap(action => {
+          return paletReset();
+      })),
+      {dispatch: false});
 
             redirectTo(uri: string): void {
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>

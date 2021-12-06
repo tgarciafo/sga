@@ -9,7 +9,7 @@ import {
     estocClient, estocClientError, estocClientSuccess, estocProduct, estocProductError, estocProductSuccess,
     estocUbicacio, estocUbicacioError, estocUbicacioSuccess, estocAlbara, estocAlbaraError, estocAlbaraSuccess,
     estocLot, estocLotError, estocLotSuccess, consultaSSCC, consultaSSCCError, consultaSSCCSuccess,
-    consultaSsccProduct, consultaSsccProductError, consultaSsccProductSuccess
+    consultaSsccProduct, consultaSsccProductError, consultaSsccProductSuccess, paletReset
 } from '../actions/palets.action';
 
 export interface PaletState{
@@ -333,8 +333,9 @@ const _paletReducer = createReducer(
             status: payload.status,
             message: payload.message
         }
-    }))
-)
+    })),
+    on(paletReset, () => initialState)
+);
 
 export function paletReducer(state: any, action: any) {
     return _paletReducer(state, action);
