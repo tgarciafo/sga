@@ -11,6 +11,9 @@
             </div>
         </div>
         <div class="offset-md-3">
+            <h3 style="color: red;" *ngIf="bloquejatState$.error && bSubmitted && !bloquejarForm.valid">
+                {{bloquejatState$.error.message}}
+            </h3>
             <button class="btn btn-primary my-4" type="submit" [disabled]="!bloquejarForm.valid">Acceptar</button>
         </div>
     </form>

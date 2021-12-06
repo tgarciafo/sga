@@ -69,8 +69,6 @@ export class BloquejarPaletsComponent implements OnInit {
 
     this.bloquejarForm.reset();
 
-    this.bSubmitted = false;
-
     const alert = 'Nou palet bloquejat';
 
     this.webSocketService.bloquejarEvent({alert});

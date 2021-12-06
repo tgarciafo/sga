@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Bloquejat } from '../models/bloquejat';
 import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map, exhaustMap } from 'rxjs/operators';
+import { Palet } from '../../palets/models/palet';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +34,17 @@ export class BloquejatsService {
   }
 
   addBloquejat(bloquejat: Bloquejat): Observable<Bloquejat>{
-
-    return this.HttpClient.post<Bloquejat>(this.API_ENDPOINT+'/bloquejats', bloquejat, this.httpOptions).pipe(
-      catchError(this.handleError<Bloquejat>('addBloquejat'))
+    return this.paletExist(bloquejat).pipe(
+      exhaustMap((exist) => {
+      if (exist){
+        return this.HttpClient.post<Bloquejat>(this.API_ENDPOINT+'/bloquejats', bloquejat, this.httpOptions).pipe(
+          catchError(this.handleError<Bloquejat>('addBloquejat'))
+        );
+      }
+      else {
+        throw new Error('Aquest palet no està entrat a la base de dades o ja ha estat expedit.');
+      }
+    })
     );
   }
 
@@ -44,13 +53,7 @@ export class BloquejatsService {
     return this.HttpClient.delete<Bloquejat>(this.API_ENDPOINT + '/bloquejats/'+ bloquejat_id, this.httpOptions).pipe(
       catchError(this.handleError<Bloquejat>('deleteBloquejat'))
     );
-  }
-
-  /* private log(message: string) {
-    this.messageService.add(`Bloquejatservice: ${message}`);
-  } */
-
-  
+  }  
 
   consultaBloquejats(): Observable<Array<any>>{
     return this.HttpClient.get<Array<any>>(this.API_ENDPOINT + '/getBloquejats').pipe(
@@ -61,9 +64,29 @@ export class BloquejatsService {
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
-/*       this.log(`${operation} failed: ${error.message}`);
- */      return of(result as T);
+       return of(result as T);
     };
+  }
+
+  paletExist(bloquejat: Bloquejat): Observable<boolean> {
+
+    return this.HttpClient.get<Palet[]>(this.API_ENDPOINT + '/palets').pipe(
+      map((palets) => {
+        if ((palets.find(x => x.sscc === bloquejat.sscc) === undefined))
+        {
+          return false;
+        }
+        else
+        {
+          if((palets.find(x => x.sscc === bloquejat.sscc && x.albara_sortida != null))){
+          return false;
+          }
+          else {
+           return true;
+          }
+        }
+      })
+    );
   }
 
 }
