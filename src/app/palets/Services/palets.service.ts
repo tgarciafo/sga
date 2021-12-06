@@ -105,11 +105,44 @@ export class PaletsService {
   }
 
   sortidaPal(sortida: Sortida){
-
+    return this.paletExpedit(sortida).pipe(
+      exhaustMap((expedit) => {
+      if (expedit == 'no existeix'){
+        throw new Error('Aquest palet no és a la base de dades.');
+      } else if (expedit == 'no ean'){
+        throw new Error('La referència del producte no coincideix.');
+      }else if (expedit){
+        throw new Error('Aquest palet ja ha estat expedit.');
+      } else {
     return this.httpClient.put<Palet>(this.API_ENDPOINT + '/expeditionPal/'+ sortida.sscc + '/' + sortida.albara_sortida + '/' + sortida.data_sortida, this.httpOptions).pipe(
       catchError(this.handleError<Palet>('expeditionPal'))
     );
-      
+  }
+})
+);
+  }
+
+  paletExpedit(sortida: Sortida): Observable<boolean | string> {
+
+    return this.httpClient.get<Palet[]>(this.API_ENDPOINT + '/palets').pipe(
+      map((palets) => {
+        if ((palets.find(x => x.sscc === sortida.sscc) === undefined))
+        {
+          return 'no existeix';
+        } else if( (palets.find(x => (x.sscc === sortida.sscc) && (x.product_id != sortida.product_id))))
+        {
+          return 'no ean';
+        }
+        else 
+        {
+          if((palets.find(x => x.sscc === sortida.sscc && x.albara_sortida == null))){
+            return false;
+          } else{
+            return true;
+          }
+        }
+      })
+    );
   }
 
   consultaSortida(data: Date, data2: Date): Observable<Array<any>>{

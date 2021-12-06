@@ -158,8 +158,6 @@ export class SortidesComponent implements OnInit {
 
     this.sortidaForm2.reset();
 
-    this.bSubmitted2 = false;
-
     this.albara_sortida.setValue(this.num_sortida.value);
 
     this.setFocus();
