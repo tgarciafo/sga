@@ -48,7 +48,7 @@ export class IntroduccioPalets2Component implements OnInit {
   public client: FormControl;
   public producte: FormControl;
   public entradaForm: FormGroup;
-  public errorEntrada: any;
+  public errorEntrada: string;
   public bSubmitted: boolean;
 
   focus = true;
@@ -197,7 +197,16 @@ export class IntroduccioPalets2Component implements OnInit {
     this.client.setValue(this.productState$.producte?.client_id);
 
     const form= this.entradaForm.value;
-        
+
+    this.errorEntrada = '';
+
+    if (this.num_entrada.value == '' || this.currDate == '' || form.lot == '' || form.producte == '' 
+      || form.client == '' || form.sscc == '' || form.caducitat == '' || this.location_id.value == ''){
+
+        this.errorEntrada = 'La lectura no és correcta, falten dades.';
+
+      } else {
+
         this.palet={
           albara_entrada: this.num_entrada.value,
           data_entrada: this.currDate,
@@ -211,23 +220,25 @@ export class IntroduccioPalets2Component implements OnInit {
           location_id: this.location_id.value     
         }
 
-    this.store.dispatch(createPalet({ palet: this.palet }));
-    
-    this.barcode.setValue('');
-    this.barcode2.setValue('');
-    this.lot.setValue('');
-    this.ean.setValue('');
-    this.sscc.setValue('');
-    this.caducitat.setValue('');
-    this.client.setValue('');
-    this.producte.setValue('');
-    this.bSubmitted = false;
-    
-    this.setFocus();
+        this.store.dispatch(createPalet({ palet: this.palet }));
+        
+        this.barcode.setValue('');
+        this.barcode2.setValue('');
+        this.lot.setValue('');
+        this.ean.setValue('');
+        this.sscc.setValue('');
+        this.caducitat.setValue('');
+        this.client.setValue('');
+        this.producte.setValue('');
+        
+        this.setFocus();
 
-    const alert = 'Nou palet llegit';
+        const alert = 'Nou palet llegit';
 
-    this.webSocketService.entradaEvent({alerta: alert, albara: this.num_entrada.value});
+        this.webSocketService.entradaEvent({alerta: alert, albara: this.num_entrada.value});
+
+      }   
+        
  }  
 
  public buildForm(){

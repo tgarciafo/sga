@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Palet } from '../models/palet';
 import { Observable, of } from 'rxjs';
-import { catchError, map} from 'rxjs/operators';
+import { catchError, map, exhaustMap} from 'rxjs/operators';
 import { Sortida } from '../models/sortida';
 
 @Injectable({
@@ -39,27 +39,40 @@ export class PaletsService {
   }
   
   addPalet(palet:Palet): Observable<Palet>{
-    /* return this.userExist(user).pipe(
+    return this.paletExist(palet).pipe(
       exhaustMap((exist) => {
       if (exist){
-        throw throwError('That email is already assigned to another user.');
+        throw new Error('Aquest palet ja existeix a la base de dades.');
       }
-      else { */
-    return this.httpClient.post<Palet>(this.API_ENDPOINT+'/palets', palet, this.httpOptions).pipe(
-      catchError(this.handleError<Palet>('addPalet'))
+      else {
+        return this.httpClient.post<Palet>(this.API_ENDPOINT+'/palets', palet, this.httpOptions).pipe(
+          catchError(this.handleError<Palet>('addPalet'))
+        );
+      }
+    })
     );
   }
 
+  paletExist(palet: Palet): Observable<boolean> {
 
-  /* private log(message: string) {
-    this.messageService.add(`ClientService: ${message}`);
-  } */
+    return this.httpClient.get<Palet[]>(this.API_ENDPOINT + '/palets').pipe(
+      map((palets) => {
+        if ((palets.find(x => x.sscc === palet.sscc) === undefined))
+        {
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      })
+    );
+  }
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);
-/*       this.log(`${operation} failed: ${error.message}`);
- */      return of(result as T);
+     return of(result as T);
     };
   }
 

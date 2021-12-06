@@ -68,8 +68,17 @@ export class ProductesService {
 
   
   eanToId(ean: number){
-    return this.httpClient.get<Producte>(this.API_ENDPOINT + '/showId/'+ean).pipe(
-      catchError(this.handleError<Producte>(`getId ean=${ean}`))
+    return this.eanExist(ean).pipe(
+      exhaustMap((result) => {
+      if (!result){
+        throw new Error('El producte no està entrat al sistema. ');
+      }
+      else {
+        return this.httpClient.get<Producte>(this.API_ENDPOINT + '/showId/'+ean).pipe(
+          catchError(this.handleError<Producte>(`getId ean=${ean}`))
+        );
+      }
+    })
     );
   }
 
@@ -90,6 +99,21 @@ export class ProductesService {
     return this.httpClient.get<Producte[]>(this.API_ENDPOINT + '/products').pipe(
       map((productes) => {
         if ((productes.find(x => x.ean == producte.ean) === undefined) && (productes.find(x => x.reference == producte.reference) === undefined))
+        {
+          return false;
+        }
+        else
+        {
+          return true;
+        }
+      })
+    );
+  }
+
+  eanExist(ean: number): Observable<boolean> {
+    return this.httpClient.get<Producte>(this.API_ENDPOINT + '/showId/'+ean).pipe(
+      map((productes) => {
+        if (productes == undefined)
         {
           return false;
         }
