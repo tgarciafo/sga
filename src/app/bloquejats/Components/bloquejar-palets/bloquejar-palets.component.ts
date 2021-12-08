@@ -21,7 +21,6 @@ export class BloquejarPaletsComponent implements OnInit {
 
   public sscc: FormControl;
   public bloquejarForm: FormGroup;
-  public errorBloquejar: any;
   public bSubmitted: boolean;
 
   public bloquejat: Bloquejat;
@@ -48,7 +47,6 @@ export class BloquejarPaletsComponent implements OnInit {
 
     this.bSubmitted = false;
     this.sscc = new FormControl('', [Validators.required]);
-    this.errorBloquejar = '';
 
     this.bloquejarForm = this.formBuilder.group({
       sscc: this.sscc,

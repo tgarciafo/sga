@@ -1,6 +1,11 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { appReducers } from 'src/app/app.reducers';
 import { IntroduccioPalets2Component } from './introduccio-palets2.component';
+import { HttpClientModule } from '@angular/common/http';
+import { DatePipe } from '@angular/common';
 
 describe('IntroduccioPalets2Component', () => {
   let component: IntroduccioPalets2Component;
@@ -8,7 +13,18 @@ describe('IntroduccioPalets2Component', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ IntroduccioPalets2Component ]
+      imports: [ReactiveFormsModule,
+        StoreModule.forRoot( appReducers, {
+          runtimeChecks: {
+            strictStateImmutability: false,
+            strictActionImmutability: false,
+          },
+        }),
+        AppRoutingModule,
+        HttpClientModule
+      ],
+      declarations: [ IntroduccioPalets2Component ],
+      providers: [DatePipe]
     })
     .compileComponents();
   });
