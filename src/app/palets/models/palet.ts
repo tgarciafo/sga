@@ -5,6 +5,7 @@ export interface Palet {
     client_id: number;
     albara_entrada: string;
     lot: string;
+    qty: number;
     caducitat: Date;
     albara_sortida: string | null;
     data_sortida: Date | string | null;

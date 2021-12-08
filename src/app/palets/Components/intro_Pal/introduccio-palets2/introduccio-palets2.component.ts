@@ -42,6 +42,7 @@ export class IntroduccioPalets2Component implements OnInit {
   public barcode: FormControl;
   public barcode2: FormControl;
   public lot: FormControl;
+  public qty: FormControl;
   public ean: FormControl;
   public sscc: FormControl;
   public caducitat: FormControl;
@@ -74,6 +75,7 @@ export class IntroduccioPalets2Component implements OnInit {
     this.barcode = new FormControl('', [Validators.required]);
     this.barcode2 = new FormControl('', [Validators.required]);
     this.lot = new FormControl('', [Validators.required]);
+    this.qty = new FormControl('', [Validators.required]);
     this.ean = new FormControl('', [Validators.required]);
     this.sscc = new FormControl('', [Validators.required]);
     this.caducitat = new FormControl('', [Validators.required]);
@@ -87,6 +89,7 @@ export class IntroduccioPalets2Component implements OnInit {
     barcode2: this.barcode2,
     ean: this.ean,
     lot: this.lot,
+    qty: this.qty,
     sscc: this.sscc,
     caducitat: this.caducitat,
     client: this.client,
@@ -107,6 +110,7 @@ export class IntroduccioPalets2Component implements OnInit {
       albara_entrada: this.num_entrada.value,
       data_entrada: '',
       lot: '',
+      qty: NaN,
       product_id: NaN,
       client_id: NaN,
       sscc: '',
@@ -170,7 +174,9 @@ export class IntroduccioPalets2Component implements OnInit {
       data=data.toLocaleDateString('es-ES');
       data=data.split("/").reverse().join("-");
       this.caducitat.setValue(data);
-    } 
+    } else if (ai == '37') {
+      this.qty.setValue(data);
+    }	
   }  
 
   codi(){
@@ -196,12 +202,16 @@ export class IntroduccioPalets2Component implements OnInit {
     this.producte.setValue(this.productState$.producte?.product_id);
     this.client.setValue(this.productState$.producte?.client_id);
 
+    if(this.qty.value == ''){
+      this.qty.setValue(this.productState$.producte?.quantity)
+    }
+
     const form= this.entradaForm.value;
 
     this.errorEntrada = '';
 
     if (this.num_entrada.value == '' || this.currDate == '' || form.lot == '' || form.producte == '' 
-      || form.client == '' || form.sscc == '' || form.caducitat == '' || this.location_id.value == ''){
+      || form.client == '' || form.sscc == '' || form.caducitat == '' || this.location_id.value == '' || form.qty == ''){
 
         this.errorEntrada = 'La lectura no és correcta, falten dades.';
 
@@ -211,6 +221,7 @@ export class IntroduccioPalets2Component implements OnInit {
           albara_entrada: this.num_entrada.value,
           data_entrada: this.currDate,
           lot: form.lot,
+          qty: form.qty,
           product_id: form.producte,
           client_id: form.client,
           sscc: form.sscc,
@@ -225,6 +236,7 @@ export class IntroduccioPalets2Component implements OnInit {
         this.barcode.setValue('');
         this.barcode2.setValue('');
         this.lot.setValue('');
+        this.qty.setValue('');
         this.ean.setValue('');
         this.sscc.setValue('');
         this.caducitat.setValue('');

@@ -32,6 +32,7 @@
                     <th scope="col">Producte</th>
                     <th scope="col">Quantitat</th>
                     <th scope="col">Lot</th>
+                    <th scope="col">Ubicació</th>
                     <th scope="col">Caducitat</th>
                     <th scope="col">Número de sortida</th>
                     <th scope="col">Data sortida</th>
@@ -45,8 +46,9 @@
                     <td>&#8203;{{consulta.sscc}}</td>
                     <td>{{consulta.description_client}}</td>
                     <td>{{consulta.description_prod}}</td>
-                    <td>{{consulta.quantity}}</td>
+                    <td>{{consulta.qty}}</td>
                     <td>{{consulta.lot}}</td>
+                    <td>{{consulta.location_description}}</td>
                     <td>{{consulta.caducitat | date:'dd/MM/yyyy'}}</td>
                     <td>{{consulta.albara_sortida}}</td>
                     <td>{{consulta.data_sortida | date:'dd/MM/yyyy'}}</td>
