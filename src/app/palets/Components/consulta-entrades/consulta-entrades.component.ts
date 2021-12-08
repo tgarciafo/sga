@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
-import { consultaEntrades, consultaPalEntrades } from '../../actions';
+import { consultaEntrades, consultaPalEntrades, paletReset } from '../../actions';
 import { PaletState } from 'src/app/palets/reducers';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as XLSX from 'xlsx';
@@ -30,6 +30,7 @@ export class ConsultaEntradesComponent implements OnInit {
 
   ngOnInit(): void {
     this.bSubmitted = false;
+    this.store.dispatch(paletReset());
     this.data = new FormControl('', [Validators.required]);
     this.data2 = new FormControl('', [Validators.required]);
     this.errorConsulta = '';

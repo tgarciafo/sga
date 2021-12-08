@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { getAllClients } from '../../../../clients/actions';
 import { ClientState } from '../../../../clients/reducers';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { consultaSsccProduct } from 'src/app/palets/actions';
+import { consultaSsccProduct, paletReset } from 'src/app/palets/actions';
 import { PaletState } from 'src/app/palets/reducers';
 import { ProducteState } from 'src/app/productes/reducers';
 import { getClientProducte } from 'src/app/productes/actions';
@@ -38,6 +38,7 @@ export class ConsultaSsccProducteComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(getAllClients());
     this.bSubmitted = false;
+    this.store.dispatch(paletReset());
     this.data = new FormControl('', [Validators.required]);
     this.caducitat = new FormControl('0000-00-00', []);
     this.client_id = new FormControl('', [Validators.required]);
@@ -50,8 +51,6 @@ export class ConsultaSsccProducteComponent implements OnInit {
       client_id: this.client_id,
       product_id: this.product_id
     });  
-
-    this.store.dispatch(consultaSsccProduct({product_id: 0, data: new Date('1999-01-01'), caducitat: new Date('1999-01-01')}));
     
   }
 

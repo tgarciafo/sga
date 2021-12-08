@@ -251,8 +251,8 @@ export class IntroduccioPalets2Component implements OnInit {
 }
 
 goOut(){
+  this.bSubmitted = false;
   this.store.dispatch(paletReset());
-
   this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
     this.router.navigate(['/entrada']);
 });

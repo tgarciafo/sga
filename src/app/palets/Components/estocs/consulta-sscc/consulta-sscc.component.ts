@@ -4,7 +4,7 @@ import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaletState } from 'src/app/palets/reducers';
-import { consultaSSCC } from 'src/app/palets/actions';
+import { consultaSSCC, paletReset } from 'src/app/palets/actions';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -29,15 +29,13 @@ export class ConsultaSsccComponent implements OnInit {
 
   ngOnInit(): void {
     this.bSubmitted = false;
+    this.store.dispatch(paletReset());
     this.num_sscc = new FormControl('', [Validators.required]);
     this.errorConsulta = '';
 
     this.consultaSSCCForm = this.formBuilder.group({
       num_sscc: this.num_sscc,
-    });  
-
-    this.store.dispatch(consultaSSCC({ num_sscc: '0'}));
-    
+    });      
   }
 
   interpreteBarcode(){

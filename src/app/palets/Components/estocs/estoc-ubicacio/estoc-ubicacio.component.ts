@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { getAllClients } from '../../../../clients/actions';
 import { ClientState } from '../../../../clients/reducers';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { estocUbicacio } from 'src/app/palets/actions';
+import { estocUbicacio, paletReset } from 'src/app/palets/actions';
 import { PaletState } from 'src/app/palets/reducers';
 import { LocationState } from 'src/app/locations/reducers';
 import { getAllLocations } from 'src/app/locations/actions';
@@ -42,6 +42,7 @@ export class EstocUbicacioComponent implements OnInit {
     this.store.dispatch(getAllClients());
     this.store.dispatch(getAllLocations());
     this.bSubmitted = false;
+    this.store.dispatch(paletReset());
     this.data = new FormControl('', [Validators.required]);
     this.client_id = new FormControl('', [Validators.required]);
     this.location_id = new FormControl('', [Validators.required]);

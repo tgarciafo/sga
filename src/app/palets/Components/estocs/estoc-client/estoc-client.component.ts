@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { getAllClients } from '../../../../clients/actions';
 import { ClientState } from '../../../../clients/reducers';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { estocClient } from 'src/app/palets/actions';
+import { estocClient, paletReset } from 'src/app/palets/actions';
 import { PaletState } from 'src/app/palets/reducers';
 import * as XLSX from 'xlsx';
 
@@ -36,6 +36,7 @@ export class EstocClientComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(getAllClients());
     this.bSubmitted = false;
+    this.store.dispatch(paletReset());
     this.data = new FormControl('', [Validators.required]);
     this.client_id = new FormControl('', [Validators.required]);
     this.errorConsulta = '';

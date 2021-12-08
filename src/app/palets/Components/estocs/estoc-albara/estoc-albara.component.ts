@@ -3,7 +3,7 @@ import { AppState } from 'src/app/app.reducers';
 import { Store } from '@ngrx/store';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PaletState } from 'src/app/palets/reducers';
-import { estocAlbara } from 'src/app/palets/actions';
+import { estocAlbara, paletReset } from 'src/app/palets/actions';
 import * as XLSX from 'xlsx';
 
 @Component({
@@ -30,14 +30,13 @@ export class EstocAlbaraComponent implements OnInit {
 
   ngOnInit(): void {
     this.bSubmitted = false;
+    this.store.dispatch(paletReset());
     this.num_albara = new FormControl('', [Validators.required]);
     this.errorConsulta = '';
 
     this.estocAlbaraForm = this.formBuilder.group({
       num_albara: this.num_albara,
     });  
-
-    this.store.dispatch(estocAlbara({ num_albara: '0'}));
     
   }
 
