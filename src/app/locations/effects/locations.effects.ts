@@ -5,6 +5,7 @@ import { LocationsService } from '../Services/locations.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { deleteLocationSuccess, editLocationSuccess } from '../actions';
 
 @Injectable()
 export class LocationsEffects {
@@ -17,7 +18,7 @@ export class LocationsEffects {
 
     getLocations$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(LocationActions.getAllLocations),
+            ofType(LocationActions.getAllLocations, deleteLocationSuccess, editLocationSuccess),
             mergeMap(() =>
                 this.locationsService.get().pipe(
                     map((locations) => LocationActions.getAllLocationsSuccess({ locations })),
@@ -51,7 +52,7 @@ export class LocationsEffects {
         this.actions$.pipe(
             ofType(LocationActions.editLocation),
             mergeMap(({id, location}) =>
-                this.locationsService.updateLocation(location).pipe(
+                this.locationsService.updateLocation(id, location).pipe(
                     map(() => LocationActions.editLocationSuccess({ id, location } )),
                     catchError((err) => of(LocationActions.editLocationError({payload: err})))
                 ))

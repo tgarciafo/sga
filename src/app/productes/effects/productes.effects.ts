@@ -17,7 +17,7 @@ export class ProductesEffects {
 
     getProductes$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(ProducteActions.getAllProductes),
+            ofType(ProducteActions.getAllProductes, ProducteActions.deleteProducteSuccess, ProducteActions.editProducteSuccess),
             mergeMap(() =>
                 this.productesService.get().pipe(
                     map((productes) => ProducteActions.getAllProductesSuccess({ productes })),
@@ -51,7 +51,7 @@ export class ProductesEffects {
         this.actions$.pipe(
             ofType(ProducteActions.editProducte),
             mergeMap(({id, producte}) =>
-                this.productesService.updateProducte(producte).pipe(
+                this.productesService.updateProducte(id, producte).pipe(
                     map(() => ProducteActions.editProducteSuccess({ id, producte } )),
                     catchError((err) => of(ProducteActions.editProducteError({payload: err})))
                 ))

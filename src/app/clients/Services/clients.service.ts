@@ -32,8 +32,8 @@ export class ClientsService {
     );
   }
 
-  updateClient(client: Client): Observable<Client>{
-    return this.httpClient.put<Client>(this.API_ENDPOINT, client, this.httpOptions).pipe(
+  updateClient(id: number, client: Client): Observable<Client>{
+    return this.httpClient.put<Client>(this.API_ENDPOINT + '/clients/' + id, JSON.stringify(client), this.httpOptions).pipe(
       catchError(this.handleError<any>('updateClient'))
     );
   }
@@ -56,7 +56,7 @@ export class ClientsService {
   deleteClient(client: Client | number): Observable<Client>{
     const id = typeof client === 'number' ? client : client.client_id;
 
-    return this.httpClient.delete<Client>(this.API_ENDPOINT + '/getClient/'+id, this.httpOptions).pipe(
+    return this.httpClient.delete<Client>(this.API_ENDPOINT + '/clients/'+id, this.httpOptions).pipe(
       catchError(this.handleError<Client>('deleteClient'))
     );
   }

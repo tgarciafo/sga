@@ -37,8 +37,8 @@ export class ProductesService {
     );
   }
 
-  updateProducte(producte: Producte): Observable<Producte>{
-    return this.httpClient.put<Producte>(this.API_ENDPOINT, producte, this.httpOptions).pipe(
+  updateProducte(id: number, producte: Producte): Observable<Producte>{
+    return this.httpClient.put<Producte>(this.API_ENDPOINT + '/products/' + id, JSON.stringify(producte), this.httpOptions).pipe(
       catchError(this.handleError<any>('updateProducte'))
     );
   }
@@ -61,7 +61,7 @@ export class ProductesService {
   deleteProducte(producte: Producte | number): Observable<Producte>{
     const id = typeof producte === 'number' ? producte : producte.product_id;
 
-    return this.httpClient.delete<Producte>(this.API_ENDPOINT + '/getProduct/'+id, this.httpOptions).pipe(
+    return this.httpClient.delete<Producte>(this.API_ENDPOINT + '/products/'+id, this.httpOptions).pipe(
       catchError(this.handleError<Producte>('deleteProducte'))
     );
   }

@@ -37,8 +37,8 @@ export class LocationsService {
     );
   }
 
-  updateLocation(location: Location): Observable<Location>{
-    return this.httpClient.put<Location>(this.API_ENDPOINT, location, this.httpOptions).pipe(
+  updateLocation(id: number, location: Location): Observable<Location>{
+    return this.httpClient.put<Location>(this.API_ENDPOINT + '/locations/' + id, JSON.stringify(location), this.httpOptions).pipe(
       catchError(this.handleError<any>('updateLocation'))
     );
   }
@@ -61,7 +61,7 @@ export class LocationsService {
   deleteLocation(location: Location | number): Observable<Location>{
     const id = typeof location === 'number' ? location : location.location_id;
 
-    return this.httpClient.delete<Location>(this.API_ENDPOINT + '/getLocation/'+id, this.httpOptions).pipe(
+    return this.httpClient.delete<Location>(this.API_ENDPOINT + '/locations/'+id, this.httpOptions).pipe(
       catchError(this.handleError<Location>('deleteLocation'))
     );
   }

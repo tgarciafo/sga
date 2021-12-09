@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { RegistreProductesComponent } from './Components/registre-productes/registre-productes.component';
 import { ProductesRegistratsComponent } from './Components/productes-registrats/productes-registrats.component';
 import { NgxPrintModule } from 'ngx-print';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { NgxPrintModule } from 'ngx-print';
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule,
-    NgxPrintModule
+    NgxPrintModule,
+    FontAwesomeModule
   ]
 })
 export class ProductesModule { }

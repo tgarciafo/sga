@@ -5,6 +5,7 @@ import { ClientsService } from '../Services/clients.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
+import { deleteClientSuccess, editClientSuccess } from '../actions';
 
 @Injectable()
 export class ClientsEffects {
@@ -17,7 +18,7 @@ export class ClientsEffects {
 
     getClients$ = createEffect(() =>
         this.actions$.pipe(
-            ofType(ClientActions.getAllClients),
+            ofType(ClientActions.getAllClients, deleteClientSuccess, editClientSuccess),
             mergeMap(() =>
                 this.ClientsService.get().pipe(
                     map((clients) => ClientActions.getAllClientsSuccess({ clients })),
@@ -51,7 +52,7 @@ export class ClientsEffects {
         this.actions$.pipe(
             ofType(ClientActions.editClient),
             mergeMap(({id, client}) =>
-                this.ClientsService.updateClient(client).pipe(
+                this.ClientsService.updateClient(id, client).pipe(
                     map(() => ClientActions.editClientSuccess({ id, client } )),
                     catchError((err) => of(ClientActions.editClientError({payload: err})))
                 ))
