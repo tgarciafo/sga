@@ -4,11 +4,11 @@ import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { appReducers } from 'src/app/app.reducers';
 import { HttpClientModule } from '@angular/common/http';
-import { UserComponent } from './user.component';
+import { UsersComponent } from './users.component';
 
-describe('UserComponent', () => {
-  let component: UserComponent;
-  let fixture: ComponentFixture<UserComponent>;
+describe('UsersComponent', () => {
+  let component: UsersComponent;
+  let fixture: ComponentFixture<UsersComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -22,13 +22,13 @@ describe('UserComponent', () => {
         AppRoutingModule,
         HttpClientModule
       ],
-      declarations: [ UserComponent ]
+      declarations: [ UsersComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserComponent);
+    fixture = TestBed.createComponent(UsersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -19,7 +19,7 @@ export class UserService {
   constructor(private http: HttpClient) {}  
 
   getUsers(){
-    return this.http.get<User[]>(this.API_ENDPOINT + '/users');
+    return this.http.get<any[]>(this.API_ENDPOINT + '/getUsers');
   }
 
   login({ email, password }: Credentials): Observable<any> {
@@ -43,8 +43,8 @@ export class UserService {
     );
   }
 
-  updateUser(user: User): Observable<User> {
-    return this.http.put<User>(this.API_ENDPOINT, user, this.httpOptions).pipe(
+  updateUser(id: number, user: User): Observable<User> {
+    return this.http.put<User>(this.API_ENDPOINT + '/users/' + id, JSON.stringify(user), this.httpOptions).pipe(
       catchError(this.handleError<any>('updateUser'))
     );
   }
@@ -78,6 +78,16 @@ export class UserService {
       })
     );
   }
+
+  deleteUser(user: User | number): Observable<User>{
+    const id = typeof user === 'number' ? user : user.user_id;
+
+    return this.http.delete<User>(this.API_ENDPOINT + '/users/'+id, this.httpOptions).pipe(
+      catchError(this.handleError<User>('deleteUser'))
+    );
+  }
+
+
 
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {

@@ -1,0 +1,134 @@
+<div class="container">   
+    <h2>Gestió d'usuaris</h2>
+    <div class="table-responsive">
+        <table class="table caption-top table-primary table-hover table-striped">    
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nom i cognoms</th>
+                <th scope="col">Correu electrònic</th>
+                <th scope="col">Tipus d'usuari</th>
+                <th scope="col">Client</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let user of userState$.users">
+                <th scope="row">{{user.user_id}}</th>
+                <td>{{user.name}}</td>
+                <td>{{user.email}}</td>
+                <td>{{user.type}}</td>
+                <td>{{user.description_client}}</td>
+                <td>
+                    <button class="btn btn-warning" (click)="open(mymodal, user)">                          
+                      <span><fa-icon [icon]="faPencilAlt"></fa-icon></span>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" (click)="eliminar(user);">                          
+                      <span><fa-icon [icon]="faTrashAlt"></fa-icon></span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <ng-template #mymodal let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Editar usuari</h4>
+          <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+        </div>
+        <div class="modal-body">
+          <form class="border border-light p-5" [formGroup]="editForm" (ngSubmit)="editar();">   
+            <div class="row">
+              <div class="form-group col-md-4 offset-md-3"> 
+                <label for="user_id" class="form-label mt-4">Id Usuari</label>
+                <input type="number" [formControl]="user_id" class="form-control mb-2" readonly class="form-control">
+              </div>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-4 offset-md-3"> 
+                <label for="name" class="form-label">Nom i cognoms</label>
+                <input type="text" class="form-control mb-2" [formControl]="name" placeholder="Escriu el teu nom i cognoms">
+                <span style="color: red;" *ngIf="editForm.get('name').errors && (editForm.get('name').touched || editForm.get('name').dirty) ">
+                    <span *ngIf="editForm.get('name').errors.required">El nom i cognoms són obligatoris. </span>
+                    <span *ngIf="editForm.get('name').errors.pattern">No és permès utilitzar caràcters especials ni espais al davant o al darrera. </span>
+                    <span *ngIf="editForm.get('name').errors.minlength || editForm.get('name').errors.maxlength">El camp ha de contenir entre 3 i 55 caràcters. </span>
+                </span>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="form-group col-md-6">
+                    <label for="email" class="form-label mt-4">Email:</label>
+                    <input type="text" class="form-control mb-2" [formControl]="email" placeholder="Escriu el teu correu electrònic">
+                    <span style="color: red;" *ngIf="(editForm.get('email').errors && (editForm.get('email').touched) || editForm.get('email').dirty) ">
+                        <span *ngIf="editForm.get('email').errors?.required">El correu electrònic és obligatori. </span>
+                        <span *ngIf="editForm.get('email').errors?.pattern"> El correu electrònic ha de ser en el format següent: name@domin.com. </span>
+                    </span>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="form-group col-md-3">
+                    <label for="type" class="form-label mt-4">Tipus d'usuari:</label>
+                    <select [formControl]="type" class="form-select mb-2">
+                        <option value=" " selected>Selecciona tipus</option>
+                        <option value="Admin" >Administrador/a</option>
+                        <option value="Magatzem" >Magatzem</option>
+                        <option value="Client" >Client</option>
+                    </select>
+                    <span style="color: red;" *ngIf="type.invalid && type?.errors.invalidWord">És obligatori triar un tipus d'usuari. </span>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div *ngIf="type.value === 'Client'" class="form-group col-md-3">
+                    <label for="client_id" class="form-label mt-4">Client:</label>
+                    <select [formControl]="client_id" class="form-select mb-2">
+                        <option [ngValue]=" " selected>Selecciona client</option>
+                        <option *ngFor="let client of clientState$.clients" [ngValue]="client.client_id">{{client.description_client}}</option>              
+                    </select>
+                    <span style="color: red;" *ngIf="client_id.invalid && client_id?.errors.invalidWord">És obligatori triar un client. </span>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="form-group col-md-6">
+                    <label for="password"  class="form-label mt-4">Contrasenya:</label>
+                    <div class="input-group mb-2">
+                        <input [type]="isActive ? 'password' : 'text'" class="form-control mb-2" [formControl]="password" placeholder="Escriu la contrasenya">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button"><fa-icon (click)="show()" [icon]="isActive ? faEye : faEyeSlash"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <span style="color: red;" *ngIf="editForm.get('password').errors && (editForm.get('password').touched || editForm.get('password').dirty) ">
+                        <span *ngIf="editForm.get('password').errors?.required">La contrasenya és obligatòria. </span>
+                        <span *ngIf="editForm.get('password').errors.minlength">El camp ha de contenir mínim 8 caràcters. </span>
+                    </span>
+                </div>
+            </div>
+            <div class="row justify-content-center">
+                <div class="form-group col-md-6">
+                    <label for="repeat_password" class="form-label mt-4">Repeteix la contrasenya:</label>
+                    <div class="input-group mb-2">
+                        <input [type]="isActive2 ? 'password' : 'text'" class="form-control mb-2" [formControl]="repeat_password" placeholder="Torna a escriure la contrasenya">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" type="button"><fa-icon (click)="show2()" [icon]="isActive2 ? faEye : faEyeSlash"></fa-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <span style="color: red;" *ngIf="editForm.get('repeat_password').errors && (editForm.get('repeat_password').touched || editForm.get('repeat_password').dirty) ">
+                        <span *ngIf="editForm.get('repeat_password').errors?.required">És obligatori repetir la  contrasenya. </span>
+                        <span *ngIf="editForm.get('repeat_password').errors.minlength">El camp ha de contenir mínim 8 caràcters. </span>
+                    </span>
+                    <span style="color: red;" *ngIf="validatorEquality()">Les contrasenyes han de coincidir. </span>
+                </div>
+            </div>
+            <div class="offset-md-3">
+              <button class="btn btn-primary my-4" (click)="modal.close('Save click')" type="submit" [disabled]="!editForm.valid">Editar Usuari</button>  
+            </div>
+          </form>
+        </div>
+    </ng-template>
+</div>
+    
+    

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { of } from 'rxjs';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
-import { map, catchError, exhaustMap } from 'rxjs/operators';
+import { map, catchError, exhaustMap, mergeMap } from 'rxjs/operators';
 import * as UserActions from '../actions';
 import { UserService } from '../Services/user.service';
 import { Router } from '@angular/router';
@@ -37,6 +37,48 @@ export class UserEffects {
       )
     )
   );
+
+  getUsers$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UserActions.getAllUsers, UserActions.deleteUserSuccess, UserActions.editUserSuccess),
+            mergeMap(() =>
+                this.userService.getUsers().pipe(
+                    map((users) => UserActions.getAllUsersSuccess({ users })),
+                    catchError((err) => of(UserActions.getAllUsersError({ payload: err })))
+                ))
+        ));
+
+  deleteUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UserActions.deleteUser),
+            mergeMap(({id}) =>
+                this.userService.deleteUser(id).pipe(
+                    map(() => UserActions.deleteUserSuccess({ id } )),
+                    catchError((err) => of(UserActions.deleteUserError({payload: err})))
+                ))
+        )
+    );
+
+    editUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UserActions.editUser),
+            mergeMap(({id, user}) =>
+                this.userService.updateUser(id, user).pipe(
+                    map(() => UserActions.editUserSuccess({ id, user } )),
+                    catchError((err) => of(UserActions.editUserError({payload: err})))
+                ))
+        )
+    );
+
+    getUser$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(UserActions.getUser),
+            mergeMap((action) =>
+                this.userService.getUser(action.user.user_id).pipe(
+                    map((user) => UserActions.getUserSuccess({ user })),
+                    catchError((err) => of(UserActions.getUserError({ payload: err })))
+                ))
+        ));
 
   formatUser$ = createEffect(() =>
     this.actions$.pipe(

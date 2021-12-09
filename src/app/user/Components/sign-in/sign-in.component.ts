@@ -29,7 +29,6 @@ export class SignInComponent implements OnInit {
   isActive: boolean = true;
   isActive2: boolean = true;
 
-
   public name: FormControl;
   public password: FormControl;
   public email: FormControl;

@@ -25,12 +25,12 @@ import { ProductesRegistratsComponent } from './productes/Components/productes-r
 import { RegistreProductesComponent } from './productes/Components/registre-productes/registre-productes.component';
 import { AuthGuard } from './Shared/guards/auth.guard';
 import { SignInComponent } from './user/Components/sign-in/sign-in.component';
-import { UserComponent } from './user/Components/user/user.component';
+import { UsersComponent } from './user/Components/users/users.component';
 import { HomeComponent } from './Views/home/home.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'user', component: UserComponent, canActivate: [AuthGuard]},
+  { path: 'users', component: UsersComponent, canActivate: [AuthGuard]},
   { path: 'sign-in', component: SignInComponent, canActivate: [AuthGuard]},
   { path: 'registre-clients', component: RegistreClientsComponent, canActivate: [AuthGuard]},
   { path: 'clients-registrats', component: ClientsRegistratsComponent, canActivate: [AuthGuard]},
