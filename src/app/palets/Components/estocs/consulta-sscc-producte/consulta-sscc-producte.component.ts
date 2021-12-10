@@ -9,6 +9,7 @@ import { PaletState } from 'src/app/palets/reducers';
 import { ProducteState } from 'src/app/productes/reducers';
 import { getClientProducte } from 'src/app/productes/actions';
 import * as XLSX from 'xlsx';
+import { UserState } from 'src/app/user/reducers';
 
 @Component({
   selector: 'app-consulta-sscc-producte',
@@ -28,20 +29,33 @@ export class ConsultaSsccProducteComponent implements OnInit {
   clientState$: ClientState;
   productState$: ProducteState;
   paletState$: PaletState;
+  userState$: UserState;
+  userType: string | undefined;
 
   constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
     this.store.select('clientApp').subscribe(clients => this.clientState$ = clients);
     this.store.select('producteApp').subscribe(products => this.productState$ = products);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+    this.store.select('userApp').subscribe(user => {
+      this.userType = user.user?.type;
+      this.userState$ = user
+    });
   }
 
   ngOnInit(): void {
     this.store.dispatch(getAllClients());
     this.bSubmitted = false;
     this.store.dispatch(paletReset());
+
+    if(this.userType == 'Client'){    
+      this.client_id = new FormControl(this.userState$.user?.client_id, [Validators.required]);
+      this.onChangeClientValue();
+    } else {
+        this.client_id = new FormControl('', [Validators.required]);
+    }
+
     this.data = new FormControl('', [Validators.required]);
     this.caducitat = new FormControl('0000-00-00', []);
-    this.client_id = new FormControl('', [Validators.required]);
     this.product_id = new FormControl('', [Validators.required]);
     this.errorConsulta = '';
 
@@ -66,6 +80,10 @@ export class ConsultaSsccProducteComponent implements OnInit {
     
     this.consultaSsccProductForm.reset();
 
+    if(this.userType == 'Client'){    
+      this.client_id.setValue(this.userState$.user?.client_id);
+    }
+    
     this.caducitat.setValue('0000-00-00');
 
   }

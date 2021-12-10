@@ -5,7 +5,7 @@ import { BloquejatsService } from '../Services/bloquejats.service';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Router } from '@angular/router';
-import { createBloquejatSuccess, deleteBloquejat } from '../actions';
+import { createBloquejatSuccess, deleteBloquejat, deleteBloquejatSuccess } from '../actions';
 
 @Injectable()
 export class BloquejatsEffects {
@@ -60,11 +60,21 @@ export class BloquejatsEffects {
 
     consultaPaletsBloquejats$ = createEffect(() =>
     this.actions$.pipe(
-        ofType(BloquejatsActions.consultaPalBloquejats, createBloquejatSuccess, deleteBloquejat),
-        mergeMap(() =>
-            this.bloquejatsService.consultaBloquejats().pipe(
+        ofType(BloquejatsActions.consultaPalBloquejats),
+        mergeMap((action) =>
+            this.bloquejatsService.consultaBloquejats(action.client_id).pipe(
                 map((consultaPalB) => BloquejatsActions.consultaPalBloquejatsSuccess({ consultaPalB: consultaPalB })),
                 catchError((err)=> of(BloquejatsActions.consultaPalBloquejatsError({payload: err})))
+            ))
+    ));
+
+    consultaPaletsBloquejatsEdit$ = createEffect(() =>
+    this.actions$.pipe(
+        ofType(BloquejatsActions.consultaPalBloquejatsEdit, createBloquejatSuccess, deleteBloquejatSuccess),
+        mergeMap(() =>
+            this.bloquejatsService.consultaBloquejatsEdit().pipe(
+                map((consultaPalBE) => BloquejatsActions.consultaPalBloquejatsEditSuccess({ consultaPalBE: consultaPalBE })),
+                catchError((err)=> of(BloquejatsActions.consultaPalBloquejatsEditError({payload: err})))
             ))
     ));
 

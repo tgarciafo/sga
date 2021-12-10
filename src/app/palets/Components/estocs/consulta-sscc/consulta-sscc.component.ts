@@ -6,6 +6,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PaletState } from 'src/app/palets/reducers';
 import { consultaSSCC, paletReset } from 'src/app/palets/actions';
 import * as XLSX from 'xlsx';
+import { UserState } from 'src/app/user/reducers';
 
 @Component({
   selector: 'app-consulta-sscc',
@@ -22,9 +23,15 @@ export class ConsultaSsccComponent implements OnInit {
  ssccTitle: Date;
 
   paletState$: PaletState;
+  userState$: UserState;
+  userType: string | undefined;
 
   constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+    this.store.select('userApp').subscribe(user => {
+      this.userType = user.user?.type;
+      this.userState$ = user
+    });
   }
 
   ngOnInit(): void {
@@ -72,8 +79,12 @@ export class ConsultaSsccComponent implements OnInit {
 
     this.bSubmitted = true;
 
-    this.store.dispatch(consultaSSCC({ num_sscc: this.num_sscc.value}));
-    
+    if(this.userType == 'Client'){
+      this.store.dispatch(consultaSSCC({ num_sscc: this.num_sscc.value, client_id: this.userState$.user?.client_id}));
+    } else {
+      this.store.dispatch(consultaSSCC({ num_sscc: this.num_sscc.value, client_id: 0}));
+    }
+
     this.ssccTitle = this.num_sscc.value;
 
     this.consultaSSCCForm.reset();

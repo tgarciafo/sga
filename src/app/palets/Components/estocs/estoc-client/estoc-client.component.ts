@@ -7,6 +7,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { estocClient, paletReset } from 'src/app/palets/actions';
 import { PaletState } from 'src/app/palets/reducers';
 import * as XLSX from 'xlsx';
+import { UserState } from 'src/app/user/reducers';
 
 @Component({
   selector: 'app-estoc-client',
@@ -27,18 +28,30 @@ export class EstocClientComponent implements OnInit {
 
   clientState$: ClientState;
   paletState$: PaletState;
+  userState$: UserState;
+  userType: string | undefined;
 
   constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
     this.store.select('clientApp').subscribe(clients => this.clientState$ = clients);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+    this.store.select('userApp').subscribe(user => {
+      this.userType = user.user?.type;
+      this.userState$ = user
+    });
   }
 
   ngOnInit(): void {
     this.store.dispatch(getAllClients());
+
+    if(this.userType == 'Client'){    
+      this.client_id = new FormControl(this.userState$.user?.client_id, [Validators.required]);
+    } else {
+        this.client_id = new FormControl('', [Validators.required]);
+    }
+
     this.bSubmitted = false;
     this.store.dispatch(paletReset());
     this.data = new FormControl('', [Validators.required]);
-    this.client_id = new FormControl('', [Validators.required]);
     this.errorConsulta = '';
 
     this.estocClientForm = this.formBuilder.group({

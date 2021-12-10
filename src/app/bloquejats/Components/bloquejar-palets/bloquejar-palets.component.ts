@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.reducers';
 import { PaletState } from 'src/app/palets/reducers';
-import { createBloquejat, consultaPalBloquejats, deleteBloquejat } from '../../../bloquejats/actions';
+import { createBloquejat, consultaPalBloquejatsEdit, deleteBloquejat } from '../../../bloquejats/actions';
 import { BloquejatState } from '../../../bloquejats/reducers';
 import { Bloquejat } from '../../models/bloquejat';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
@@ -36,14 +36,14 @@ export class BloquejarPaletsComponent implements OnInit {
     this.store.select('bloquejatsApp').subscribe(bloquejats => this.bloquejatState$ = bloquejats);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
     this.webSocketService.bloquejarEven.subscribe(res => {
-      this.store.dispatch(consultaPalBloquejats());
+      this.store.dispatch(consultaPalBloquejatsEdit());
       this.isAlert = true;
       this.alertMsg = res.alert;
     }) 
   }
 
   ngOnInit(): void {
-    this.store.dispatch(consultaPalBloquejats());
+    this.store.dispatch(consultaPalBloquejatsEdit());
 
     this.bSubmitted = false;
     this.sscc = new FormControl('', [Validators.required]);
@@ -106,7 +106,7 @@ export class BloquejarPaletsComponent implements OnInit {
   eliminar(bloquejat_id: number){
 
     this.store.dispatch(deleteBloquejat({id:bloquejat_id}));
-    this.store.dispatch(consultaPalBloquejats());
+    this.store.dispatch(consultaPalBloquejatsEdit());
 
   }
 }

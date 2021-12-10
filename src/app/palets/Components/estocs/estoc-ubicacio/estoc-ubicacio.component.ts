@@ -9,6 +9,7 @@ import { PaletState } from 'src/app/palets/reducers';
 import { LocationState } from 'src/app/locations/reducers';
 import { getAllLocations } from 'src/app/locations/actions';
 import * as XLSX from 'xlsx';
+import { UserState } from 'src/app/user/reducers';
 
 @Component({
   selector: 'app-estoc-ubicacio',
@@ -31,11 +32,17 @@ export class EstocUbicacioComponent implements OnInit {
   clientState$: ClientState;
   locationState$: LocationState;
   paletState$: PaletState;
+  userState$: UserState;
+  userType: string | undefined;
 
   constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
     this.store.select('clientApp').subscribe(clients => this.clientState$ = clients);
     this.store.select('locationApp').subscribe(locations => this.locationState$ = locations);
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+    this.store.select('userApp').subscribe(user => {
+      this.userType = user.user?.type;
+      this.userState$ = user
+    });
   }
 
   ngOnInit(): void {
@@ -43,8 +50,14 @@ export class EstocUbicacioComponent implements OnInit {
     this.store.dispatch(getAllLocations());
     this.bSubmitted = false;
     this.store.dispatch(paletReset());
+
+    if(this.userType == 'Client'){    
+      this.client_id = new FormControl(this.userState$.user?.client_id, [Validators.required]);
+    } else {
+        this.client_id = new FormControl('', [Validators.required]);
+    }
+
     this.data = new FormControl('', [Validators.required]);
-    this.client_id = new FormControl('', [Validators.required]);
     this.location_id = new FormControl('', [Validators.required]);
     this.errorConsulta = '';
 
@@ -77,6 +90,10 @@ export class EstocUbicacioComponent implements OnInit {
     this.dataTitle = this.data.value;
 
     this.estocUbicacioForm.reset();
+
+    if(this.userType == 'Client'){    
+      this.client_id.setValue(this.userState$.user?.client_id);
+    }
 
   }
 

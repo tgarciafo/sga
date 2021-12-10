@@ -3,7 +3,7 @@
     
     <div id="dades">
         <form class="border border-light p-5" [formGroup]="consultaSsccProductForm" (ngSubmit)="getConsultaSsccProduct()">    
-            <div class="row">
+            <div *ngIf="userType !== 'Client'" class="row">
                 <div class="form-group col-md-3 offset-md-3">
                     <label for="type" class="form-label mt-4">Selecciona el client:</label>
                     <select [formControl]="client_id" (change)="onChangeClientValue()" class="form-select mb-2">

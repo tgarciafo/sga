@@ -42,7 +42,7 @@ export class PaletsEffects {
         this.actions$.pipe(
             ofType(PaletActions.consultaEntrades),
             mergeMap((action) =>
-                this.paletsService.consultaEntrada(action.data, action.data2).pipe(
+                this.paletsService.consultaEntrada(action.data, action.data2, action.client_id).pipe(
                     map((consulta) => PaletActions.consultaEntradesSuccess({ consulta: consulta })),
                     catchError((err)=> of(PaletActions.consultaEntradesError({payload: err})))
                 ))
@@ -86,7 +86,7 @@ export class PaletsEffects {
         this.actions$.pipe(
             ofType(PaletActions.consultaSortides),
             mergeMap((action) =>
-                this.paletsService.consultaSortida(action.data, action.data2).pipe(
+                this.paletsService.consultaSortida(action.data, action.data2, action.client_id).pipe(
                     map((consultaS) => PaletActions.consultaSortidesSuccess({ consultaS: consultaS })),
                     catchError((err)=> of(PaletActions.consultaSortidesError({payload: err})))
                 ))
@@ -141,7 +141,7 @@ export class PaletsEffects {
         this.actions$.pipe(
             ofType(PaletActions.estocAlbara),
             mergeMap((action) =>
-                this.paletsService.estocAlbara( action.num_albara).pipe(
+                this.paletsService.estocAlbara( action.num_albara, action.client_id).pipe(
                     map((estocAlbara) => PaletActions.estocAlbaraSuccess({ estocAlbara: estocAlbara })),
                     catchError((err)=> of(PaletActions.estocAlbaraError({payload: err})))
                 ))
@@ -163,7 +163,7 @@ export class PaletsEffects {
         this.actions$.pipe(
             ofType(PaletActions.consultaSSCC),
             mergeMap((action) =>
-                this.paletsService.consultaSSCC( action.num_sscc).pipe(
+                this.paletsService.consultaSSCC( action.num_sscc, action.client_id).pipe(
                     map((consultaSSCC) => PaletActions.consultaSSCCSuccess({ consultaSSCC: consultaSSCC })),
                     catchError((err)=> of(PaletActions.consultaSSCCError({payload: err})))
                 ))

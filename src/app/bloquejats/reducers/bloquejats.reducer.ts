@@ -4,13 +4,15 @@ import {
     createBloquejat, getBloquejat, getBloquejatError, getBloquejatSuccess, 
     deleteBloquejat, deleteBloquejatSuccess, deleteBloquejatError, getAllBloquejats, getAllBloquejatsSuccess,
     getAllBloquejatsError, createBloquejatSuccess, createBloquejatError,
-    consultaPalBloquejats,consultaPalBloquejatsError,consultaPalBloquejatsSuccess
+    consultaPalBloquejats,consultaPalBloquejatsError,consultaPalBloquejatsSuccess, consultaPalBloquejatsEdit,
+    consultaPalBloquejatsEditSuccess, consultaPalBloquejatsEditError
 } from '../actions/bloquejats.action';
 
 export interface BloquejatState{
     bloquejats: Bloquejat[];
     bloquejat: Bloquejat | null;
     consultaPalB: any[];
+    consultaPalBE: any[];
     loading: boolean;
     loaded: boolean;
     error: any;
@@ -20,6 +22,7 @@ export const initialState: BloquejatState = {
     bloquejats: [],
     bloquejat: null,
     consultaPalB: [],
+    consultaPalBE: [],
     loading: false,
     loaded: false,
     error: null
@@ -108,6 +111,24 @@ const _bloquejatReducer = createReducer(
         error: null
     })),
     on(consultaPalBloquejatsError, (state, { payload }) => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        error: {
+            url: payload.url,
+            status: payload.status,
+            message: payload.message
+        }
+    })),
+    on(consultaPalBloquejatsEdit, state => ({ ...state, loading: true })),
+    on(consultaPalBloquejatsEditSuccess, (state, { consultaPalBE }) => ({
+        ...state,
+        loading: false,
+        loaded: true,
+        consultaPalBE: consultaPalBE,
+        error: null
+    })),
+    on(consultaPalBloquejatsEditError, (state, { payload }) => ({
         ...state,
         loading: false,
         loaded: false,

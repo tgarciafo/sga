@@ -6,6 +6,7 @@ import { consultaEntrades, consultaPalEntrades, paletReset } from '../../actions
 import { PaletState } from 'src/app/palets/reducers';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import * as XLSX from 'xlsx';
+import { UserState } from 'src/app/user/reducers';
 
 @Component({
   selector: 'app-consulta-entrades',
@@ -23,9 +24,15 @@ export class ConsultaEntradesComponent implements OnInit {
  closeResult: string = '';
 
  paletState$: PaletState;
+ userState$: UserState;
+ userType: string | undefined;
 
   constructor(private formBuilder: FormBuilder, private store: Store<AppState>, private modalService: NgbModal) { 
     this.store.select('paletApp').subscribe(consulta => this.paletState$ = consulta);
+    this.store.select('userApp').subscribe(user => {
+      this.userType = user.user?.type;
+      this.userState$ = user
+    });
   }
 
   ngOnInit(): void {
@@ -45,7 +52,11 @@ export class ConsultaEntradesComponent implements OnInit {
 
     this.bSubmitted = true;
 
-    this.store.dispatch(consultaEntrades({data: this.data.value, data2: this.data2.value}));
+    if(this.userType == 'Client'){    
+      this.store.dispatch(consultaEntrades({data: this.data.value, data2: this.data2.value, client_id: this.userState$.user?.client_id}));
+    } else {
+      this.store.dispatch(consultaEntrades({data: this.data.value, data2: this.data2.value, client_id: 0}));
+    }
 
     return this.consultaEntForm.reset();
 

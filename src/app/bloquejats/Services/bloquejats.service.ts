@@ -55,9 +55,15 @@ export class BloquejatsService {
     );
   }  
 
-  consultaBloquejats(): Observable<Array<any>>{
-    return this.HttpClient.get<Array<any>>(this.API_ENDPOINT + '/getBloquejats').pipe(
+  consultaBloquejats(client_id: number | undefined): Observable<Array<any>>{
+    return this.HttpClient.get<Array<any>>(this.API_ENDPOINT + '/getBloquejats/'+ client_id, this.httpOptions).pipe(
       catchError(this.handleError<Array<any>>('consultaPaletsBloquejats'))
+    );
+  }
+
+  consultaBloquejatsEdit(): Observable<Array<any>>{
+    return this.HttpClient.get<Array<any>>(this.API_ENDPOINT + '/getBloquejatsEdit').pipe(
+      catchError(this.handleError<Array<any>>('consultaPaletsBloquejatsEdit'))
     );
   }
 

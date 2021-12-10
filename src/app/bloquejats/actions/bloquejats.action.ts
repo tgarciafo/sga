@@ -57,14 +57,28 @@ export const getBloquejatError = createAction(
 );
 
 export const consultaPalBloquejats = createAction(
-    '[Palet] Consulta Palets Bloquejats'
+    '[Bloquejat] Consulta Palets Bloquejats',
+    props<{ client_id: number | undefined }>()
 );
 
+
 export const consultaPalBloquejatsSuccess = createAction(
-    '[Palet] Consulta Palets Bloquejats success',
+    '[Bloquejat] Consulta Palets Bloquejats success',
     props<{ consultaPalB: any[] }>()
 );
 export const consultaPalBloquejatsError = createAction(
-    '[Palet] Consulta Palets Bloquejats error',
+    '[Bloquejat] Consulta Palets Bloquejats error',
+    props<{payload: any}>()
+);
+
+export const consultaPalBloquejatsEdit = createAction(
+    '[Bloquejat] Consulta Palets Bloquejats Edit');
+
+export const consultaPalBloquejatsEditSuccess = createAction(
+    '[Bloquejat] Consulta Palets Bloquejats Edit success',
+    props<{ consultaPalBE: any[] }>()
+);
+export const consultaPalBloquejatsEditError = createAction(
+    '[Bloquejat] Consulta Palets Bloquejats Edit error',
     props<{payload: any}>()
 );

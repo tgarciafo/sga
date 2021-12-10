@@ -5,6 +5,7 @@ import { consultaPalBloquejats } from '../../actions';
 import { BloquejatState } from '../../reducers';
 import * as XLSX from 'xlsx';
 import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
+import { UserState } from 'src/app/user/reducers';
 
 @Component({
   selector: 'app-consulta-bloquejats',
@@ -14,6 +15,8 @@ import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 export class ConsultaBloquejatsComponent implements OnInit {
 
   bloquejatState$: BloquejatState;
+  userState$: UserState;
+  userType: string | undefined;
 
   alertMsg: string;
       
@@ -21,15 +24,26 @@ export class ConsultaBloquejatsComponent implements OnInit {
 
   constructor(private store: Store<AppState>, private webSocketService: WebSocketService) {
     this.store.select('bloquejatsApp').subscribe(bloquejats => this.bloquejatState$ = bloquejats);
+    this.store.select('userApp').subscribe(user => {
+      this.userType = user.user?.type;
+      this.userState$ = user
+    });
     this.webSocketService.bloquejarEven.subscribe(res => {
-      this.store.dispatch(consultaPalBloquejats());
-      this.isAlert = true;
+      if(this.userType == 'Client'){  
+        this.store.dispatch(consultaPalBloquejats({client_id: this.userState$.user?.client_id}));  
+      }else{
+        this.store.dispatch(consultaPalBloquejats({client_id: 0}));
+      }      this.isAlert = true;
       this.alertMsg = res.alert;
     }) 
   }
 
   ngOnInit(): void {
-    this.store.dispatch(consultaPalBloquejats());
+    if(this.userType == 'Client'){  
+      this.store.dispatch(consultaPalBloquejats({client_id: this.userState$.user?.client_id}));  
+    }else{
+      this.store.dispatch(consultaPalBloquejats({client_id: 0}));
+    }
   }
 
   close(){

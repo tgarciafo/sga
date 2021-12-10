@@ -32,7 +32,7 @@ export const contadorError = createAction(
 
 export const consultaEntrades = createAction(
     '[Palet] Consulta Entrades',
-    props<{ data: Date, data2: Date }>()
+    props<{ data: Date, data2: Date, client_id: number | undefined }>()
 );
 
 export const consultaEntradesSuccess = createAction(
@@ -88,7 +88,7 @@ export const sortidaError = createAction(
 
 export const consultaSortides = createAction(
     '[Palet] Consulta Sortides',
-    props<{ data: Date, data2: Date }>()
+    props<{ data: Date, data2: Date, client_id: number | undefined }>()
 );
 
 export const consultaSortidesSuccess = createAction(
@@ -160,7 +160,7 @@ export const estocUbicacioError = createAction(
 
 export const estocAlbara= createAction(
     '[Palet] Estoc Albara',
-    props<{ num_albara: string }>()
+    props<{ num_albara: string, client_id: number | undefined }>()
 );
 
 export const estocAlbaraSuccess = createAction(
@@ -188,7 +188,7 @@ export const estocLotError = createAction(
 
 export const consultaSSCC= createAction(
     '[Palet] consultaSSCC',
-    props<{ num_sscc: string }>()
+    props<{ num_sscc: string, client_id: number | undefined }>()
 );
 
 export const consultaSSCCSuccess = createAction(

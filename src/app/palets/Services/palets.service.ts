@@ -84,8 +84,8 @@ export class PaletsService {
     );
   }
 
-  consultaEntrada(data: Date, data2: Date): Observable<Array<any>>{
-    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/showEntries/'+ data +'/'+data2, this.httpOptions).pipe(
+  consultaEntrada(data: Date, data2: Date, client_id: number|undefined): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/showEntries/'+ data +'/'+data2+'/'+client_id, this.httpOptions).pipe(
       catchError(this.handleError<Array<any>>('consultaEntrada'))
     );
   }
@@ -146,8 +146,8 @@ export class PaletsService {
       );
   }
 
-  consultaSortida(data: Date, data2: Date): Observable<Array<any>>{
-    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/showExpeditions/'+ data +'/'+data2, this.httpOptions).pipe(
+  consultaSortida(data: Date, data2: Date, client_id: number|undefined): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/showExpeditions/'+ data +'/'+data2+'/'+client_id, this.httpOptions).pipe(
       catchError(this.handleError<Array<any>>('consultaSortida'))
     );
   }
@@ -179,8 +179,8 @@ export class PaletsService {
     );
   }
 
-  estocAlbara(num_albara: string): Observable<Array<any>>{
-    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/estocAlbara/' + num_albara , this.httpOptions).pipe(
+  estocAlbara(num_albara: string, client_id: number | undefined): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/estocAlbara/' + num_albara + '/' + client_id , this.httpOptions).pipe(
       catchError(this.handleError<Array<any>>('estocAlbara'))
     );
   }
@@ -191,8 +191,8 @@ export class PaletsService {
     );
   }
 
-  consultaSSCC(num_sscc: string): Observable<Array<any>>{
-    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/consultaSSCC/' + num_sscc , this.httpOptions).pipe(
+  consultaSSCC(num_sscc: string, client_id: number | undefined): Observable<Array<any>>{
+    return this.httpClient.get<Array<any>>(this.API_ENDPOINT + '/consultaSSCC/' + num_sscc +'/'+client_id , this.httpOptions).pipe(
       catchError(this.handleError<Array<any>>('consultaSSCC'))
     );
   }

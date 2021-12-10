@@ -5,6 +5,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { PaletState } from 'src/app/palets/reducers';
 import { estocAlbara, paletReset } from 'src/app/palets/actions';
 import * as XLSX from 'xlsx';
+import { UserState } from 'src/app/user/reducers';
 
 @Component({
   selector: 'app-estoc-albara',
@@ -23,9 +24,15 @@ export class EstocAlbaraComponent implements OnInit {
  albaraTitle: Date;
 
   paletState$: PaletState;
+  userState$: UserState;
+  userType: string | undefined;
 
   constructor(private formBuilder: FormBuilder, private store: Store<AppState>) { 
     this.store.select('paletApp').subscribe(palets => this.paletState$ = palets);
+    this.store.select('userApp').subscribe(user => {
+      this.userType = user.user?.type;
+      this.userState$ = user
+    });
   }
 
   ngOnInit(): void {
@@ -56,7 +63,11 @@ export class EstocAlbaraComponent implements OnInit {
 
     this.bSubmitted = true;
 
-    this.store.dispatch(estocAlbara({ num_albara: this.num_albara.value}));
+    if(this.userType == 'Client'){    
+    this.store.dispatch(estocAlbara({ num_albara: this.num_albara.value, client_id: this.userState$.user?.client_id}));
+    } else {
+      this.store.dispatch(estocAlbara({ num_albara: this.num_albara.value, client_id: 0}));
+    }
     
     this.albaraTitle = this.num_albara.value;
 
