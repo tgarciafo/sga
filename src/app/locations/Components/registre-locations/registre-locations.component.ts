@@ -47,7 +47,7 @@ export class RegistreLocationsComponent implements OnInit {
 
     const alert = 'Nova ubicació creada';
 
-    this.webSocketService.bloquejarEvent({alert});
+    this.webSocketService.locationEvent({alert});
 
   }
 

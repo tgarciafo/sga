@@ -80,6 +80,10 @@ export class ClientsRegistratsComponent implements OnInit {
    
     this.editForm.reset();
 
+    const alert = "S'ha editat un client";
+
+    this.webSocketService.clientEvent({alert});
+
   }
 
   eliminar(client: any){
@@ -87,6 +91,10 @@ export class ClientsRegistratsComponent implements OnInit {
     const id = client.client_id;
 
     this.store.dispatch(deleteClient({id: id}));
+
+    const alert = "S'ha eliminat un client";
+
+    this.webSocketService.clientEvent({alert});
 
   }
 

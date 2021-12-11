@@ -44,7 +44,7 @@ export class LocationsRegistradesComponent implements OnInit {
       this.userType = user.user?.type;
       this.userState$ = user
     });
-    this.webSocketService.bloquejarEven.subscribe(res => {
+    this.webSocketService.locationEven.subscribe(res => {
       this.store.dispatch(getAllLocations());
       this.isAlert = true;
       this.alertMsg = res.alert;
@@ -78,6 +78,10 @@ export class LocationsRegistradesComponent implements OnInit {
    
     this.editForm.reset();
 
+    const alert = "S'ha editat una ubicació";
+
+    this.webSocketService.locationEvent({alert});
+
   }
 
   eliminar(location: any){
@@ -85,6 +89,10 @@ export class LocationsRegistradesComponent implements OnInit {
     const id = location.location_id;
 
     this.store.dispatch(deleteLocation({id: id}));
+
+    const alert = "S'ha eliminat una ubicació";
+
+    this.webSocketService.locationEvent({alert});
 
   }
 

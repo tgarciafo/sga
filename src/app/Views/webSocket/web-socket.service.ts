@@ -8,6 +8,7 @@ export class WebSocketService extends Socket {
 
   @Output() clientEven: EventEmitter<any> = new EventEmitter();
   @Output() producteEven: EventEmitter<any> = new EventEmitter();
+  @Output() locationEven: EventEmitter<any> = new EventEmitter();
   @Output() entradaEven: EventEmitter<any> = new EventEmitter();
   @Output() sortidaEven: EventEmitter<any> = new EventEmitter();
   @Output() bloquejarEven: EventEmitter<any> = new EventEmitter();
@@ -24,6 +25,7 @@ export class WebSocketService extends Socket {
     })
     this.listenClient();
     this.listenProduct();
+    this.listenLocation();
     this.listenEntrada();
     this.listenSortida();
     this.listenBloquejar();
@@ -36,6 +38,11 @@ export class WebSocketService extends Socket {
 
   listenProduct = () => {
     this.ioSocket.on('producte', (res: any) => this.producteEven.emit(res));   
+
+  }
+
+  listenLocation = () => {
+    this.ioSocket.on('location', (res: any) => this.locationEven.emit(res));   
 
   }
 
@@ -64,6 +71,10 @@ export class WebSocketService extends Socket {
 
   producteEvent = ( payload = {}) => {
     this.ioSocket.emit('producte', payload)
+  }
+
+  locationEvent = ( payload = {}) => {
+    this.ioSocket.emit('location', payload)
   }
 
   entradaEvent = ( payload = {}) => {

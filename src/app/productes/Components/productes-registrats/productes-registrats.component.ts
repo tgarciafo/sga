@@ -12,6 +12,7 @@ import { checkWord } from 'src/app/Shared/Directives/check-word.validator';
 import { Producte } from '../../models/producte';
 import { LoginState } from 'src/app/login/reducers';
 import { UserState } from 'src/app/user/reducers';
+import { getAllClients } from 'src/app/clients/actions';
 
 @Component({
   selector: 'app-productes-registrats',
@@ -65,6 +66,7 @@ export class ProductesRegistratsComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getAllProductes());
+    this.store.dispatch(getAllClients());
     this.bSubmitted = false;
     this.product_id = new FormControl('', [Validators.required]);
     this.client_id = new FormControl('', [checkWord(/ /), Validators.required]);
@@ -93,6 +95,10 @@ export class ProductesRegistratsComponent implements OnInit {
    
     this.editForm.reset();
 
+    const alert = "S'ha editat un producte";
+
+    this.webSocketService.producteEvent({alert});
+
   }
 
   eliminar(product: any){
@@ -100,6 +106,10 @@ export class ProductesRegistratsComponent implements OnInit {
     const id = product.product_id;
 
     this.store.dispatch(deleteProducte({id: id}));
+
+    const alert = "S'ha eliminat un producte";
+
+    this.webSocketService.producteEvent({alert});
 
   }
 
