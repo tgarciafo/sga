@@ -112,7 +112,8 @@ export class PlanificacioComponent implements OnInit {
       sscc: 0,
       albara_sortida: this.albara_sortida,
       product_id: this.product_id,
-      user_id: this.userState$.user?.user_id
+      user_id: this.userState$.user?.user_id,
+      num_palets: this.num_palets
     });
 
     this.planification ={
@@ -145,7 +146,7 @@ export class PlanificacioComponent implements OnInit {
   savePlanification(){
     this.bSubmitted2 = true;
 
-    const form = this.planificacioForm2.value as Planification;
+    const form = this.planificacioForm2.value;
 
     for (let i = 0; i < this.num_palets.value; i++) {
 

@@ -36,4 +36,18 @@ describe('RegistreLocationsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Ha de retornar el formulari com a no vàlid', () => {
+    const form = component.regLocationForm;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari com a vàlid', () => {
+    const form = component.regLocationForm;
+    const location_description = component.regLocationForm.controls['location_description'];
+    location_description.setValue('Nau Externa');
+
+    expect(form.invalid).toBeFalse();
+  });  
 });

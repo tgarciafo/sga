@@ -36,4 +36,26 @@ describe('SignInComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Ha de retornar el formulari com a no vàlid', () => {
+    const form = component.regUserForm;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari com a vàlid', () => {
+    const form = component.regUserForm;
+    const name = component.regUserForm.controls['name'];
+    const email = component.regUserForm.controls['email'];
+    const password = component.regUserForm.controls['password'];
+    const type = component.regUserForm.controls['type'];
+    const repeat_password = component.regUserForm.controls['repeat_password'];
+    repeat_password.setValue('12345678');
+    type.setValue('Admin');
+    name.setValue('Tania');
+    email.setValue('tgarciafo@uoc.edu');
+    password.setValue('12345678');
+
+    expect(form.invalid).toBeFalse();
+  });  
 });

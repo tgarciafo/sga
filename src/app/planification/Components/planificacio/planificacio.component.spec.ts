@@ -38,4 +38,51 @@ describe('PlanificacioComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Ha de retornar el formulari inicial com a no vàlid', () => {
+    
+    const form = component.planificacioForm;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari inicial com a vàlid', () => {
+
+    const form = component.planificacioForm;
+    const num_sortida = component.planificacioForm.controls['num_sortida'];
+    const idClient = component.planificacioForm.controls['idClient'];
+    num_sortida.setValue('2021521');
+    idClient.setValue('1');
+
+    expect(form.invalid).toBeFalse();
+  }); 
+
+  it('Ha de retornar el formulari de planificació com a no vàlid', () => {
+    component.getPlanification();
+
+    fixture.detectChanges();
+
+    const form = component.planificacioForm2;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari de planificació com a vàlid', () => {
+    component.getPlanification();
+
+    fixture.detectChanges();
+    
+    const form = component.planificacioForm2;
+    const albara_sortida = component.planificacioForm2.controls['albara_sortida'];
+    const product_id = component.planificacioForm2.controls['product_id'];
+    const num_palets = component.planificacioForm2.controls['num_palets'];
+    
+    albara_sortida.setValue('2021521');
+    product_id.setValue('2');
+    num_palets.setValue('5');
+    
+    expect(form.invalid).toBeFalse();
+  });
+  
+    
 });

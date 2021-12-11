@@ -36,4 +36,21 @@ describe('IntroduccioPaletsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Ha de retornar el formulari com a no vàlid', () => {
+    const form = component.regEntradaForm;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari com a vàlid', () => {
+    const form = component.regEntradaForm;
+    const num_entrada = component.regEntradaForm.controls['num_entrada'];
+    const location_id = component.regEntradaForm.controls['location_id'];
+    
+    num_entrada.setValue('2021521');
+    location_id.setValue('2');
+    
+    expect(form.invalid).toBeFalse();
+  });  
 });

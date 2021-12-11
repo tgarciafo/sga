@@ -36,4 +36,22 @@ describe('ConsultaSortidesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Ha de retornar el formulari com a no vàlid', () => {
+    
+    const form = component.consultaSortidaForm;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari com a vàlid', () => {
+
+    const form = component.consultaSortidaForm;
+    const data = component.consultaSortidaForm.controls['data'];
+    const data2 = component.consultaSortidaForm.controls['data2'];
+    data.setValue('20210521');
+    data2.setValue('20211001');
+
+    expect(form.invalid).toBeFalse();
+  }); 
 });

@@ -36,4 +36,20 @@ describe('ConsultaSsccComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Ha de retornar el formulari com a no vàlid', () => {
+    
+    const form = component.consultaSSCCForm;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari com a vàlid', () => {
+
+    const form = component.consultaSSCCForm;
+    const num_sscc = component.consultaSSCCForm.controls['num_sscc'];
+    num_sscc.setValue('00384101283809154784');
+
+    expect(form.invalid).toBeFalse();
+  }); 
 });
