@@ -36,4 +36,24 @@ describe('EstocProducteComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Ha de retornar el formulari com a no vàlid', () => {
+    
+    const form = component.estocProductForm;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari com a vàlid', () => {
+
+    const form = component.estocProductForm;
+    const client_id = component.estocProductForm.controls['client_id'];
+    const product_id = component.estocProductForm.controls['product_id'];
+    const data = component.estocProductForm.controls['data'];
+    product_id.setValue('5');
+    client_id.setValue('1');
+    data.setValue('20211101');
+
+    expect(form.invalid).toBeFalse();
+  }); 
 });

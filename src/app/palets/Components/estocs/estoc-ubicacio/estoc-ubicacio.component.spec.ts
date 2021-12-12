@@ -36,4 +36,24 @@ describe('EstocUbicacioComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Ha de retornar el formulari com a no vàlid', () => {
+    
+    const form = component.estocUbicacioForm;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari com a vàlid', () => {
+
+    const form = component.estocUbicacioForm;
+    const client_id = component.estocUbicacioForm.controls['client_id'];
+    const location_id = component.estocUbicacioForm.controls['location_id'];
+    const data = component.estocUbicacioForm.controls['data'];
+    location_id.setValue('1');
+    client_id.setValue('1');
+    data.setValue('20211101');
+
+    expect(form.invalid).toBeFalse();
+  }); 
 });

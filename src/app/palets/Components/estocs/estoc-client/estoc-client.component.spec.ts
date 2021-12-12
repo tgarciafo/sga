@@ -36,4 +36,22 @@ describe('EstocClientComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Ha de retornar el formulari com a no vàlid', () => {
+    
+    const form = component.estocClientForm;
+    
+    expect(form.invalid).toBeTrue();
+  });
+
+  it('Ha de retornar el formulari com a vàlid', () => {
+
+    const form = component.estocClientForm;
+    const client_id = component.estocClientForm.controls['client_id'];
+    const data = component.estocClientForm.controls['data'];
+    client_id.setValue('5');
+    data.setValue('20211101');
+
+    expect(form.invalid).toBeFalse();
+  }); 
 });
