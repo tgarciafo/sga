@@ -1,8 +1,8 @@
 <div class="container">
   <h2>Planificació de sortides</h2>
-
   <br>
   <div id="planificacio" [hidden]="bSubmitted">
+    <div class="contingut">
       <form class="border border-light p-5" [formGroup]="planificacioForm" (ngSubmit)="getPlanification()">    
         <div class="row">
           <div class="form-group col-md-5 offset-md-3">
@@ -29,6 +29,7 @@
           <button class="btn btn-primary my-4" type="submit" [disabled]="!planificacioForm.valid">Acceptar</button>
         </div>
       </form>
+    </div>
   </div>
 
   <div id="planificacio2" [hidden]="!bSubmitted">  

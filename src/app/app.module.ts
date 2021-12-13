@@ -29,6 +29,7 @@ import { NgxPrintModule } from 'ngx-print';
 import { PlanificationModule } from './planification/planification.module';
 import { CookieService } from 'ngx-cookie-service';
 import { BloquejatsModule } from './bloquejats/bloquejats.module';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,13 @@ import { BloquejatsModule } from './bloquejats/bloquejats.module';
       logOnly: environment.production
     }),
     StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
-    EffectsModule.forRoot(EffectsApp)
+    EffectsModule.forRoot(EffectsApp),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: environment.production,
+      // Register the ServiceWorker as soon as the app is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   providers: [
     DatePipe, 
