@@ -1,38 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from 'src/app/app-routing.module';
-import { appReducers } from 'src/app/app.reducers';
 import { LoginComponent } from './login.component';
 import { HttpClientModule } from '@angular/common/http';
-import {MockStore, provideMockStore } from '@ngrx/store/testing';
-import { initialState } from '../../reducers';
-import { login } from '../../actions';
+import { StoreModule } from '@ngrx/store';
+import { appReducers } from 'src/app/app.reducers';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let store: MockStore;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule,
+      imports: [
         StoreModule.forRoot( appReducers, {
           runtimeChecks: {
             strictStateImmutability: false,
             strictActionImmutability: false,
           },
         }),
+        ReactiveFormsModule,
         AppRoutingModule,
         HttpClientModule
       ],
-      declarations: [ LoginComponent ],
-      providers: [
-        provideMockStore({ initialState })
-      ]
+      declarations: [ LoginComponent ]
     })
     .compileComponents();
-    store = TestBed.inject(MockStore);
   });
 
   beforeEach(() => {
@@ -87,7 +80,6 @@ describe('LoginComponent', () => {
   });
 
   it("Mètode checkLogin()", () => {
-    const dispatchSpy = spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();
     component.checkLogin();
 
@@ -99,7 +91,6 @@ describe('LoginComponent', () => {
       password: component.password.value
     }
 
-    expect(dispatchSpy).toHaveBeenCalledWith(login({credentials}));
     expect(component.bSubmitted).toBeTrue();
   });
 });

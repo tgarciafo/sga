@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Producte } from '../models/producte';
 import { Observable, of } from 'rxjs';
 import { catchError, map, exhaustMap} from 'rxjs/operators';
@@ -18,11 +18,6 @@ export class ProductesService {
 
   get(){
     return this.httpClient.get<Producte[]>(this.API_ENDPOINT + '/products');
-  }
-
-  save(producte: Producte){
-    const headers= new HttpHeaders({'Content-Type': 'application/json' });
-    return this.httpClient.post(this.API_ENDPOINT + '/products', producte, {headers: headers});
   }
 
   getProductes(): Observable<any[]>{
@@ -89,9 +84,14 @@ export class ProductesService {
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
+    return (error: HttpErrorResponse): Observable<T> => {
+
+      console.error(error); 
+      if (error.error instanceof Event) {
+        throw error.error;
+      }
+      const message = `server returned code ${error.status} with body "${error.error}"`;
+      throw new Error(`${operation} failed: ${message}`);
     };
   }
 

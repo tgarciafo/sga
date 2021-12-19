@@ -1,8 +1,7 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Palet } from 'src/app/palets/models/palet';
 import { Planification } from '../models/planification';
 
 @Injectable({
@@ -19,11 +18,6 @@ export class PlanificationService {
 
   get(){
     return this.httpClient.get<Planification[]>(this.API_ENDPOINT + '/planifications');
-  }
-
-  save(planification: Planification){
-    const headers= new HttpHeaders({'Content-Type': 'application/json' });
-    return this.httpClient.post(this.API_ENDPOINT + '/planification', planification, {headers: headers});
   }
 
   getPlanifications(albara_sortida:string): Observable<Planification[]>{
@@ -102,16 +96,15 @@ export class PlanificationService {
     );
   }
 
-
-  /* private log(message: string) {
-    this.messageService.add(`ClientService: ${message}`);
-  } */
-
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-/*       this.log(`${operation} failed: ${error.message}`);
- */      return of(result as T);
+    return (error: HttpErrorResponse): Observable<T> => {
+
+      console.error(error); 
+      if (error.error instanceof Event) {
+        throw error.error;
+      }
+      const message = `server returned code ${error.status} with body "${error.error}"`;
+      throw new Error(`${operation} failed: ${message}`);
     };
   }
 }

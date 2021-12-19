@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Client } from '../models/client';
 import { Observable, of } from 'rxjs';
 import { catchError, map, exhaustMap } from 'rxjs/operators';
@@ -61,18 +61,15 @@ export class ClientsService {
     );
   }
 
-  addUserClient(client_id:number, user_id: number){
-
-    return this.httpClient.put<Client>(this.API_ENDPOINT + '/addUserClient/' + client_id + '/' + user_id, this.httpOptions).pipe(
-      catchError(this.handleError<Client>('addUserClient'))
-    );
-
-  }
-
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
+    return (error: HttpErrorResponse): Observable<T> => {
+
+      console.error(error); 
+      if (error.error instanceof Event) {
+        throw error.error;
+      }
+      const message = `server returned code ${error.status} with body "${error.error}"`;
+      throw new Error(`${operation} failed: ${message}`);
     };
   }
 

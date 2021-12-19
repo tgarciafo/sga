@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Palet } from '../models/palet';
 import { Observable, of } from 'rxjs';
 import { catchError, map, exhaustMap} from 'rxjs/operators';
@@ -21,18 +21,13 @@ export class PaletsService {
     return this.httpClient.get<Palet[]>(this.API_ENDPOINT + '/palets');
   }
 
-  save(palet: Palet){
-    const headers= new HttpHeaders({'Content-Type': 'application/json' });
-    return this.httpClient.post(this.API_ENDPOINT + '/palets', palet, {headers: headers});
-  }
-
   getPalets(): Observable<Palet[]>{
     return this.get().pipe(
         catchError(this.handleError<Palet[]>('getPalets', []))
       );
   }
 
-  getPalet(sscc: number | undefined): Observable<Palet>{
+  getPalet(sscc: string | undefined): Observable<Palet>{
     return this.httpClient.get<Palet>(this.API_ENDPOINT + '/getPalet/'+sscc).pipe(
       catchError(this.handleError<Palet>(`getPalet sscc=${sscc}`))
     );
@@ -70,9 +65,14 @@ export class PaletsService {
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-     return of(result as T);
+    return (error: HttpErrorResponse): Observable<T> => {
+
+      console.error(error); 
+      if (error.error instanceof Event) {
+        throw error.error;
+      }
+      const message = `server returned code ${error.status} with body "${error.error}"`;
+      throw new Error(`${operation} failed: ${message}`);
     };
   }
 

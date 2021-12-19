@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Location } from '../models/location';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, exhaustMap } from 'rxjs/operators';
 
@@ -18,11 +18,6 @@ export class LocationsService {
 
   get(){
     return this.httpClient.get<Location[]>(this.API_ENDPOINT + '/locations');
-  }
-
-  save(location: Location){
-    const headers= new HttpHeaders({'Content-Type': 'application/json' });
-    return this.httpClient.post(this.API_ENDPOINT + '/locations', location, {headers: headers});
   }
 
   getLocations(): Observable<Location[]>{
@@ -67,9 +62,14 @@ export class LocationsService {
   }
 
   private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error);
-      return of(result as T);
+    return (error: HttpErrorResponse): Observable<T> => {
+
+      console.error(error); 
+      if (error.error instanceof Event) {
+        throw error.error;
+      }
+      const message = `server returned code ${error.status} with body "${error.error}"`;
+      throw new Error(`${operation} failed: ${message}`);
     };
   }
 
