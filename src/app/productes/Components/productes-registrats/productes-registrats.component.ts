@@ -103,6 +103,8 @@ export class ProductesRegistratsComponent implements OnInit {
 
   eliminar(product: any){
 
+    if(confirm("Segur que vols eliminar el registre?")){
+
     const id = product.product_id;
 
     this.store.dispatch(deleteProducte({id: id}));
@@ -110,6 +112,8 @@ export class ProductesRegistratsComponent implements OnInit {
     const alert = "S'ha eliminat un producte";
 
     this.webSocketService.producteEvent({alert});
+
+    }
 
   }
 

@@ -8,7 +8,7 @@ import { PlanificationState } from 'src/app/planification/reducers';
 import { PaletState } from '../../reducers';
 import { Sortida } from '../../models/sortida';
 import { paletReset, sortida } from '../../actions';
-import { getPlanificationSortida } from 'src/app/planification/actions';
+import { deleteLinePlanification, getPlanificationSortida } from 'src/app/planification/actions';
 import { WebSocketService } from 'src/app/Views/webSocket/web-socket.service';
 
 @Component({
@@ -139,6 +139,17 @@ export class SortidesComponent implements OnInit {
 
     this.store.dispatch(getPlanificationSortida({albara_sortida:this.albara_sortida.value}));
     this.setFocus();
+  }
+
+  deleteReg(albara_sortida: string, product_id: number){
+
+    if(confirm("Segur que vols eliminar el registre?")){
+
+    const palet = {sscc: '', data_entrada: '', client_id: NaN, albara_entrada: '', lot: '', qty: NaN, caducitat: new Date(), data_sortida: new Date(), location_id: NaN, albara_sortida: albara_sortida, product_id: product_id};
+
+    this.store.dispatch(deleteLinePlanification({ palet: palet}));
+
+    }
   }
 
   saveSortida(){

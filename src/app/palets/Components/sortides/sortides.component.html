@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="offset-md-3">
-                    <button class="btn btn-danger my-4" type="button">Eliminar registre</button>
+                    <button class="btn btn-danger my-4" type="button" (click)="deleteReg(this.albara_sortida.value, this.planificationState$.planifications[0].product_id)">Eliminar registre</button>
                 </div>
                 <div class="row" *ngIf="planificationState$.comptador">
                     <div class="form-group col-md-3 offset-md-3">

@@ -39,11 +39,16 @@ export class ConsultaPlanificatsComponent implements OnInit {
   }
 
   eliminar(albara_sortida: string){
+
+    if(confirm("Segur que vols eliminar el registre?")){
+
     this.store.dispatch(deleteEntirePlanification({albara_sortida: albara_sortida}))
 
     const alert = 'Palets eliminats a la planificació';
 
     this.webSocketService.planificarEvent({alert: alert, albara: albara_sortida});
+
+    }
   }
 
 }

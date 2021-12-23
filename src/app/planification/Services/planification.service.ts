@@ -73,12 +73,24 @@ export class PlanificationService {
 
   deleteLinePlanification(palet: any): Observable<any>{
 
-    const albara_sortida=palet[0].albara_sortida;
-    const product_id=palet[0].product_id;
+     if(palet[0] === undefined){
+      
+      const albara_sortida = palet.albara_sortida;
+      const product_id = palet.product_id;
 
-    return this.httpClient.delete<any>(this.API_ENDPOINT + '/destroyLine/'+ product_id + '/' + albara_sortida, this.httpOptions).pipe(
-      catchError(this.handleError<any>('deleteLinePlanification'))
-    );
+      return this.httpClient.delete<any>(this.API_ENDPOINT + '/destroyLine/'+ product_id + '/' + albara_sortida, this.httpOptions).pipe(
+        catchError(this.handleError<any>('deleteLinePlanification')));
+
+    } else {
+
+      const albara_sortida=palet[0].albara_sortida;
+      const product_id = palet[0].product_id;
+
+      return this.httpClient.delete<any>(this.API_ENDPOINT + '/destroyLine/'+ product_id + '/' + albara_sortida, this.httpOptions).pipe(
+        catchError(this.handleError<any>('deleteLinePlanification')));
+
+    }   
+    
   }
 
   consultaPlanifications(): Observable<any[]>{

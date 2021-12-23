@@ -80,9 +80,13 @@ export class UsersComponent implements OnInit {
 
   eliminar(user: any){
 
+    if(confirm("Segur que vols eliminar el registre?")){
+
     const id = user.user_id;
 
     this.store.dispatch(deleteUser({id: id}));
+
+    }
 
   }
 

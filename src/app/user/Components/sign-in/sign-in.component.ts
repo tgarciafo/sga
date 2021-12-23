@@ -47,7 +47,7 @@ export class SignInComponent implements OnInit {
     this.store.dispatch(getAllClients())
 
     this.bSubmitted = false;
-    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9]*$')]);
+    this.name = new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(55), Validators.pattern('^[a-zA-Z0-9 ]*$')]);
     this.email = new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z0-9._%-]+@[A-Za-z0-9._%-]+\\.[a-z]{2,3}$')]);
     this.type = new FormControl('', [Validators.required, checkWord(/ /)]);
     this.client_id = new FormControl('', [checkWord(/ /)]);

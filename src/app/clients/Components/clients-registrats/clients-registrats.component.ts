@@ -88,6 +88,8 @@ export class ClientsRegistratsComponent implements OnInit {
 
   eliminar(client: any){
 
+    if(confirm("Segur que vols eliminar el registre?")){
+
     const id = client.client_id;
 
     this.store.dispatch(deleteClient({id: id}));
@@ -95,6 +97,8 @@ export class ClientsRegistratsComponent implements OnInit {
     const alert = "S'ha eliminat un client";
 
     this.webSocketService.clientEvent({alert});
+
+    }
 
   }
 

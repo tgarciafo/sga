@@ -86,6 +86,8 @@ export class LocationsRegistradesComponent implements OnInit {
 
   eliminar(location: any){
 
+    if(confirm("Segur que vols eliminar el registre?")){
+
     const id = location.location_id;
 
     this.store.dispatch(deleteLocation({id: id}));
@@ -93,6 +95,8 @@ export class LocationsRegistradesComponent implements OnInit {
     const alert = "S'ha eliminat una ubicació";
 
     this.webSocketService.locationEvent({alert});
+
+    }
 
   }
 

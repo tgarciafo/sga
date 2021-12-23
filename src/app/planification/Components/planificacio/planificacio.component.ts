@@ -187,6 +187,8 @@ export class PlanificacioComponent implements OnInit {
 
   eliminar(planificat: any){
 
+    if(confirm("Segur que vols eliminar el registre?")){
+
     const albara = planificat.albara_sortida;
     const producte = planificat.product_id;
 
@@ -196,5 +198,7 @@ export class PlanificacioComponent implements OnInit {
 
     this.webSocketService.planificarEvent({alert: alert2, albara: this.num_sortida.value});
   }
+
+}
 
 }

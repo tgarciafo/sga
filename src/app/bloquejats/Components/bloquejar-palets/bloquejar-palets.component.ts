@@ -105,12 +105,15 @@ export class BloquejarPaletsComponent implements OnInit {
 
   eliminar(bloquejat_id: number){
 
+    if(confirm("Segur que vols eliminar el registre?")){
+
     this.store.dispatch(deleteBloquejat({id:bloquejat_id}));
     this.store.dispatch(consultaPalBloquejatsEdit());
 
     const alert = "S'ha desbloquejat un palet";
 
     this.webSocketService.bloquejarEvent({alert});
+    }
 
   }
 }
