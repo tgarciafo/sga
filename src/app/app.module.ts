@@ -27,7 +27,6 @@ import { DatePipe } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxPrintModule } from 'ngx-print';
 import { PlanificationModule } from './planification/planification.module';
-import { CookieService } from 'ngx-cookie-service';
 import { BloquejatsModule } from './bloquejats/bloquejats.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 
@@ -74,7 +73,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
   ],
   providers: [
     DatePipe, 
-    CookieService
   ],
   bootstrap: [AppComponent]
 })
